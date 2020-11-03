@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 
 import jp.co.kcs_grp.base.DBAccess;
@@ -61,8 +62,8 @@ public class T_StoryDao{
 			ResultSet rs = null;
 			StringBuilder sbSql = null;
 			//開始ログ出力
-			List<Map<String,String>> mWideList = null;
-			Map<String,String> mWide = null;
+			List<Map<String,String>> list = new ArrayList<>();
+			Map<String,String> map = null;
 			log.warn("start");
 			try {
 				//データベース接続
@@ -76,31 +77,44 @@ public class T_StoryDao{
 				sbSql = new StringBuilder();
 				sbSql.append("SELECT ");
 				sbSql.append(" IFNULL(st.NAME,'') AS NAME ");
-				sbSql.append(" ,IFNULL(st.DESCRIPTION,'') AS NAME ");
+				sbSql.append(" ,IFNULL(st.DESCRIPTION,'') AS DESCRIPTION ");
 				sbSql.append(" ,IFNULL(st.STATUS,'') AS STATUS ");
 				sbSql.append(" ,IFNULL(mw1.NAME,'') AS STATUS_NAME ");
 				sbSql.append(" FROM T_STORY st ");
 				sbSql.append(" LEFT JOIN M_WIDE mw1 ");
 				sbSql.append(" ON st.STATUS =  mw1.CD ");
 				sbSql.append(" AND mw1.IDX =  1 ");
+				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
+				if(StringUtils.isNotBlank(cond.get("name"))) {
+					sbSql.append(" AND st.NAME like ? ");
+				}
 				
+				if(StringUtils.isNotBlank(cond.get("status"))) {
+					sbSql.append(" AND st.STATUS like ? ");
+				}
 				sbSql.append(" ORDER BY st.ID ");
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-	            kps.setString(1, idx);
+	            int idx = 1;
+	            
+	            if(StringUtils.isNotBlank(cond.get("name"))) {
+	            	kps.setString(idx++, cond.get("name"));
+				}
+				
+				if(StringUtils.isNotBlank(cond.get("status"))) {
+					kps.setString(idx++, cond.get("status"));
+				}
 	            rs = kps.executeQuery();
-
 	            if(rs != null) {
-	            	mWide = null;
-	            	mWideList =  new ArrayList<>();
 	            	while (rs.next()) {
-	            		mWide =  new HashMap<>();
-	            		mWide.put("cd",rs.getString("CD"));
-	            		mWide.put("name",rs.getString("NAME"));
-	            		mWideList.add(mWide);
+	            		map =  new HashMap<>();
+	            		map.put("name",rs.getString("NAME"));
+	            		map.put("description",rs.getString("DESCRIPTION"));
+	            		map.put("status",rs.getString("STATUS"));
+	            		map.put("statusName",rs.getString("STATUS_NAME"));
+	            		list.add(map);
 					}
-	            	
 	            	//ResultSetのクローズ
 					rs.close();
 	            }
@@ -117,6 +131,6 @@ public class T_StoryDao{
 				log.warn("end");
 			}
 
-			return mWideList;
+			return list;
 		}
 }
