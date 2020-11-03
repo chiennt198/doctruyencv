@@ -13,50 +13,13 @@ import org.apache.log4j.Logger;
 import jp.co.kcs_grp.base.DBAccess;
 import jp.co.kcs_grp.base.KcsPreparedStatement;
 
-public class T_StoryDao{
+public class M_WideDao{
 
 	/**
 	 * ログ.
 	 */
-	private Logger log = Logger.getLogger(T_StoryDao.class);
-	public void  insert(Map<String,String> param, DBAccess db) throws Exception {
-		log.info("start");
-		StringBuilder sql = null;
-		// 請求TBL取得の処理
-		sql = new StringBuilder();
-		sql.append(" INSERT INTO T_STORIES ( ");
-		sql.append(" NAME ");
-		sql.append(" ,DESCRIPTION ");
-		sql.append(" ,CATEGORY_ID ");	
-		sql.append(" ,AUTHOR_ID ");
-		sql.append(" ,CHAPTER_COUNT ");
-		sql.append(" ,STATUS ");
-		sql.append(" ,INSERT_DATETIME ");	
-		sql.append(" ,UPDATE_DATETIME ");
-		sql.append(" ) VALUES ( ");
-		sql.append(" ? ");
-		sql.append(" ,? ");
-		sql.append(" ,? ");
-		sql.append(" ,? ");	
-		sql.append(" ,? ");
-		sql.append(" ,? ");
-		sql.append(" ,NOW() ");
-		sql.append(" ,NOW() ");	
-		sql.append(" ) ");
-		
-		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
-		int index = 1;
-		kps.setString(index++,param.get("name"));
-		kps.setString(index++,param.get("description"));
-		kps.setString(index++,param.get("categoryId"));
-		kps.setString(index++,param.get("authorId"));
-		kps.setString(index++,param.get("chapterCount"));
-		kps.setString(index++,param.get("status"));
-		kps.execute();
-		log.info("end");
-	}
-	
-	 public List<Map<String,String>> search(Map<String,String> cond) throws Exception {
+	private Logger log = Logger.getLogger(M_WideDao.class);
+	 public List<Map<String,String>> getWideList(String idx) throws Exception {
 			DBAccess db = null;
 			ResultSet rs = null;
 			StringBuilder sbSql = null;
@@ -74,17 +37,10 @@ public class T_StoryDao{
 	            
 				//SQL作成
 				sbSql = new StringBuilder();
-				sbSql.append("SELECT ");
-				sbSql.append(" IFNULL(st.NAME,'') AS NAME ");
-				sbSql.append(" ,IFNULL(st.DESCRIPTION,'') AS NAME ");
-				sbSql.append(" ,IFNULL(st.STATUS,'') AS STATUS ");
-				sbSql.append(" ,IFNULL(mw1.NAME,'') AS STATUS_NAME ");
-				sbSql.append(" FROM T_STORY st ");
-				sbSql.append(" LEFT JOIN M_WIDE mw1 ");
-				sbSql.append(" ON st.STATUS =  mw1.CD ");
-				sbSql.append(" AND mw1.IDX =  1 ");
-				
-				sbSql.append(" ORDER BY st.ID ");
+				sbSql.append("SELECT CD , NAME ");
+				sbSql.append(" FROM M_WIDE ");		//学会マスタ
+				sbSql.append(" WHERE IDX = ? ");
+				sbSql.append(" ORDER BY CD ");
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
