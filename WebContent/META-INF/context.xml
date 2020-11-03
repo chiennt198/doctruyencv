@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Context path="/WebMemberSys" reloadable="true" docBase="C:\Working\Git-Source\WebMemberSys">
+	<Environment name="AppInstance" value="local" type="java.lang.String" override="false"/>
+    <Environment name="logBaseDir"  value="C:/Log/tomcat" type="java.lang.String" override="false"/>
+    <Environment name="appName"     value="SecretariatsSys" type="java.lang.String" override="false"/>
+  <Resource name="jdbc/MySQL"
+    auth="Container"
+    type="javax.sql.DataSource"
+    driverClassName="com.mysql.jdbc.Driver"
+    url="jdbc:mysql://192.168.1.11:3306/doctruyencv?characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull"
+    username="keiyo"
+    password="A@1keiyo2015%05%01"
+    maxActive="50"
+    maxIdle="1"
+    maxWait="10000"
+    removeAbandoned="true"
+    removeAbandonedTimeout="60"
+    logAbandoned="true"/>
+</Context>

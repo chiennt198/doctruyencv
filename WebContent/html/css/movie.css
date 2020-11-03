@@ -1,0 +1,246 @@
+/* コンテンツサムネイル */
+div#movie_list,
+div#movie_play{
+	float:left;
+	width:790px;
+	padding:0;
+	margin:0 0 15px 0;
+}
+div#movie_list table,
+div#movie_play table{
+	width:100%;
+	vertical-align: top;
+	padding: 0;
+	margin:0 0 5px 0;
+}
+
+div#movie_list td{
+	font-size: 14px;
+	height: 120px;
+	vertical-align: top;
+	border-bottom:#CCCCCC solid 1px;
+	padding:10px 0 5px 0;
+}
+
+div#movie_list td img.movie_thumb{
+	width:240px;
+}
+
+div#movie_play table td.play_area{
+	text-align:center;
+	margin:0 auto;
+	padding:0 0 15px 0;
+}
+
+div#movie_list,
+div#movie_list td table td h4,
+div#movie_play td table td h4{
+	font-size: 20px;
+	margin: 0 0 0 10px;
+	padding: 0;
+}
+
+div#movie_play td table td h4{
+	font-size: 20px;
+	margin: 0px;
+	padding: 0;
+}
+
+div#movie_list table td table{
+	vertical-align: top;
+	padding: 0;
+	margin:0;
+	width:400px;
+}
+
+div#movie_list td table td{
+	height: auto;
+	vertical-align:top;
+	padding: 0;
+	margin:0;
+	border-bottom:none;
+}
+
+div#movie_list td table td.mark_td{
+	vertical-align:middle;
+	text-align:right;
+	padding: 0;
+	margin:0;
+	border-bottom:none;
+}
+
+img.emark{
+	height: 14px;
+}
+
+div#movie_list td p.about{
+	color: #808080;
+	margin: 10px 0 10px 10px;
+}
+div#movie_list td p.about a{
+	color: #666666;
+}
+div#movie_list td p.about span.play_rank{
+	color: #444444;
+}
+div#movie_list td p.about span.course_link{
+	color: #0066CC;
+}
+div#movie_list td p.about span.course_link a:visited{
+	color: #0066CC;
+}
+.movie td{
+	color: #808080;
+}
+
+/* サムネイルなど */
+
+#movie_sub {
+	float:right;
+	width:220px;
+	padding:0 0 0 20px;
+	margin:0;
+	border-left:#CCCCCC 1px solid;
+}
+
+#movie_sub table.movie_thum_side {
+	margin:0 0 15px 0;
+}
+
+#movie_sub p.thumb_more{
+	text-align:right;
+	padding:0;
+	margin:0;
+}
+
+#movie_sub p.tag_cloud_area{
+	background-color:#444499;
+	margin: 5px 0;
+	padding: 6px 10px;
+	line-height: 200%;
+	width:200px;
+}
+#movie_sub p.tag_cloud_area a{
+	text-decoration: none;
+	color: #FFFFFF;
+	margin-right: 5px;
+	margin-bottom: 10px;
+}
+p.tag_cloud_area a:hover{
+	color: #EEEEEE;
+}
+
+.tag0{ font-size: 8pt;}
+.tag1{ font-size: 10pt;}
+.tag2{ font-size: 12pt;}
+.tag3{ font-size: 15pt;}
+.tag4{ font-size: 19pt;}
+
+
+/* 再生 */
+div#movie_player{
+	padding-left:0px;
+	margin:0 20px 1em;
+	border-bottom:#CCCCCC solid 1px;
+}
+div#movie_player_course{
+	padding-left:0px;
+	margin:0 20px 1em;
+	border-bottom:#CCCCCC solid 1px;
+}
+
+div#movie_player p.movie_about{
+	color: #808080;
+	margin:1em 0;
+}
+
+div#movie_player_course p.movie_about_course{
+	color: #808080;
+	margin:1em 0 1em 47px;
+}
+
+div#movie_player p.movie_about span.play_rank{
+	color: #444444;
+}
+
+div#movie_player table.movie_player_title{
+	width:480px;
+	vertical-align: top;
+	padding:0;
+	margin:0;
+}
+
+div#movie_player table.movie_player_title td{
+	height: auto;
+	vertical-align:top;
+	padding: 0;
+	margin:0;
+	border-bottom:none;
+}
+
+div#movie_player table.movie_player_title td.mark_td{
+	vertical-align:middle;
+	text-align:right;
+	padding: 0;
+	margin:0;
+	border-bottom:none;
+}
+div#movie_player table.movie_player_title td h4{
+	font-size: 14px;
+	margin: 5px 0 10px 10px;
+	padding:3px 0 3px 6px;
+}
+
+divtable.movie_about{
+	margin:0 20px;
+}
+
+divtable.movie_about td{
+	vertical-align:top;
+}
+
+divtable.movie_about td img{
+	padding-top:5px;
+}
+
+div#movie_player_course table.movie_player_title{
+	width:480px;
+	vertical-align: top;
+	margin:0 0 0 47px;
+	padding:0;
+}
+
+div#movie_player_course table.course_player{
+	margin:0;
+	padding:0;
+}
+
+div#movie_player_course table.course_player td{
+	margin:0;
+	padding:0;
+}
+div#movie_player_course table.course_player td.td_arrow{
+	margin:0;
+	padding:5px;
+}
+
+div#movie_player_course table.movie_player_title td{
+	height: auto;
+	vertical-align:top;
+	padding: 0;
+	margin:0;
+	border-bottom:none;
+}
+
+div#movie_player_course table.movie_player_title td.mark_td{
+	vertical-align:middle;
+	text-align:right;
+	padding: 0;
+	margin:0;
+	border-bottom:none;
+}
+div#movie_player_course table.movie_player_title td h4{
+	font-size: 14px;
+	margin: 5px 0 10px 0;
+	padding:3px 0 3px 6px;
+}

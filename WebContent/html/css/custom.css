@@ -1,0 +1,76 @@
+
+ul#controler{
+	padding:0;
+	margin:4px 0 0 0;
+	clear:both;
+	width:640px;
+	background-color:#A7A7A7;
+	background:url(../img/back.png) repeat-x;
+	height:40px;
+}    
+
+ul#controler li{
+	display: block;
+	float: left;
+	margin:0 2px;
+	padding:0;
+	border-right:#444444 solid 1px;
+	border-bottom:#444444 solid 1px;
+}
+
+
+ul#controler li.start_btn{
+	margin:0 2px 0 0;
+	background:url(../img/btn_play_pause_ro.png)
+}
+
+ul#controler li.stop_btn{
+	background:url(../img/btn_end_ro.png);
+}
+
+ul#controler li.rewind_btn{
+	background:url(../img/btn_rewind_ro.png);
+}
+
+
+ul#controler li.situation{
+	margin:0;
+	background:url(../img/situation.png) no-repeat;
+	height:40px;
+	width:100px;
+	text-align:center;
+	padding:10px 0 0 0;
+	float:right;
+	border-left:#C7C7C7 solid 1px;
+}
+
+ul#controler li.situation div#player_msg{
+	color:#FF8800;
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+
+ul#controler_tab{
+	padding:0;
+	margin:0;
+	clear:both;
+	width:100%;
+	height:19px;
+}
+ul#controler_tab li{
+	display: block;
+	float: left;
+	margin:0 2px;
+	padding:0;
+}
+
+ul#controler_tab li.start_tab{
+	margin:0 2px 0 0;
+}
+
+ul#controler_tab li.stop_tab{
+}
+
+ul#controler_tab li.rewind_tab{
+}

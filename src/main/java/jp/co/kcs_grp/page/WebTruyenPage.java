@@ -1,0 +1,51 @@
+/**
+ * ファイル名: WebMemberPage.java
+ * バージョン: 1.0.0
+ * 作成日付: Jan 11, 2017
+ * 最終更新日付: Jan 11, 2017
+ * 作成者: KCS
+ * 更新履歴: Jan 11, 2017 : 新規作成
+ */
+
+package jp.co.kcs_grp.page;
+
+import java.lang.reflect.Type;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import jp.co.kcs_grp.controller.WebTruyenControler;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+
+public class WebTruyenPage {
+
+    private WebTruyenControler webTruyenControler =  new WebTruyenControler();
+
+    
+    public Route getCategoryList() {
+        return new Route() {
+
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getList();
+            }
+        };
+    }
+    
+    
+    public Route adminRegistStory() {
+        return new Route() {
+
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+            	 String jsonData = request.queryParams("json");
+                 Type mapType = new TypeToken<Map<String, Object>>() {}.getType();
+     			Map<String, String> dataMap = new Gson().fromJson(jsonData, mapType);
+                return webTruyenControler.adminRegistStory(dataMap);
+            }
+        };
+    }
+}

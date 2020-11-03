@@ -1,0 +1,523 @@
+
+/*20161227 トップページに直接記述のあったCSS*/
+.table_nintei .link_detail a{ display: block;}
+.table .link_bylaw{ width: 4em; text-align: center; white-space: nowrap;} /*規則 アイコン*/
+.table .link_bylaw .fa, .table .link_bylaw .glyphicon{ margin-right: 4px; font-size: 16px; color: #FF0000;} /*「詳細」ボタン*/
+.table td.tanni{ vertical-align: middle;}
+
+/*左メニュー*/
+.leftmenu{
+}
+.leftmenu dl{
+}
+.leftmenu dl dt{
+	background-color: #393a69;
+	padding: 6px 4px 4px;
+	color: #FFFFFF;
+}
+.leftmenu dl dt a{
+	margin-left: 4px;
+	text-indent: 0;
+}
+.leftmenu dl dt a:hover{
+	color: #F0F0FF;
+	text-decoration: none;
+}
+.leftmenu dl dd a{
+	display: block;
+	text-decoration: none;
+	border-bottom: 1px dotted #000000;
+	padding: 8px 4px 8px 8px;
+}
+.leftmenu dl.menu_specialist dd a{
+	background-color: #f8f8FF;
+}
+.leftmenu dl.menu_specialist dd.sub a{
+	background-color: #FFFFFF;
+	padding-left: 20px;
+	text-indent: -14px;
+}
+
+.leftmenu dl dd.topmenu a{
+	background-color: #393a69;
+	padding: 2px 2px 6px 4px;
+}
+
+
+/*会員マイページ　顔写真*/
+.face_area{
+	text-align: center;
+	background-color: #ECF0FF;
+	border: 1px solid #5c95c5;
+	padding: 8px;
+	margin: 40px 0px 0;
+}
+
+.face_area img{
+	display: block;
+	margin: 0 auto;
+}
+
+
+/*会員マイページ　メニュー*/
+
+.mypagemenu{
+	margin-bottom: 8px;
+	padding-left: 0px;
+	margin-top: 16px;
+}
+.mypagemenu p{
+	color: #666666;
+
+}
+.mypagemenu dt{
+	margin-bottom: 4px;
+}
+
+
+/*単位*/
+.table td.tanni{
+	font-size: 18px;
+	vertical-align: bottom;
+}
+.table td.tanni strong{
+	font-size: 28px;
+	font-weight: normal;
+}
+.table_senmon > thead > tr > th,
+.table_senmon > tbody > tr > th,
+.table_senmon > thead > tr > td,
+.table_senmon > tbody > tr > td,
+.table_nintei > thead > tr > th,
+.table_nintei > tbody > tr > th,
+.table_nintei > thead > tr > td,
+.table_nintei > tbody > tr > td{ vertical-align: middle;}
+
+.table_senmon td.tanni strong,
+.table_nintei td.tanni strong{ font-size: 18px; color: #CC4444;}
+
+.table_senmon td.tanni span,
+.table_nintei td.tanni span{ font-size: 12px;}
+
+.table_senmon td.tanni span.fa-flag,
+.table_nintei td.tanni span.fa-flag{ font-size: 20px; color: #444499;}
+.table_senmon td.tanni span.fa-flag-o,
+.table_nintei td.tanni span.fa-flag-o{ font-size: 20px; color: #A8A8A8;}
+
+/*専門医・認定医・専攻医単位*/
+.specialist-point, .nintei-point, .training-point{
+/*	margin-left: 10px;
+	margin-right: 10px;*/
+}
+.specialist-point a, .nintei-point a, .training-point a{
+	display: inline-block;
+/*	padding: 6px 12px;*/
+	margin-bottom: 14px;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	    touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	    -ms-user-select: none;
+		       user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 8px;
+
+	color: #444;
+	background-color: #f0f0f0;
+/*	width: 8em;*/
+	margin-right: 10px;
+}
+.specialist-point a:hover, .nintei-point a:hover, .training-point a:hover{
+	color: #666;
+	background-color: #f8f8f8;
+	text-decoration: none;
+}
+
+.specialist-point a.total, .nintei-point a.total, .training-point a.total{
+/*	width: 12em;*/
+	color: #FFFFFF;
+	background-color: #337ab7;
+	border-color: #2e6da4;
+}
+.specialist-point a.total:hover, .nintei-point a.total:hover, .training-point a.total:hover{
+	background-color: #5c95c5;
+	border-color: #2e6da4;
+	text-shadow: 0 1px 1px rgba(51, 122, 183, 0.5);
+}
+
+.specialist-point a.total h2, .nintei-point a.total h2, .training-point a.total h2{
+	font-size: 16px;
+	margin: 2px auto;
+}
+
+
+.specialist-point a strong, .nintei-point a strong, .training-point a strong{
+	display: block;
+	font-size: 24px;
+}
+.specialist-point a.total strong, .nintei-point a.total strong, .training-point a.total strong{
+	display: block;
+	font-size: 32px;
+}
+.specialist-point a strong .max, .nintei-point a strong .max,.training-point a strong .max{
+	font-size: 24px;
+}
+.specialist-point a .period, .nintei-point a .period, .training-point a .period{
+	display: block;
+	font-size: 12px;
+}
+.specialist-point a .detail, .nintei-point a .detail, .training-point a .detail{
+	display: block;
+	text-decoration: underline;
+	font-size: 12px;
+}
+
+
+/*専攻医単位*/
+.training-point a{
+	width: 10em;
+}
+.training-point a:hover{
+	background-color: #5c95c5;
+	border-color: #2e6da4;
+	text-shadow: 0 1px 1px rgba(51, 122, 183, 0.5);
+}
+.training-point a h2{
+	font-size: 16px;
+	margin: 2px auto;
+}
+
+/*テーブル全般*/
+.main-contents .table-specialist{
+	margin-bottom: 20px;
+}
+
+.table-specialist .specialist_status{
+	padding-left: 1em;
+	text-align: right;
+	width: 16em;
+	white-space: nowrap;
+}
+
+.table-specialist .flag{
+	text-align: right;
+	width: 4em;
+}
+
+.slidebox3{
+	display:none;
+}
+
+
+
+/*レスポンシブ対応*/
+.visible-2s, .visible-3s, .visible-4s{
+	display: none;
+}
+
+/*お知らせ*/
+.information2{
+	list-style-type: none;
+	padding-left: 0;
+	border-radius: 12px;
+	background-color: #FFFFFF;
+	border: 1px ridge #5c95c5;
+	padding: 0 6px 4px 10px;
+}
+.information2 li{
+	margin: 0 4px 8px;
+	vertical-align: top;
+	margin-left: 32px;
+	text-indent: -16px;
+}
+.information2 li a{
+	color: #444444;
+}
+.information2 li .fa, .information2 li .glyphicon{
+	font-size: 24px;
+	margin: 0px 8px 0px 0;
+	display: inline-block;
+	position: relative;
+	top: 8px;
+	color: #5c95c5;
+}
+.information2 li.important a{
+	color: #E03333;
+}
+.information2 li.important .fa, .information2 li.important .glyphicon{
+	color: #E03333;
+}
+
+/*アナウンスカラー継承（廃棄）*/
+.information2 li.info-info a{
+	color: #444444;
+}
+.information2 li.info-info .fa, .information3 li.info-info .glyphicon{
+	color: #5c95c5;
+}
+.information2 li.info-error a{
+	color: #E03333;
+}
+.information2 li.info-error .fa, .information3 li.info-error .glyphicon{
+	color: #E03333;
+}
+.information2 li.info-alert a{
+	color: #CC8000;
+}
+.information2 li.info-alert .fa, .information3 li.info-alert .glyphicon{
+	color: #CC8000;
+}
+.information2 li.info-confirm a{
+	color: #398439;
+}
+.information2 li.info-confirm .fa, .information3 li.info-confirm .glyphicon{
+	color: #398439;
+}
+
+/*お知らせがない場合*/
+.information2 .no_info{
+	text-align: center;
+	margin: 6px auto 4px;
+	color: #444444;
+}
+
+
+/*コンテンツエリア*/
+.page-header {}
+.page-header h1{}
+.page-header h1, 
+.page-header h1 span{ display: block; margin-left: 0; font-size: 32px;}
+
+.page-header h1 span.glyphicon, .page-header h1 span.fa, .page-header h1 i.fa{ display: inline;}
+
+@media (min-width: 1200px) {
+/*	table.table{ width: 940px; margin: 0 auto; }*/
+}
+@media screen and (max-width:1199px){
+	#navbar .navbar-nav{ font-size: 13px;}
+	.navbar-nav > li > a { margin-top: 4px; padding: 8px 10px 0; height: 40px;}
+	.page-header h1, .page-header h1 span{ font-size: 28px;}
+
+}
+
+@media screen and (max-width: 991px) {
+	
+.container{
+	margin-top: 40px;
+}
+
+	
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    .navbar-collapse.collapse.in {
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
+	.dropdown {
+	font-size:23px;
+	}
+
+.page-header h1, 
+.page-header h1 span{ font-size: 32px;}
+.page-header h1 span{ display: inline; font-size: 32px;}
+
+}
+
+
+@media screen and (max-width:767px){
+
+.page-header h1, 
+.page-header h1 span{ font-size: 32px;}
+
+}
+@media screen and (max-width:640px){
+	.visible-xs{ display: none !important;}
+	.visible-2s{ display: block;}
+.page-header h1, 
+.page-header h1 span{ font-size: 28px;}
+
+}
+
+@media screen and (max-width:480px){
+	.visible-2s{ display: none;}
+	.visible-3s{ display: block;}
+
+
+.jumbotron {
+	margin: 0 0px 20px;
+}
+.container .jumbotron,
+.container-fluid .jumbotron {
+	padding: 6px 10px 0px;
+	border-radius: 8px;
+}
+
+
+/*トップページ用*/
+.container .col-md-12 .col-md-3,
+.container .col-md-12 .col-md-9{ padding-right: 8px; padding-left: 8px;}
+
+.page-header{ margin-top: 28px; padding-bottom: 4px;}
+
+.page-header h1, 
+.page-header h1 span{ font-size: 24px;}
+
+.page-header h1 span.glyphicon, .page-header h1 span.fa, .page-header h1 i.fa{
+	margin-right: 12px;
+	margin-left: 6px;
+	font-size: 24px;
+	position: relative;
+	top: 0px;
+	color: #444499;
+}
+
+
+.table_layout_01,
+.table_layout_02,
+.table_layout_03{ border: 0px none;}
+.table_layout_02 th{}
+.table_layout_02 td{}
+
+.training-point{ margin: 0 0 20px;}
+
+
+.table_responsive{
+	border: 0px none;
+}
+.table_responsive thead{
+	display: none;
+}
+.table_responsive tbody{
+	display: block;
+}
+.table_responsive tbody tr{
+	display: block;
+	margin-bottom: 1.0em;
+}
+.table_responsive th,
+.table_responsive tbody td,
+.table_responsive > tbody > tr >td{
+	display: list-item;
+	border: none;
+	border-top: 0px none;
+}
+.table_responsive tbody th{
+	width: auto;
+	margin-bottom: 5px;
+	list-style-type: none;
+	color: #fff;
+	background: #AAC6E8;
+}
+.table_responsive > tbody > tr > td{
+	list-style-type: none;
+	padding-left: 20px;
+}
+.table_responsive > tbody > tr > td.table_alert{
+	background-color: transparent;
+	color: #FF0000;
+}
+.table_responsive > tbody > tr > td.table_alert a{
+	color: #FF0000;
+}
+
+/*関連学会*/
+.table_relation > tbody > tr > td:nth-of-type(1){	margin-bottom: 5px;
+	list-style-type: none;
+	color: #fff;
+	background: #AAC6E8;
+	padding-left: 8px;
+}
+.table_relation > tbody > tr > td:nth-of-type(1) a{ color: #000;}
+
+.table_relation tbody td:nth-of-type(2):before { content: "日整会との関連付　"; margin-right: 1em; }
+.table_relation tbody td:nth-of-type(3):before { content: "関連学会会員番号　"; margin-right: 1em; }
+.table_relation tbody td:nth-of-type(4):before { content: "日整会との連携可否"; margin-right: 1em; }
+
+/*専門医*/
+.table_responsive.table_senmon tbody td:before { margin-right: 1em; }
+.table_responsive.table_senmon tbody td:nth-of-type(1){ font-size: 1em;}
+.table_responsive.table_senmon tbody td:nth-of-type(1):before { content: "取得単位数/必要単位数";}
+.table_responsive.table_senmon tbody td:nth-of-type(2):before { content: "資格取得日　　　";}
+.table_responsive.table_senmon tbody td:nth-of-type(3):before { content: "資格継続開始日　";}
+.table_responsive.table_senmon tbody td:nth-of-type(4):before { content: "資格期限日　　　";}
+.table_responsive.table_senmon tbody td:nth-of-type(5):before { content: "規則　　　　　　";}
+.table_responsive.table_senmon tbody td:nth-of-type(6):before { content: "取得状況　　　　";}
+
+
+/*認定医*/
+.table_responsive.table_nintei > tbody > tr > td:nth-of-type(1){
+	margin-bottom: 5px;
+	list-style-type: none;
+	color: #fff;
+	background: #AAC6E8;
+	padding-left: 8px;
+}
+.table_responsive.table_nintei > tbody > tr > td:nth-of-type(1) br{ display: none;}
+.table_responsive.table_nintei tbody td:nth-of-type(2){ font-size: 1em;}
+.table_responsive.table_nintei tbody td:nth-of-type(2):before { content: "単位数（取得/必要）"; margin-right: 1em; }
+.table_responsive.table_nintei tbody td:nth-of-type(3):before { content: "資格取得日　　　"; margin-right: 1em; }
+.table_responsive.table_nintei tbody td:nth-of-type(4):before { content: "資格継続開始日　"; margin-right: 1em; }
+.table_responsive.table_nintei tbody td:nth-of-type(5):before { content: "資格期限日　　　"; margin-right: 1em; }
+.table_responsive.table_nintei tbody td:nth-of-type(6):before { content: "取得履歴　　　　"; margin-right: 1em; }
+
+.table .link_detail{ width: auto; text-align: left;}
+.table .link_detail .btn{ width: 4em; display: inline-block; margin-right: 4px;}
+
+}
+@media screen and (max-width:320px){
+	.visible-3s{ display: none;}
+	.visible-4s{ display: block;}
+
+}
+    @media screen and (max-width:991px){
+    *::-ms-backdrop, .collapsed{
+     display:none;
+       
+    }
+    }
+
+<!--[if lt IE 10]>
+    @media screen and (max-width:991px){
+    .collapsed{
+        display:none;
+       
+    }
+    }
+<![endif]--> 
+

@@ -1,0 +1,336 @@
+@charset "utf-8";
+
+/*ヘッダー*/
+header {
+}
+header .inner {
+}
+/*ロゴマークと大会名*/
+header #logo {
+	align-items: center;
+	margin: 0;
+	width: calc(100% - 340px);
+}
+header #logo span.logomark{
+	display: block;
+}
+header #logo span.logomark a{
+	display: block;
+}
+header #logo span.logomark a img{
+	display: block;
+	padding: 10px;
+}
+/*大会名*/
+header #logo span.titlename {
+	padding-top: 4px;
+	font-family: "Hiragino Mincho ProN W6", "Hiragino Mincho Pro W6", YuMincho, "Yu Mincho", "serif";
+}
+header #logout{
+	position: relative;
+	width: 330px;
+}
+header #logout span:first-child{
+	display: block;
+}
+header #logout .btn {
+	display: inline-block;
+	width: auto;
+	margin-left: 10px;
+	float: none;
+}
+header #logout .btn + .btn{
+	padding-right: 4px;
+}
+header #logout .logout_message{
+	display :block;
+	position: absolute;
+	top: 60px;
+	right: 0;
+	border: 1px solid #000000;
+	border-radius: 4px;
+	width: 380px;
+	text-align: left;
+	font-size:11.5px;
+	padding: 5px;
+	background: hsla(0,0%,100%,1);
+	box-shadow: 0 0 2px #666;
+}
+
+/*ヘッダアンダーライン*/
+#cont-bar {
+	background: #D4C79E;
+}
+/*左メニュー*/
+#menu .menu-box_left ul{
+	background-image: url("../img/sidemenu_bg.jpg");
+	background-position: center;
+}
+#menu .menu-box_left ul li{
+}
+#menu .menu-box_left ul li:last-child{
+}
+#menu .menu-box_left ul li a{
+}
+#menu .menu-box_left ul li a:hover{
+}
+#menu .menu-box_left ul li.active a{
+}
+/*ライブ配信メニュー日程表記*/
+#menu .menu-box_left ul li a span.small_day{
+	font-size:14px;
+}
+/*お問い合わせ文字詰め*/
+.ls_01{
+	letter-spacing: -0.5px;
+}
+
+/*コンテンツ*/
+/*見出し*/
+.contents h2 {
+	background: #0b294a url(../img/h2_bg.jpg);
+	background-repeat: no-repeat;
+	background-position: top right;
+	text-shadow: 2px 2px 5px rgb(25, 25, 25);
+}
+.contents h3 {
+	border-left:solid 8px #2B3C72;
+	border-bottom: solid 1px #2B3C72;
+}
+.contents h3.abst_cat {
+	background-color: #D4C79E;
+}
+.contents h3.live_list {
+	background-color:transparent;
+}
+.contents h3 span.live_list_alpha {
+	font-size: 40px;
+	margin: 0 5px;
+}
+.contents h4 {
+}
+.contents h4 a{
+}
+/*説明エリア*/
+.contents p.page_about ,
+.contents p.page_about_small01 {
+	border: solid 1px #172642;
+	background-color:#EBEEFF;
+}
+.contents p.page_about_small01 {
+	font-size: 14px;
+}
+.contents p.page_about span.t_red,
+.contents p.page_about_small01 span.t_red{
+	color:#FF0004;
+}
+/*説明エリア*/
+.contents p.page_about a{
+	color: #004DC4;
+}
+/*説明エリアをDIVで利用したい*/
+.main-contents div.page_about {
+	margin: 0 0 20px 0;
+	border: solid 1px #172642;
+	background-color:#EBEEFF;
+	padding: 10px 15px;
+	border-radius: 6px;
+	font-size: 16px;
+}
+.main-contents div.page_about p{
+	margin: 0 0 0.5em 0;
+	padding: 0;
+}
+.main-contents div.page_about p.ind_01{
+	text-indent: -1em;
+	margin: 0 0 1em 1em;
+}
+.main-contents div.page_about p.last{
+	margin-bottom: 0;
+}
+/*動画・抄録*/
+.movie_block,
+.abstract_block{
+	border-bottom: solid 1px #2B3C72;
+}
+.movie_info h4 span.prg,
+.movie_info_nomovie h4 span.prg,
+.movie_info_play h4 span.prg,
+.abstract_info_read h4 span.prg{
+	color: #2B3C72;
+}
+.movie_info_play p.info_underline,
+.abstract_info_read p.info_underline{
+	border-bottom: solid 1px #2B3C72;
+}
+
+p.info_contact a{
+	color:#004DC4;
+}
+/* Q&A */
+dl.qa{
+}
+dl.qa dt,
+dl.qa dd{
+	margin: 0 0 1em 2em;
+	text-indent: -2em;
+	line-height: 1.5em
+}
+dl.qa dt{
+	font-weight: bold;
+}
+dl.qa dd{
+	font-weight: normal;
+}
+dl.qa dt span.que,
+dl.qa dd span.ans{
+	font-size: 1.5em;
+}
+dl.qa dt span.que{
+	color: #FFA127;
+}
+dl.qa dd span.ans{
+	font-weight: bold;
+	color: #4F9EEA;
+}
+
+/*フッター*/
+footer {
+	background-color: #191E38;
+}
+/*フッターのコピーライト*/
+#copyright {
+	background-color: #191E38;
+}
+
+
+/*画面幅1600px未満の設定*/
+@media screen and (max-width:1599px){
+}
+/*画面幅1200px未満の設定*/
+@media screen and (max-width:1199px){
+}
+/*画面幅992px未満の設定*/
+@media screen and (max-width:991px){
+	header #logo {
+/*		width: calc(100% - 80px);*/
+	}
+	/*バーアイコン設定*/
+	#menubar_hdr{
+		background: #191E38;
+	}
+	#menu .menu-box_left ul{
+		background: transparent;
+		text-align: center;
+	}
+	#menu .menu-box_left ul li{
+		background: transparent;
+	}
+	#menu .menu-box_left ul li a{
+		background-color: hsla(230,60%,16%,0.8);
+	}
+	#menu .menu-box_left ul li.logout a {
+		color: #ffd56e;
+	}
+	#menu .menu-box_left ul li.active{
+		background-color: hsla(230,60%,16%,0.8);
+	}
+
+	.main-contents {
+		width: 100%;
+		padding: 0px;
+	}
+
+}
+/*画面幅767px以下の設定*/
+@media screen and (max-width:767px){
+	.contents .inner {
+		padding: 20px 15px 0;
+	}
+	.contents #video1{ display: none;}
+	.contents #video1_sp{display : block; width: 320px;}
+	.tw_area{
+		text-align: center;
+		margin: 0 auto
+	}
+}
+
+/*画面幅640px未満の設定*/
+@media screen and (max-width:639px){
+	header {
+		height: 72px;
+	}
+	header #logo {
+		margin: 10px 0 0;
+	}
+	header #logo span.logomark{
+		width: 44px;
+		margin-right: 6px;
+	}
+	header #logo span.logomark a img{
+		width: 40px;
+		height: 40px;
+		margin-bottom: 0;
+	}
+	header #logo span.titlename {
+		font-size: 18.5px;
+		line-height: 130%;
+	}
+	#menubar_hdr {
+		top: 16px;
+		right: 16px;
+	}
+	#menu .menu-box_left ul{
+		top: 79px;
+	}
+
+	.contents h3 {
+		border-left:solid 4px #2B3C72;
+		border-bottom: solid 1px #2B3C72;
+	}
+	.contents h3.abst_cat {
+	}
+}
+/*画面幅480px未満の設定*/
+@media screen and (max-width:479px){
+	header {
+		height: 60px;
+	}
+	header #logo {
+		margin: 10px 0 0;
+		width: calc(100% - 54px);
+	}
+	header #logo span.logomark{
+		width: 50px;
+		margin-right: 2px;
+	}
+	header #logo span.logomark a img{
+		width: 50px;
+		height: 50px;
+		margin-bottom: 0;
+	}
+	header #logo span.titlename {
+		width: calc(100% - 40px);
+		font-size: 13px;
+		line-height: 140%;
+	}
+	#menubar_hdr {
+		top: 12px;
+		right: 8px;
+	}
+	#menubar_hdr label {
+		padding: 4px 6px;
+	}
+	#menubar_hdr span {
+		display: block;
+		border-top: 3px solid #fff;
+		margin: 4px;
+		width: 24px;
+	}
+	#menu .menu-box_left ul{
+		top: 67px;
+	}
+
+	.contents #video1_sp{ width: 100%;}
+
+}

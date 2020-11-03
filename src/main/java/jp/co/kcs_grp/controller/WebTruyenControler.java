@@ -1,0 +1,60 @@
+package jp.co.kcs_grp.controller;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.Map;
+
+import org.apache.log4j.Logger;
+
+import jp.co.kcs_grp.base.DBAccess;
+import jp.co.kcs_grp.base.json.ObjectResponse;
+import jp.co.kcs_grp.common.Constants;
+import jp.co.kcs_grp.dao.M_CategoryDao;
+import jp.co.kcs_grp.dao.M_CategoryDaoImpl;
+import jp.co.kcs_grp.dao.T_StoryDao;
+
+public class WebTruyenControler {
+	
+	private final Logger logger = Logger.getLogger(WebTruyenControler.class);
+	
+	private M_CategoryDao categoryDao = new M_CategoryDaoImpl();
+	private T_StoryDao storyDao = new T_StoryDao();
+	public ObjectResponse getList() {
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	objectResponse.setDataInfo(categoryDao.getList());
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
+	
+	public ObjectResponse adminRegistStory(Map<String,String> map) {
+		ObjectResponse objectResponse = new ObjectResponse();
+		DBAccess db = null;
+        try {
+        	// データベース接続
+			db = new DBAccess();
+			if (!db.dbConnection()) {
+				db.DBClose();
+				throw new Exception("データベース接続が失敗です。");
+			}
+        	storyDao.insert(map, db);
+        	objectResponse.setStatus(Constants.RESPONSE_STATUS_NORMAL);
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        } finally {
+			db.DBClose();
+		}
+        logger.info("end");
+        return objectResponse;
+    }
+
+}

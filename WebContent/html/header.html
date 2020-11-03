@@ -1,0 +1,40 @@
+<div id="headerSet" v-cloak>
+	<header>
+		<div class="inner">
+			<h1 id="logo">
+				<span class="logomark"><a href="#"><img src="./img/gakkai_logo.png" alt=""></a></span>
+				<span class="titlename">Đọc Truyện Cv</span> 
+			</h1>
+			
+			<div id="logout" v-if="name">
+				{{ name }}　<span v-show="keisyo">先生</span> <a class="btn btn-sm btn-danger" v-on:click="logout">LOG OUT</a>
+			</div>
+			<div id="logout" v-else>
+				<a class="btn btn-sm btn-primary btn-enq" v-on:click="logout">Đăng Nhập</a>
+				<a class="btn btn-sm btn-primary btn-enq" v-on:click="logout">Đăng Ký</a>
+			</div>
+		</div>
+	</header>
+</div>
+
+<script>
+
+var headerSet = new Vue({
+	el : '#headerSet',
+	data:{
+		name:'',
+	},
+    created : function() {
+
+    },
+	methods: {
+		logout: function(){
+
+		},
+		toLogin: function(){
+			location.href=contextPath + "/html/login.html";
+		},
+	},
+});
+
+</script>
