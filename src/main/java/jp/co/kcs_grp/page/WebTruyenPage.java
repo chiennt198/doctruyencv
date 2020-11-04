@@ -48,4 +48,26 @@ public class WebTruyenPage {
             }
         };
     }
+    
+    public Route adminGetListStory() {
+        return new Route() {
+
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+            	 String jsonData = request.queryParams("json");
+                 Type mapType = new TypeToken<Map<String, Object>>() {}.getType();
+     			Map<String, String> dataMap = new Gson().fromJson(jsonData, mapType);
+                return webTruyenControler.adminGetListStory(dataMap);
+            }
+        };
+    }
+    
+    public Route getMWideList() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getMWideList(request.params("idx"));
+            }
+        };
+    }
 }

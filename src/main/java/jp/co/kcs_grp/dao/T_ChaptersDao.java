@@ -14,24 +14,22 @@ import org.apache.log4j.Logger;
 import jp.co.kcs_grp.base.DBAccess;
 import jp.co.kcs_grp.base.KcsPreparedStatement;
 
-public class T_StoryDao{
+public class T_ChaptersDao {
 
 	/**
 	 * ログ.
 	 */
-	private Logger log = Logger.getLogger(T_StoryDao.class);
+	private Logger log = Logger.getLogger(T_ChaptersDao.class);
 	public void  insert(Map<String,String> param, DBAccess db) throws Exception {
 		log.info("start");
 		StringBuilder sql = null;
 		// 請求TBL取得の処理
 		sql = new StringBuilder();
-		sql.append(" INSERT INTO T_STORIES ( ");
+		sql.append(" INSERT INTO T_CHAPTERS ( ");
 		sql.append(" NAME ");
-		sql.append(" ,DESCRIPTION ");
-		sql.append(" ,CATEGORY_ID ");	
-		sql.append(" ,AUTHOR_NAME ");
-		sql.append(" ,CHAPTER_COUNT ");
-		sql.append(" ,STATUS ");
+		sql.append(" ,STORY_ID ");
+		sql.append(" ,CONTENT ");	
+		sql.append(" ,SORT_KEY ");
 		sql.append(" ,INSERT_DATETIME ");	
 		sql.append(" ,UPDATE_DATETIME ");
 		sql.append(" ) VALUES ( ");
@@ -39,8 +37,6 @@ public class T_StoryDao{
 		sql.append(" ,? ");
 		sql.append(" ,? ");
 		sql.append(" ,? ");	
-		sql.append(" ,? ");
-		sql.append(" ,1 ");
 		sql.append(" ,NOW() ");
 		sql.append(" ,NOW() ");	
 		sql.append(" ) ");
@@ -48,10 +44,9 @@ public class T_StoryDao{
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
 		int index = 1;
 		kps.setString(index++,param.get("name"));
-		kps.setString(index++,param.get("description"));
-		kps.setString(index++,param.get("categoryId"));
-		kps.setString(index++,param.get("authorName"));
-		kps.setString(index++,param.get("chapterCount"));
+		kps.setString(index++,param.get("storyId"));
+		kps.setString(index++,param.get("content"));
+		kps.setString(index++,param.get("sortKey"));
 		kps.execute();
 		log.info("end");
 	}

@@ -11,6 +11,7 @@ import jp.co.kcs_grp.base.json.ObjectResponse;
 import jp.co.kcs_grp.common.Constants;
 import jp.co.kcs_grp.dao.M_CategoryDao;
 import jp.co.kcs_grp.dao.M_CategoryDaoImpl;
+import jp.co.kcs_grp.dao.M_WideDao;
 import jp.co.kcs_grp.dao.T_StoryDao;
 
 public class WebTruyenControler {
@@ -19,6 +20,7 @@ public class WebTruyenControler {
 	
 	private M_CategoryDao categoryDao = new M_CategoryDaoImpl();
 	private T_StoryDao storyDao = new T_StoryDao();
+	M_WideDao wideDao = new M_WideDao();
 	public ObjectResponse getList() {
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
@@ -34,6 +36,7 @@ public class WebTruyenControler {
     }
 	
 	public ObjectResponse adminRegistStory(Map<String,String> map) {
+		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
 		DBAccess db = null;
         try {
@@ -53,6 +56,35 @@ public class WebTruyenControler {
         } finally {
 			db.DBClose();
 		}
+        logger.info("end");
+        return objectResponse;
+    }
+	public ObjectResponse adminGetListStory(Map<String,String> cond) {
+		ObjectResponse objectResponse = new ObjectResponse();
+		 logger.info("start");
+        try {
+        	objectResponse.setDataInfo(storyDao.search(cond));
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
+	
+	public ObjectResponse getMWideList(String idx) {
+		ObjectResponse objectResponse = new ObjectResponse();
+		 logger.info("start");
+        try {
+        	objectResponse.setDataInfo(wideDao.getWideList(idx));
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
         logger.info("end");
         return objectResponse;
     }

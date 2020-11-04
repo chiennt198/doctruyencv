@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<!-- saved from url=(0088)http://www.kcs-grp.co.jp/test/joa_member_renewal/training/manual/facility_operation.html -->
+<html lang="ja"><!-- InstanceBegin template="/Templates/manual.dwt" codeOutsideHTMLIsLocked="false" --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="./img/favicon.ico">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>オンライン総会　管理側</title>
+<!-- InstanceEndEditable -->
+<!-- Bootstrap core CSS -->
+<link href="./css/bootstrap.css" rel="stylesheet">
+<link href="./css/bootstrap-theme.css" rel="stylesheet">
+<link href="./css/joa.css" rel="stylesheet">
+<link href="./css/joa_training.css" rel="stylesheet">
+<link href="./css/joa_training_manual.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+<link href="./css/loading.css" rel="stylesheet">
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.js" type="text/javascript"></script>
+ <script src="./js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+<script src="./js/vue.js" type="text/javascript"></script>
+<script src="./js/constants.js" type="text/javascript"></script>
+<script src="./js/validator.js" type="text/javascript"></script>
+<script src="./js/app.js" type="text/javascript"></script>
+<script src="../environ.js" type="text/javascript"></script>
+<!-- <script src="./js/joa.js"></script> -->
+<script src="./js/utils.js"></script>
+</head>
+
+<body role="document">
+
+<div id="header"></div>
+
+<div class="container theme-showcase" role="main" id="main" v-cloak>
+	<div class="row">
+		<div class="col-md-10"><!-- InstanceBeginEditable name="contents" -->
+
+			<div class="page-header">
+				<h1>Danh Sách Truyện</h1>
+			</div>
+			<p class="jumbotron jumbotron-error" v-if="error_message" v-html="error_message" style="color: red;"></p>
+			
+			<table class="table table_layout_02">
+				<tbody>
+					<tr>
+						<th>Tên Truyện</th>
+						<td >
+							<input v-model="searchCond.name" size="100" type="text" name="name2" maxlength="128" style="width: 20em;">
+						</td>
+					</tr>
+				
+					<tr>
+						<th >Trạng Thái</th>
+						<td>
+							<select v-model="searchCond.status" style="min-width: 7em;height: 30px;">
+									<option v-for="option in statusList" v-bind:value="option.cd">{{ option.name }}</option>
+								</select>
+						</td>
+					</tr>
+					
+				</tbody>
+			</table>
+			<div class="row move">
+					<div class="col-md-3"><a style="cursor: pointer;" v-on:click="search('')" class="btn btn-lg btn-primary btn-search"><span class="glyphicon glyphicon-search"></span>Tìm</a></div>
+			</div>
+		</div>
+	</div>
+	<div class="row" id="topScroll">
+		<div id="kekka_list">
+<!-- 			<h3>検索結果　{{ dataCount }}件 {{displayResultText}}</h3> -->
+			<h3>検索結果　{{ dataCount }}件</h3>
+					<table class="table table_layout_01" style="width : 100%">
+						<thead>
+							<tr>
+								<th >
+									Tên Truyện
+								</th>
+								<th>
+									Trạng Thái
+								</th>
+								<th class="cell_004">
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(item, index) in filteredList">
+								<td>{{ item.name }}</td>
+								<td>{{ item.statusName }}</td>
+								<td class="link_detail"><a v-on:click="storyDetails(item.id)" class="btn btn-sm">詳細</a>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div id="pagination"></div>
+				</div>
+	</div>
+	<div class="row move">
+		<div class="col-xs-12 move-next">
+			<a style="cursor: pointer;" v-on:click="createStory" class="btn btn-lg btn-primary">TẠO MỚI</a>
+		</div>
+	</div>
+</div>
+
+<!-- /container -->
+
+
+<p id="page-top" style="display: none;"><a href="http://www.kcs-grp.co.jp/test/joa_member_renewal/training/manual/facility_operation.html#">ページトップ<br>
+<span class="fa fa-chevron-up"></span></a></p>
+
+<script src="./js/bootbox.min.js" type="text/javascript"></script>
+<script src="./js/pages/admin_story_search.js" type="text/javascript"></script>
+</body></html>

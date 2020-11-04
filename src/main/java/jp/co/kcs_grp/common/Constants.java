@@ -73,9 +73,9 @@ public class Constants {
     /**.
      *1:「対象データがありません」
      */
-    public static final String ERROR_MESSAGE_NO_DATA = "対象データがありません";
+    public static final String ERROR_MESSAGE_NO_DATA = "Không tìm thấy dữ liệu.";
     
-    public static final String SYSTEM_ERROR_MESSAGE = "問題が発生しました。続けて表示される場合は京葉コンピューターサービス株式会社までお問い合わせください。<br>お問い合わせは<a href=\"/WebMemberSys/html/inquiry.html\">こちら</a>";
+    public static final String SYSTEM_ERROR_MESSAGE = "Đã xảy ra lỗi hệ thống";
    
 
 }

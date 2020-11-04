@@ -56,7 +56,7 @@ public class ApplicationPage implements SparkApplication {
 		});
 
 		webRoute();
-
+		adminRoute();
 		Spark.get("/environ.js", (req, res) -> {
 			StringBuffer cont = new StringBuffer();
 			cont.append("var API_HTTP_COMMON = \"" + AppParams.getValue("parameterpath", "API_HTTP_COMMON") + "\";\n");
@@ -67,10 +67,12 @@ public class ApplicationPage implements SparkApplication {
 	}
 	
 	private void adminRoute() {
-		Spark.get("/admin-regist-story", webPage.getCategoryList(), new JsonTransformer());
+		Spark.post("/admin-regist-story", webPage.adminRegistStory(), new JsonTransformer());
+		Spark.post("/admin-get-list-story", webPage.adminGetListStory(), new JsonTransformer());
 	}
 	private void webRoute() {
-		Spark.get("/get-category-list", webPage.adminRegistStory(), new JsonTransformer());
+		Spark.get("/get-category-list", webPage.getCategoryList(), new JsonTransformer());
+		Spark.get("/get-m-wide-list/:idx", webPage.getMWideList(), new JsonTransformer());
 	}
 
 	
