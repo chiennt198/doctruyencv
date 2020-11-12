@@ -73,7 +73,7 @@ header #logout .btn {
 	box-shadow: 0px -10px 20px rgba(0,0,0,0.2);
 }
 #menubar_hdr{
-	display: none;
+/* 	display: none; */
 }
 
 /*コンテンツ*/
@@ -746,75 +746,20 @@ footer a:hover {
 
 /*画面幅1920px未満の設定*/
 @media screen and (max-width: 1919px){
-	.inner { width: 1480px;}
 	iframe.frame_schedule{
 		height: 1900px;
 	}
 }
 /*画面幅1600px未満の設定*/
 @media screen and (max-width: 1599px){
-	.inner { width: 1170px;}
 	iframe.frame_schedule{
 		height: 1400px;
 	}
 }
-/*画面幅1200px未満の設定*/
-@media screen and (max-width: 1199px){
-	.inner { width: auto; max-width: 1080px;}
-}
 
 /*画面幅992px未満の設定*/
 @media screen and (max-width:991px){
-	.inner {
-		width: auto;
-	}
-	header {
-		border-bottom: 1px solid #fff;
-	}
-	/*ログアウト*/
-	header #logout {
-		display: none;
-	}
-	/*メインメニュー*/
 
-	/*バーアイコン設定*/
-	#menubar_hdr{
-		display: block;
-		position: absolute;
-		top: 24px;
-		right: 20px;
-		width: auto;
-		border: 1px solid #ccc;
-		border-radius: 4px;
-		background: #666;/*基本色666*/
-		padding: 0;
-	}
-	#menubar_hdr input{
-		display: none;
-	}
-	#menubar_hdr label{
-		padding: 4px 6px;
-		margin: 0;
-		display: block;
-		cursor: pointer;
-	}
-	#menubar_hdr span {
-		display: block;
-		border-top: 3px solid #fff;
-		margin: 6px;
-		width: 26px;
-	}
-
-	.contents .inner {
-		padding: 40px 30px 0;
-	}
-
-	#menu .menu-box_left ul{display: none;}
-	#menu input[type="checkbox"].on-off:checked ~ .menu-box_left ul{ display: block;}
-	#menu input[type="checkbox"].on-off:checked ~ .menu-box_left ul li.logout{ display: block;}
-	#menu .menu-box_left ul li:nth-last-child(2){
-		border-bottom:solid 1px #FFF;
-	}
 	#menu div.menu-adv{
 		width: 100%;
 	}
@@ -828,27 +773,14 @@ footer a:hover {
 	#menu div.menu-adv a{
 		width: 50%;
 	}
+	
 	/*左メニュー付コンテンツ*/
 	.main-contents{
 		width: 100%;
 		order: 1
 		
 	}
-	#menu{
-		order: 2;
-		width: 100%;
-	}
-	#menu .menu-box_left{
-		width: 100%;
-	}
-	#menu .menu-box_left ul{
-		position: absolute;
-		top: 99px;
-		left: 0;
-		width: 100%;
-		z-index: 5;
-	}
-
+	
 	#menu .sys_contact{
 		margin-left: -30px;
 		margin-right: -30px;

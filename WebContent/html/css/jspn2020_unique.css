@@ -203,37 +203,10 @@ footer {
 	background-color: #191E38;
 }
 
-
-/*画面幅1600px未満の設定*/
-@media screen and (max-width:1599px){
-}
-/*画面幅1200px未満の設定*/
-@media screen and (max-width:1199px){
-}
 /*画面幅992px未満の設定*/
 @media screen and (max-width:991px){
 	header #logo {
 /*		width: calc(100% - 80px);*/
-	}
-	/*バーアイコン設定*/
-	#menubar_hdr{
-		background: #191E38;
-	}
-	#menu .menu-box_left ul{
-		background: transparent;
-		text-align: center;
-	}
-	#menu .menu-box_left ul li{
-		background: transparent;
-	}
-	#menu .menu-box_left ul li a{
-		background-color: hsla(230,60%,16%,0.8);
-	}
-	#menu .menu-box_left ul li.logout a {
-		color: #ffd56e;
-	}
-	#menu .menu-box_left ul li.active{
-		background-color: hsla(230,60%,16%,0.8);
 	}
 
 	.main-contents {
