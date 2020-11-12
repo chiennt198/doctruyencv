@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<Context path="/WebMemberSys" reloadable="true" docBase="C:\Working\Git-Source\WebMemberSys">
+<Context path="/doctruyencv" reloadable="true">
 	<Environment name="AppInstance" value="local" type="java.lang.String" override="false"/>
     <Environment name="logBaseDir"  value="C:/Log/tomcat" type="java.lang.String" override="false"/>
     <Environment name="appName"     value="SecretariatsSys" type="java.lang.String" override="false"/>
