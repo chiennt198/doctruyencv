@@ -53,8 +53,14 @@ var vueItem = new Vue({
     			}
     		});
     	},
+    	chapterDetails : function(id) {
+    		sessionStorage.setItem("PARAM_STORY_ID",this.storyData.id);
+    		sessionStorage.setItem("PARAM_CHAPTER_ID",id);
+    		window.location.href= contextPath + "/html/admin_chapter_new.html";
+    	},
     	createChapter : function() {
     		sessionStorage.setItem("PARAM_STORY_ID",this.storyData.id);
+    		sessionStorage.setItem("PARAM_CHAPTER_ID",'');
     		window.location.href= contextPath + "/html/admin_chapter_new.html";
     	},search: function(){
     		var this_ = this;

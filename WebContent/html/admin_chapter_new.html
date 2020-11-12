@@ -39,6 +39,7 @@
 			<div class="page-header">
 				<h1>TẠO Chương MỚI</h1>
 			</div>
+			<p class="jumbotron jumbotron-error" v-if="error_message" v-html="error_message" style="color: red;"></p>
 			<div class="main-contents">
 				<table class="table table_layout_02">
 					<tbody>
@@ -59,10 +60,10 @@
 			</div>
 			<div class="row move">
 				<div class="col-xs-6 move-prev">
-					<a style="cursor: pointer;" href="admin_story_detail.html" class="btn btn-lg btn-primary">QUAY LẠI</a>
+					<a style="cursor: pointer;" href="admin_story_detail.html" class="btn btn-lg btn-back">QUAY LẠI</a>
 				</div>
 				<div class="col-xs-6 move-next">
-					<a style="cursor: pointer;" v-on:click="createChapter" class="btn btn-lg btn-primary">TẠO</a>
+					<a style="cursor: pointer;" v-on:click="createChapter" class="btn btn-lg btn-primary"><span v-if="registType == '0'">TẠO</span><span v-else>CẬP NHẬT</span></a>
 				</div>
 			</div>
 		</div>

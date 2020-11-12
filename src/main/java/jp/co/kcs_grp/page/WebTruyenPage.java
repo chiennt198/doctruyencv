@@ -71,7 +71,7 @@ public class WebTruyenPage {
         };
     }
     
-    public Route adminChapterStory() {
+    public Route adminRegistChapter() {
         return new Route() {
 
             @Override
@@ -102,6 +102,15 @@ public class WebTruyenPage {
                  Type mapType = new TypeToken<Map<String, Object>>() {}.getType();
      			Map<String, String> dataMap = new Gson().fromJson(jsonData, mapType);
                 return webTruyenControler.seachChapters(dataMap);
+            }
+        };
+    }
+    
+    public Route getChapterDetail() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getChapterDetail(request.queryParams("storyId"), request.queryParams("chapterId"));
             }
         };
     }

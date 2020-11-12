@@ -111,9 +111,14 @@ public class WebTruyenControler {
 				throw new Exception("データベース接続が失敗です。");
 			}
 			db.DBTranStart();
-			String id = chapterDao.getNewChapterId(map.get("storyId"));
-			map.put("id", id);
-			chapterDao.insert(map, db);
+			if("0".equals(map.get("registType"))) {
+				String id = chapterDao.getNewChapterId(map.get("storyId"));
+				map.put("id", id);
+				chapterDao.insert(map, db);
+			} else {
+				chapterDao.update(map, db);
+			}
+			
         	objectResponse.setStatus(Constants.RESPONSE_STATUS_NORMAL);
         	db.DBTranEnd(true);
         } catch (Exception e) {
@@ -149,6 +154,21 @@ public class WebTruyenControler {
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
         	objectResponse.setDataInfo(chapterDao.search(cond));
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
+	
+	public ObjectResponse getChapterDetail(String storyId, String chapterId) {
+		logger.info("start");
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	objectResponse.setDataInfo(chapterDao.getByKey(storyId, chapterId));
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();
         	e.printStackTrace(new PrintWriter(stack));

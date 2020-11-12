@@ -68,14 +68,16 @@ public class ApplicationPage implements SparkApplication {
 	
 	private void adminRoute() {
 		Spark.post("/admin-regist-story", webPage.adminRegistStory(), new JsonTransformer());
-		Spark.post("/admin-regist-chapter", webPage.adminChapterStory(), new JsonTransformer());
+		Spark.post("/admin-regist-chapter", webPage.adminRegistChapter(), new JsonTransformer());
 		Spark.post("/admin-get-list-story", webPage.adminGetListStory(), new JsonTransformer());
 		Spark.get("/admin-get-story-detail/:id", webPage.getStoryDetail(), new JsonTransformer());
 		Spark.post("/admin-get-list-chapters", webPage.adminGetListChapters(), new JsonTransformer());
+		Spark.post("/get-chapter-detail", webPage.adminGetListChapters(), new JsonTransformer());
 	}
 	private void webRoute() {
 		Spark.get("/get-category-list", webPage.getCategoryList(), new JsonTransformer());
 		Spark.get("/get-m-wide-list/:idx", webPage.getMWideList(), new JsonTransformer());
+		Spark.post("/get-chapter-detail", webPage.getChapterDetail(), new JsonTransformer());
 	}
 
 	

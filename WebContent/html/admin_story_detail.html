@@ -43,58 +43,60 @@
 				<h1>CHI TIẾT TRUYỆN</h1>
 			</div>
 			<p class="jumbotron jumbotron-error" v-if="error_message" v-html="error_message" style="color: red;"></p>
-			<table class="table table_layout_02">
-					<tbody>
-						<tr>
-							<th>Tên Truyện</th>
-							<td>
-								<input type="text" v-model="storyData.name" size="50" maxlength="128" style="IME-MODE:active">
-							</td>
-						</tr>
-						<tr>
-							<th>Tác Giả</th>
-							<td>
-								<input type="text" v-model="storyData.authorName" size="50" maxlength="128" style="IME-MODE:active">
-							</td>
-						</tr>
-						<tr>
-							<th>Tóm Tắt Truyện</th>
-							<td>
-								<textarea v-model="storyData.description"></textarea>
-							</td>
-						</tr>
-						
-						<tr>
-							<th>Thể Loại</th>
-							<td>
-								<select v-model="storyData.categoryId" style="min-width: 7em;height: 30px;">
-									<option v-for="option in categoryList" v-bind:value="option.categoryId">{{ option.categoryName }}</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<th>Tình Trạng Đăng Truyện</th>
-							<td>
-								<input type="radio" v-model="storyData.publicFlg" name="publicFlg" checked="checked" value="0">&nbsp;Ẩn
-								<input type="radio" v-model="storyData.publicFlg" name="publicFlg" value="1">&nbsp;Công Khai
-							</td>
-						</tr>
-						<tr>
-						<th >Trạng Thái</th>
-							<td>
-								<select v-model="storyData.status" style="min-width: 7em;height: 30px;">
-										<option v-for="option in statusList" v-bind:value="option.cd">{{ option.name }}</option>
+			<div class="main-contents">
+				<table class="table table_layout_02">
+						<tbody>
+							<tr>
+								<th>Tên Truyện</th>
+								<td>
+									<input type="text" v-model="storyData.name" size="50" maxlength="128" style="IME-MODE:active">
+								</td>
+							</tr>
+							<tr>
+								<th>Tác Giả</th>
+								<td>
+									<input type="text" v-model="storyData.authorName" size="50" maxlength="128" style="IME-MODE:active">
+								</td>
+							</tr>
+							<tr>
+								<th>Tóm Tắt Truyện</th>
+								<td>
+									<textarea v-model="storyData.description" style="min-height: 350px;width: 100%"></textarea>
+								</td>
+							</tr>
+							
+							<tr>
+								<th>Thể Loại</th>
+								<td>
+									<select v-model="storyData.categoryId" style="min-width: 7em;height: 30px;">
+										<option v-for="option in categoryList" v-bind:value="option.categoryId">{{ option.categoryName }}</option>
 									</select>
-							</td>
-						</tr>
-						<tr>
-							<th>Chương Mới Nhất</th>
-							<td>
-								{{storyData.newestChapterName}}
-							</td>
-						</tr>
-					</tbody>
-				</table>
+								</td>
+							</tr>
+							<tr>
+								<th>Tình Trạng Đăng Truyện</th>
+								<td>
+									<input type="radio" v-model="storyData.publicFlg" name="publicFlg" checked="checked" value="0">&nbsp;Ẩn
+									<input type="radio" v-model="storyData.publicFlg" name="publicFlg" value="1">&nbsp;Công Khai
+								</td>
+							</tr>
+							<tr>
+							<th >Trạng Thái</th>
+								<td>
+									<select v-model="storyData.status" style="min-width: 7em;height: 30px;">
+											<option v-for="option in statusList" v-bind:value="option.cd">{{ option.name }}</option>
+										</select>
+								</td>
+							</tr>
+							<tr>
+								<th>Chương Mới Nhất</th>
+								<td>
+									{{storyData.newestChapterName}}
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 		</div>
 	</div>
 	<div class="row move">
@@ -108,11 +110,11 @@
 		</div>
 	</div>
 	</div>
+	<div class="main-contents">
 	<h2>DANH SÁCH CHƯƠNG</h2>
-	<div class="row" id="topScroll">
-		<div id="kekka_list">
+		<div id="topScroll" id="kekka_list">
 <!-- 			<h3>検索結果　{{ dataCount }}件 {{displayResultText}}</h3> -->
-			<h3>Số lượng chương hiện tại:　{{ dataCount }}</h3>
+			<strong>Số lượng chương hiện tại:　{{ dataCount }}</strong>
 					<table class="table table_layout_01" style="width : 100%">
 						<thead>
 							<tr>
@@ -127,7 +129,7 @@
 						<tbody>
 							<tr v-for="(item, index) in filteredList">
 								<td>{{ item.id }}</td>
-								<td><a href="javascript: void(0)" v-on:click="storyDetails(item.id)" >{{ item.name }}</a></td>
+								<td><a href="javascript: void(0)" v-on:click="chapterDetails(item.id)" >{{ item.name }}</a></td>
 								</td>
 							</tr>
 						</tbody>
