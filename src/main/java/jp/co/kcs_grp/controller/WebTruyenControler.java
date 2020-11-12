@@ -143,4 +143,19 @@ public class WebTruyenControler {
         logger.info("end");
         return objectResponse;
     }
+	
+	public ObjectResponse seachChapters(Map<String,String > cond) {
+		logger.info("start");
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	objectResponse.setDataInfo(chapterDao.search(cond));
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
 }

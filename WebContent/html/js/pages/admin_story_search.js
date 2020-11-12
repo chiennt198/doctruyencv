@@ -14,7 +14,7 @@ var movieList = new Vue({
     created : function() {
     	$('#kekka_list').hide();
     	
-    	get(this, contextPath + "/get-m-wide-list/1" , this.searchCond, function(data) {
+    	get(this, contextPath + "/get-m-wide-list/1" , {}, function(data) {
 			
 			if (data.status == STATUS_NORMAL) {
 				this.statusList = data.dataInfo;

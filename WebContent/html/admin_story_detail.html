@@ -40,7 +40,7 @@
 		<div class="col-md-10"><!-- InstanceBeginEditable name="contents" -->
 
 			<div class="page-header">
-				<h1>Danh Sách Truyện</h1>
+				<h1>CHI TIẾT TRUYỆN</h1>
 			</div>
 			<p class="jumbotron jumbotron-error" v-if="error_message" v-html="error_message" style="color: red;"></p>
 			<table class="table table_layout_02">
@@ -79,7 +79,14 @@
 								<input type="radio" v-model="storyData.publicFlg" name="publicFlg" value="1">&nbsp;Công Khai
 							</td>
 						</tr>
-						
+						<tr>
+						<th >Trạng Thái</th>
+							<td>
+								<select v-model="storyData.status" style="min-width: 7em;height: 30px;">
+										<option v-for="option in statusList" v-bind:value="option.cd">{{ option.name }}</option>
+									</select>
+							</td>
+						</tr>
 						<tr>
 							<th>Chương Mới Nhất</th>
 							<td>
@@ -91,11 +98,43 @@
 		</div>
 	</div>
 	<div class="row move">
+	<div class="col-md-10">
+	<div class="col-xs-6 move-prev">
+			<a style="cursor: pointer;" href="admin_story_search.html" class="btn btn-lg btn-back">QUAY LẠI</a>
+		</div>
 		<div class="col-xs-6 move-next">
-			<a style="cursor: pointer;" v-on:click="update" class="btn btn-lg btn-primary">Chỉnh Sửa</a>
+			<a style="cursor: pointer;" v-on:click="update" class="btn btn-lg btn-primary">CHỈNH SỬA</a>
 			<a style="cursor: pointer;" v-on:click="createChapter" class="btn btn-lg btn-primary">TẠO CHƯƠNG MỚI</a>
 		</div>
 	</div>
+	</div>
+	<h2>DANH SÁCH CHƯƠNG</h2>
+	<div class="row" id="topScroll">
+		<div id="kekka_list">
+<!-- 			<h3>検索結果　{{ dataCount }}件 {{displayResultText}}</h3> -->
+			<h3>Số lượng chương hiện tại:　{{ dataCount }}</h3>
+					<table class="table table_layout_01" style="width : 100%">
+						<thead>
+							<tr>
+								<th >
+									STT
+								</th>
+								<th>
+									Tên Chương
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="(item, index) in filteredList">
+								<td>{{ item.id }}</td>
+								<td><a href="javascript: void(0)" v-on:click="storyDetails(item.id)" >{{ item.name }}</a></td>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div id="pagination"></div>
+				</div>
+		</div>
 </div>
 
 <!-- /container -->

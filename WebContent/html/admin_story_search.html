@@ -90,7 +90,7 @@
 							<tr v-for="(item, index) in filteredList">
 								<td>{{ item.name }}</td>
 								<td>{{ item.statusName }}</td>
-								<td class="link_detail"><a v-on:click="storyDetails(item.id)" class="btn btn-sm">詳細</a>
+								<td class="link_detail"><a href="javascript: void(0)" v-on:click="storyDetails(item.id)" class="btn btn-sm">詳細</a>
 								</td>
 							</tr>
 						</tbody>

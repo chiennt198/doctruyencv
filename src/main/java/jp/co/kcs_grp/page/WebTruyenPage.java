@@ -92,4 +92,17 @@ public class WebTruyenPage {
             }
         };
     }
+    
+    public Route adminGetListChapters() {
+        return new Route() {
+
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+            	 String jsonData = request.queryParams("json");
+                 Type mapType = new TypeToken<Map<String, Object>>() {}.getType();
+     			Map<String, String> dataMap = new Gson().fromJson(jsonData, mapType);
+                return webTruyenControler.seachChapters(dataMap);
+            }
+        };
+    }
 }

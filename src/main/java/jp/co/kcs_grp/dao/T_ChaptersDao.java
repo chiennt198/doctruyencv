@@ -37,6 +37,7 @@ public class T_ChaptersDao {
 		sql.append(" ? ");
 		sql.append(" ,? ");
 		sql.append(" ,? ");
+		sql.append(" ,? ");
 		sql.append(" ,? ");	
 		sql.append(" ,NOW() ");
 		sql.append(" ,NOW() ");	
@@ -118,14 +119,11 @@ public class T_ChaptersDao {
 				sbSql.append("SELECT ");
 				sbSql.append(" IFNULL(st.ID,'') AS ID ");
 				sbSql.append(" ,IFNULL(st.NAME,'') AS NAME ");
-				sbSql.append(" ,IFNULL(st.DESCRIPTION,'') AS DESCRIPTION ");
-				sbSql.append(" ,IFNULL(st.STATUS,'') AS STATUS ");
-				sbSql.append(" ,IFNULL(mw1.NAME,'') AS STATUS_NAME ");
-				sbSql.append(" FROM T_STORIES st ");
-				sbSql.append(" LEFT JOIN M_WIDE mw1 ");
-				sbSql.append(" ON st.STATUS =  mw1.CD ");
-				sbSql.append(" AND mw1.IDX =  1 ");
+				sbSql.append(" FROM T_CHAPTERS st ");
 				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
+				if(StringUtils.isNotBlank(cond.get("storyId"))) {
+					sbSql.append(" AND st.STORY_ID = ? ");
+				}
 				if(StringUtils.isNotBlank(cond.get("name"))) {
 					sbSql.append(" AND st.NAME like ? ");
 				}
@@ -138,7 +136,9 @@ public class T_ChaptersDao {
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
 	            int idx = 1;
-	            
+	            if(StringUtils.isNotBlank(cond.get("storyId"))) {
+					kps.setString(idx++, cond.get("storyId"));
+				}
 	            if(StringUtils.isNotBlank(cond.get("name"))) {
 	            	kps.setString(idx++, "%" + cond.get("name") + "%");
 				}
@@ -152,9 +152,6 @@ public class T_ChaptersDao {
 	            		map =  new HashMap<>();
 	            		map.put("id",rs.getString("ID"));
 	            		map.put("name",rs.getString("NAME"));
-	            		map.put("description",rs.getString("DESCRIPTION"));
-	            		map.put("status",rs.getString("STATUS"));
-	            		map.put("statusName",rs.getString("STATUS_NAME"));
 	            		list.add(map);
 					}
 	            	//ResultSetのクローズ

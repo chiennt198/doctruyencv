@@ -17,7 +17,8 @@ var vueItem = new Vue({
     		post(this, contextPath + "/admin-regist-chapter" , {json:JSON.stringify(this.chapterData)}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				alert("Đã tạo chương mới thành công");
-    				window.location.href= contextPath + "/html/admin_story_search.html";
+    				this.chapterData.name = '';
+    				this.chapterData.content = '';
     			}
     		});
     	},
