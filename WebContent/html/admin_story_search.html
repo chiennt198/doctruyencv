@@ -82,15 +82,12 @@
 								<th>
 									Trạng Thái
 								</th>
-								<th class="cell_004">
-								</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr v-for="(item, index) in filteredList">
-								<td>{{ item.name }}</td>
+								<td><a href="javascript: void(0)" v-on:click="storyDetails(item.id)">{{ item.name }}</a></td>
 								<td>{{ item.statusName }}</td>
-								<td class="link_detail"><a href="javascript: void(0)" v-on:click="storyDetails(item.id)" class="btn btn-sm">詳細</a>
 								</td>
 							</tr>
 						</tbody>
