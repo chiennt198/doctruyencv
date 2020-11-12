@@ -1,0 +1,153 @@
+#menubar_hdr{
+	display: block;
+	position: absolute;
+	top: 5em;
+	left: 2em;
+	width: auto;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: #666;/*基本色666*/
+	padding: 0;
+}
+	
+	
+#menubar_hdr input{
+	display: none;
+}
+#menubar_hdr label{
+	padding: 4px 6px;
+	margin: 0;
+	display: block;
+	cursor: pointer;
+}
+#menubar_hdr span {
+	display: block;
+	border-top: 3px solid #fff;
+	margin: 6px;
+	width: 26px;
+}
+
+/*バーアイコン設定*/
+#menubar_hdr{
+	background: #191E38;
+}
+
+/*画面幅1920px未満の設定*/
+@media screen and (max-width: 1919px){
+	.inner { width: 1480px;}
+}
+
+/*画面幅1600px未満の設定*/
+@media screen and (max-width: 1599px){
+	.inner { width: 1170px;}
+}
+
+/*画面幅1200px未満の設定*/
+@media screen and (max-width: 1199px){
+	.inner { width: auto; max-width: 1080px;}
+	
+	/*バーアイコン設定*/
+	#menubar_hdr{
+		display: block;
+		position: absolute;
+		top: 24px;
+		right: 20px;
+		width: auto;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		background: #666;/*基本色666*/
+		padding: 0;
+	}
+}
+
+/*画面幅992px未満の設定*/
+@media screen and (max-width:991px){
+	.inner {
+		width: auto;
+	}
+	
+	header {
+		border-bottom: 1px solid #fff;
+	}
+	
+	/*ログアウト*/
+	header #logout {
+		display: none;
+	}
+	
+	/*バーアイコン設定*/
+	#menubar_hdr{
+		display: block;
+		position: absolute;
+		top: 24px;
+		right: 20px;
+		width: auto;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		background: #666;/*基本色666*/
+		padding: 0;
+	}
+	#menubar_hdr input{
+		display: none;
+	}
+	#menubar_hdr label{
+		padding: 4px 6px;
+		margin: 0;
+		display: block;
+		cursor: pointer;
+	}
+	#menubar_hdr span {
+		display: block;
+		border-top: 3px solid #fff;
+		margin: 6px;
+		width: 26px;
+	}
+	
+	/*バーアイコン設定*/
+	#menubar_hdr{
+		background: #191E38;
+	}
+	#menu .menu-box_left ul{
+		background: transparent;
+		text-align: center;
+	}
+	#menu .menu-box_left ul li{
+		background: transparent;
+	}
+	#menu .menu-box_left ul li a{
+		background-color: hsla(230,60%,16%,0.8);
+	}
+	#menu .menu-box_left ul li.logout a {
+		color: #ffd56e;
+	}
+	#menu .menu-box_left ul li.active{
+		background-color: hsla(230,60%,16%,0.8);
+	}
+
+	.contents .inner {
+		padding: 40px 30px 0;
+	}
+
+	#menu .menu-box_left ul{display: none;}
+	#menu input[type="checkbox"].on-off:checked ~ .menu-box_left ul{ display: block;}
+	#menu input[type="checkbox"].on-off:checked ~ .menu-box_left ul li.logout{ display: block;}
+	#menu .menu-box_left ul li:nth-last-child(2){
+		border-bottom:solid 1px #FFF;
+	}
+	
+	#menu{
+		order: 2;
+		width: 100%;
+	}
+	#menu .menu-box_left{
+		width: 100%;
+	}
+	#menu .menu-box_left ul{
+		position: absolute;
+		top: 99px;
+		left: 0;
+		width: 100%;
+		z-index: 5;
+	}
+	
+}
