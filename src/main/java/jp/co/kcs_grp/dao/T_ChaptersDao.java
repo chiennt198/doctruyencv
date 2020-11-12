@@ -26,7 +26,8 @@ public class T_ChaptersDao {
 		// 請求TBL取得の処理
 		sql = new StringBuilder();
 		sql.append(" INSERT INTO T_CHAPTERS ( ");
-		sql.append(" NAME ");
+		sql.append(" ID ");
+		sql.append(" ,NAME ");
 		sql.append(" ,STORY_ID ");
 		sql.append(" ,CONTENT ");	
 		sql.append(" ,SORT_KEY ");
@@ -43,13 +44,58 @@ public class T_ChaptersDao {
 		
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
 		int index = 1;
+		kps.setString(index++,param.get("id"));
 		kps.setString(index++,param.get("name"));
 		kps.setString(index++,param.get("storyId"));
-		kps.setString(index++,param.get("content"));
+		kps.setStringNoneSqlLiteral(index++,param.get("content"));
 		kps.setString(index++,param.get("sortKey"));
 		kps.execute();
 		log.info("end");
 	}
+	 public String getNewChapterId(String storyId) throws Exception {
+			DBAccess db = null;
+			ResultSet rs = null;
+			StringBuilder sbSql = null;
+			//開始ログ出力
+			String result = "1";
+			Map<String,String> map = null;
+			log.warn("start");
+			try {
+				//データベース接続
+	            db = new DBAccess();
+	            if (!db.dbConnection()) {
+	                db.DBClose();
+	                throw new Exception("データベース接続が失敗です。");
+	            }
+	            
+				//SQL作成
+				sbSql = new StringBuilder();
+				sbSql.append("SELECT ");
+				sbSql.append(" IFNULL(MAX(ID),'0') AS MAX_ID ");
+				sbSql.append(" FROM T_CHAPTERS ");
+				sbSql.append(" WHERE STORY_ID = ? ");
+				
+				//SQL実行
+	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
+	            kps.setString(1, storyId);
+	            rs = kps.executeQuery();
+	            if(rs != null && rs.next()) {
+	            	result = String.valueOf(rs.getInt("MAX_ID") + 1);
+	            }
+			} catch(Exception e) {
+				StringWriter stack = new StringWriter();
+	        	e.printStackTrace(new PrintWriter(stack));
+	        	log.error(stack.toString());
+	            throw e;
+			} finally {
+				//データベース切断
+				db.DBClose();
+				//終了ログ出力
+				log.warn("end");
+			}
+
+			return result;
+		}
 	
 	 public List<Map<String,String>> search(Map<String,String> cond) throws Exception {
 			DBAccess db = null;

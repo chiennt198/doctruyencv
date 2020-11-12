@@ -24,8 +24,9 @@ var movieList = new Vue({
 		});
     },
     methods: {
-    	storyDetails: function(movieId){
-    		window.location.href= contextPath + "/html/admin_movie_detail.html";
+    	storyDetails: function(id){
+    		sessionStorage.setItem("PARAM_STORY_ID",id);
+    		window.location.href= contextPath + "/html/admin_story_detail.html";
     	},
     	
     	search: function(type){

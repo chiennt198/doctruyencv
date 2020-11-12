@@ -70,4 +70,26 @@ public class WebTruyenPage {
             }
         };
     }
+    
+    public Route adminChapterStory() {
+        return new Route() {
+
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+            	 String jsonData = request.queryParams("json");
+                 Type mapType = new TypeToken<Map<String, Object>>() {}.getType();
+     			Map<String, String> dataMap = new Gson().fromJson(jsonData, mapType);
+                return webTruyenControler.adminRegistChapter(dataMap);
+            }
+        };
+    }
+    
+    public Route getStoryDetail() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getStoryDetail(request.params("id"));
+            }
+        };
+    }
 }
