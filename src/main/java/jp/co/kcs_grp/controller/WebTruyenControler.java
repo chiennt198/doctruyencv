@@ -179,4 +179,18 @@ public class WebTruyenControler {
         return objectResponse;
     }
 	
+	public ObjectResponse login(String userId, String password) {
+		ObjectResponse objectResponse = new ObjectResponse();
+		 logger.info("start");
+        try {
+        	objectResponse.setDataInfo(storyDao.search(cond));
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
 }
