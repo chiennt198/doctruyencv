@@ -76,6 +76,11 @@ public class T_StoryDao{
 		sql.append(" ,STATUS = ? ");
 		sql.append(" ,LINK_IMG = ? ");
 		sql.append(" ,PUBLIC_FLG = ? ");
+		if("1".equals(param.get("publicFlg"))) {
+			sql.append(" ,PUBLIC_DATETIME = NOW() ");
+		} else {
+			sql.append(" ,PUBLIC_DATETIME = NULL ");
+		}
 		sql.append(" ,UPDATE_DATETIME  = NOW() ");
 		sql.append(" WHERE ID = ? ");
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
@@ -204,11 +209,12 @@ public class T_StoryDao{
 				sbSql.append(" ON st.STATUS =  mw1.CD ");
 				sbSql.append(" AND mw1.IDX =  1 ");
 				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
+				sbSql.append(" AND st.ID = ? ");
 				sbSql.append(" ORDER BY st.ID ");
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-	            int idx = 1;
+	            kps.setString(1, id);
 	            rs = kps.executeQuery();
 	            if(rs != null && rs.next()) {
         		map =  new HashMap<>();
