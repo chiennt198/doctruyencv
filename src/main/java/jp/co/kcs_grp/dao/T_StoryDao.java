@@ -76,6 +76,11 @@ public class T_StoryDao{
 		sql.append(" ,STATUS = ? ");
 		sql.append(" ,LINK_IMG = ? ");
 		sql.append(" ,PUBLIC_FLG = ? ");
+		if("1".equals(param.get("publicFlg"))) {
+			sql.append(" ,PUBLIC_DATETIME = NOW() ");
+		} else {
+			sql.append(" ,PUBLIC_DATETIME = NULL ");
+		}
 		sql.append(" ,UPDATE_DATETIME  = NOW() ");
 		sql.append(" WHERE ID = ? ");
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());

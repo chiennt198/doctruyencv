@@ -27,6 +27,7 @@ var vueItem = new Vue({
     			window.location.href= contextPath + "/html/admin_story_search.html";
         		return;
     		}
+    		sessionStorage.removeItem("PARAM_CHAPTER_INFO");
     		var id = sessionStorage.getItem("PARAM_STORY_ID");
     		get(this, contextPath + "/admin-get-story-detail/" + id , {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
