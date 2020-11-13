@@ -98,7 +98,8 @@ header #logout .logout_message{
 	border-bottom: solid 1px #2B3C72;
 }
 .contents h3.abst_cat {
-	background-color: #D4C79E;
+	background-color: #2f85cf;
+	color: white;
 }
 .contents h3.live_list {
 	background-color:transparent;

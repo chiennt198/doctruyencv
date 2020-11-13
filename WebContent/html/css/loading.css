@@ -125,6 +125,19 @@
 	}
 	
 	.contents #video1{display : block !important; width: 320px !important;}
+	
+	.list_truyen span{
+		display: none;
+	}
+	
+	.list_truyen a {
+		display: inline-block;
+    	width: 275px;
+    	white-space: nowrap;
+   	 	overflow: hidden !important;
+   	 	text-overflow: ellipsis;
+	}
+	
 }
 
 div.list-adv:empty {
@@ -257,3 +270,50 @@ fieldset[disabled] .btn-primary-finish.focus {
     margin-right: 2.5em;
     padding: 0.25em 0.5em;
 }
+
+.list-adv-listpage {
+    text-align: center;
+    background: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1140px;
+    margin: auto;
+    padding: 0;
+}
+
+.list-adv-listpage.list-adv-lunchon div.adv_lunchon_a {
+    width: calc( 100% - 20px);
+}
+.list-adv-listpage.list-adv-lunchon div {
+    margin: 15px 10px 0;
+    display: block;
+/*     width: calc( 50% - 20px); */
+}
+
+.list-adv-lunchon div {
+	width: 240px;
+}
+
+/* .list_truyen { */
+/* 	border-bottom: solid 1px #2B3C72; */
+/* 	margin: 20px 0 20px 0; */
+/* } */
+
+.list_truyen a{
+	border-bottom: solid 1px #2B3C72;
+}
+
+
+.list_truyen a:hover{
+	background: #2f85cf;
+	color: white;
+}
+
+.list_truyen a:nth-child(odd) {
+	background: #85c7eb;
+}
+
+.list_truyen a:nth-child(even) {
+ 	background: #F4F4F4F4;
+}
+

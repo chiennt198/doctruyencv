@@ -1,36 +1,36 @@
-#menubar_hdr{
-	display: block;
-	position: absolute;
-	top: 5em;
-	left: 2em;
-	width: auto;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	background: #666;/*基本色666*/
-	padding: 0;
-}
+/* #menubar_hdr{ */
+/* 	display: block; */
+/* 	position: absolute; */
+/* 	top: 5em; */
+/* 	left: 2em; */
+/* 	width: auto; */
+/* 	border: 1px solid #ccc; */
+/* 	border-radius: 4px; */
+/* 	background: #666;基本色666 */
+/* 	padding: 0; */
+/* } */
 	
 	
-#menubar_hdr input{
-	display: none;
-}
-#menubar_hdr label{
-	padding: 4px 6px;
-	margin: 0;
-	display: block;
-	cursor: pointer;
-}
-#menubar_hdr span {
-	display: block;
-	border-top: 3px solid #fff;
-	margin: 6px;
-	width: 26px;
-}
+/* #menubar_hdr input{ */
+/* 	display: none; */
+/* } */
+/* #menubar_hdr label{ */
+/* 	padding: 4px 6px; */
+/* 	margin: 0; */
+/* 	display: block; */
+/* 	cursor: pointer; */
+/* } */
+/* #menubar_hdr span { */
+/* 	display: block; */
+/* 	border-top: 3px solid #fff; */
+/* 	margin: 6px; */
+/* 	width: 26px; */
+/* } */
 
-/*バーアイコン設定*/
-#menubar_hdr{
-	background: #191E38;
-}
+/* /*バーアイコン設定*/ */
+/* #menubar_hdr{ */
+/* 	background: #191E38; */
+/* } */
 
 /*画面幅1920px未満の設定*/
 @media screen and (max-width: 1919px){

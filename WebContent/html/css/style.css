@@ -256,7 +256,7 @@ header #logout .btn {
 	padding: 0 0 0 20px;
 }
 .main-contents p{
-	margin: 0px 20px 20px 20px;
+	margin: 0px;
 }
 .main-contents ul li,
 .main-contents ol li {
@@ -615,7 +615,7 @@ span.ol_answer{
 }
 
 div.movie_thum{
-	float: right;
+/* 	float: right; */
 	margin: 0 0 10px 0;
 }
 div.movie_thum img{
@@ -838,6 +838,7 @@ footer a:hover {
 		width:100%;
 		margin: 0 0 10px 0;
 	}
+	
 	.contents h3 {
 		font-size: 16px;
 		margin-bottom: 5px;
