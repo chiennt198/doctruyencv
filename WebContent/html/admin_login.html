@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!-- saved from url=(0088)http://www.kcs-grp.co.jp/test/joa_member_renewal/training/manual/facility_operation.html -->
+<html lang="ja"><!-- InstanceBegin template="/Templates/manual.dwt" codeOutsideHTMLIsLocked="false" --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="./img/favicon.ico">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>オンライン総会　管理側</title>
+<!-- InstanceEndEditable -->
+<!-- Bootstrap core CSS -->
+<link href="./css/bootstrap.css" rel="stylesheet">
+<link href="./css/bootstrap-theme.css" rel="stylesheet">
+<link href="./css/joa.css" rel="stylesheet">
+<link href="./css/joa_training.css" rel="stylesheet">
+<link href="./css/joa_training_manual.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+<link href="./css/loading.css" rel="stylesheet">
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.js" type="text/javascript"></script>
+ <script src="./js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+<script src="./js/vue.js" type="text/javascript"></script>
+<script src="./js/constants.js" type="text/javascript"></script>
+<script src="./js/validator.js" type="text/javascript"></script>
+<script src="./js/app.js" type="text/javascript"></script>
+<script src="../environ.js" type="text/javascript"></script>
+<!-- <script src="./js/joa.js"></script> -->
+<script src="./js/utils.js"></script>
+</head>
+
+<body role="document">
+
+<div id="header"></div>
+
+<div class="contents">
+			<div class="inner" id="main" v-cloak>
+				<section>
+					<h2>オンライン学術総会　管理側　ログイン</h2>
+					<p class="page_about">事務局ID・パスワードを入力してログインしてください。</p>
+					<p class="page_error" v-if="error_message" v-html="error_message" style="color: red;"></p>
+					
+					<div class="form-wrapper">
+						<form>
+							<div class="form-item">
+								<span class="input_name">事務局ID</span>
+								<input type="text" name="user" v-model="loginInfo.kaiinId" style="ime-mode: disabled;" v-on:keypress="loginEnter">
+							</div>
+							<div class="form-item">
+								<span class="input_pass">パスワード</span>
+								<input id="password" name="password" type="password" name="password" v-model="loginInfo.password" v-on:keypress="loginEnter">
+							</div>
+							
+							<input type="hidden" id="societyCd" value="1001" name="societyCd" >
+							
+							<div class="button-panel"> 
+								<a class="btn btn-block btn-lg btn-primary" style="cursor: pointer;" v-on:click="login" v-on:keypress="loginEnter">ログイン</a> 
+							</div>
+						</form>
+					</div>
+				</section>
+			</div>
+		</div>
+
+<!-- /container -->
+
+
+<p id="page-top" style="display: none;"><a href="http://www.kcs-grp.co.jp/test/joa_member_renewal/training/manual/facility_operation.html#">ページトップ<br>
+<span class="fa fa-chevron-up"></span></a></p>
+
+<script src="./js/bootbox.min.js" type="text/javascript"></script>
+<script src="./js/pages/admin_story_search.js" type="text/javascript"></script>
+</body></html>
