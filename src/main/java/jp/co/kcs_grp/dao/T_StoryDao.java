@@ -214,8 +214,8 @@ public class T_StoryDao{
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-	            rs = kps.executeQuery();
 	            kps.setString(1, id);
+	            rs = kps.executeQuery();
 	            if(rs != null && rs.next()) {
         		map =  new HashMap<>();
         		map.put("id",rs.getString("ID"));
