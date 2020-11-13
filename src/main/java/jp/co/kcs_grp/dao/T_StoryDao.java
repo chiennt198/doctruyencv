@@ -209,12 +209,13 @@ public class T_StoryDao{
 				sbSql.append(" ON st.STATUS =  mw1.CD ");
 				sbSql.append(" AND mw1.IDX =  1 ");
 				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
+				sbSql.append(" AND st.ID = ? ");
 				sbSql.append(" ORDER BY st.ID ");
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-	            int idx = 1;
 	            rs = kps.executeQuery();
+	            kps.setString(1, id);
 	            if(rs != null && rs.next()) {
         		map =  new HashMap<>();
         		map.put("id",rs.getString("ID"));
