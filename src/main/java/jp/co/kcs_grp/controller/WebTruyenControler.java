@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import jp.co.kcs_grp.base.DBAccess;
 import jp.co.kcs_grp.base.json.ObjectResponse;
 import jp.co.kcs_grp.common.Constants;
+import jp.co.kcs_grp.dao.M_AdminDao;
 import jp.co.kcs_grp.dao.M_CategoryDao;
 import jp.co.kcs_grp.dao.M_CategoryDaoImpl;
 import jp.co.kcs_grp.dao.M_WideDao;
@@ -23,6 +24,7 @@ public class WebTruyenControler {
 	private T_StoryDao storyDao = new T_StoryDao();
 	M_WideDao wideDao = new M_WideDao();
 	private T_ChaptersDao chapterDao = new T_ChaptersDao();
+	private M_AdminDao adminDao = new M_AdminDao();
 	public ObjectResponse getList() {
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
@@ -183,7 +185,7 @@ public class WebTruyenControler {
 		ObjectResponse objectResponse = new ObjectResponse();
 		 logger.info("start");
         try {
-        	objectResponse.setDataInfo(storyDao.search(cond));
+        	objectResponse.setDataInfo(adminDao.login(userId, password));
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();
         	e.printStackTrace(new PrintWriter(stack));
