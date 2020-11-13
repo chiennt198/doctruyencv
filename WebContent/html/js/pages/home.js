@@ -10,10 +10,10 @@ var vueItem = new Vue({
     },
     created : function() {
     	getContentMenu();
-    	this.search();
+    	this.getList();
     },
     methods: {
-    	search: function(){
+    	getList: function(){
     		
     	},
     },

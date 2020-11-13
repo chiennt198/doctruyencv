@@ -30,31 +30,6 @@
   display: none;
 }
 
-/* .black_overlay{ */
-/* 	display: none; */
-/* 	position: absolute; */
-/* 	top: 0%; */
-/* 	left: 0%; */
-/* 	width: 100%; */
-/* 	background-color: black; */
-/* 	z-index:1001; */
-/* 	-moz-opacity: 0.8; */
-/* 	opacity:1.0; */
-/* 	filter: alpha(opacity=80); */
-/* } */
-/* #loading { */
-/* 	display: none; */
-/* 	position: fixed; */
-/* 	top: 30%; */
-/* 	left: 40%; */
-/* 	padding: 16px; */
-/* 	width: 250px; */
-/* 	z-index:1002; */
-/* 	overflow: auto; */
-/* 	background-image: url('../img/ajax_loader.gif'); */
-/* 	background-repeat: no-repeat; */
-/* 	height: 8em; */
-/* } */
 .contents p.page_error {
 	margin: 0 0 20px 0;
 	border: solid 1px #E03333;/*基本色333*/
@@ -294,26 +269,18 @@ fieldset[disabled] .btn-primary-finish.focus {
 	width: 240px;
 }
 
-/* .list_truyen { */
-/* 	border-bottom: solid 1px #2B3C72; */
-/* 	margin: 20px 0 20px 0; */
-/* } */
-
-.list_truyen a{
-	border-bottom: solid 1px #2B3C72;
+.list_truyen a {
+	border-bottom: 1px dashed #ddd;
+	margin: 5px;
 }
 
-
-.list_truyen a:hover{
-	background: #2f85cf;
-	color: white;
-}
-
-.list_truyen a:nth-child(odd) {
-	background: #85c7eb;
-}
-
-.list_truyen a:nth-child(even) {
- 	background: #F4F4F4F4;
+.list_truyen a:hover:nth-child(odd), 
+.list_truyen a:hover:nth-child(even){
+	text-decoration: none !important;
+	color:#fff !important;
+	background: #78aade !important;
+	text-shadow:none !important;
+	font-size: 16px;
+	font-weight: bold;
 }
 

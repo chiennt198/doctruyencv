@@ -243,4 +243,89 @@ public class T_StoryDao{
 
 			return map;
 		}
+	 
+	 
+	 public List<Map<String,String>> getList(Map<String,String> cond) throws Exception {
+			DBAccess db = null;
+			ResultSet rs = null;
+			StringBuilder sbSql = null;
+			//開始ログ出力
+			List<Map<String,String>> list = new ArrayList<>();
+			Map<String,String> map = null;
+			log.warn("start");
+			try {
+				//データベース接続
+	            db = new DBAccess();
+	            if (!db.dbConnection()) {
+	                db.DBClose();
+	                throw new Exception("データベース接続が失敗です。");
+	            }
+	            
+				//SQL作成
+				sbSql = new StringBuilder();
+				sbSql.append(" SELECT ");
+				sbSql.append("  st.ID AS ID ");
+				sbSql.append(" ,IFNULL(st.NAME, '') AS STORY_NAME ");
+				sbSql.append(" ,IFNULL(tc.ID,'') AS CHAPTERS_ID ");
+				sbSql.append(" ,IFNULL(tc.NAME,'') AS CHAPTER_NAME ");
+
+				sbSql.append(" CASE   ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(YEAR, tc.UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(YEAR, tc.UPDATE_DATETIME, NOW()),' năm trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(MONTH, tc.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MONTH, tc.UPDATE_DATETIME, NOW()),' tháng trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(DAY, tc.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(DAY, tc.UPDATE_DATETIME, NOW()),' ngày trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(HOUR, tc.UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(HOUR, tc.UPDATE_DATETIME, NOW()),' tiếng trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(MINUTE, tc.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MINUTE, tc.UPDATE_DATETIME, NOW()),' phút trước')  ");
+				sbSql.append("	ELSE '1 phút trước'  ");
+				sbSql.append(" END AS UPDATE_CHAPTER_TIME ");
+
+				sbSql.append(" FROM T_STORIES as st ");
+
+				sbSql.append(" LEFT JOIN T_CHAPTERS as tc ");
+				sbSql.append(" ON tc.STORY_ID = st.ID  ");
+
+				sbSql.append(" INNER JOIN (  ");
+				sbSql.append(" SELECT MAX(ID) AS CHAPTERS_ID, STORY_ID FROM T_CHAPTERS GROUP BY STORY_ID ");
+				sbSql.append(" ) AS CHAPTERS_TEMP  ");
+				sbSql.append(" ON CHAPTERS_TEMP.CHAPTERS_ID = tc.ID ");
+				sbSql.append(" AND CHAPTERS_TEMP.STORY_ID =  tc.STORY_ID ");
+
+				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
+
+				sbSql.append(" AND st.PUBLIC_FLG = '1' ");
+				
+				sbSql.append(" AND st.PUBLIC_DATETIME >= NOW() ");
+				
+				sbSql.append(" ORDER BY STORY_ID DESC ");
+
+				KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
+	            rs = kps.executeQuery();
+	            if(rs != null) {
+	            	while (rs.next()) {
+	            		map =  new HashMap<>();
+	            		map.put("id",rs.getString("ID"));
+	            		map.put("storyName",rs.getString("STORY_NAME"));
+	            		map.put("statusName",rs.getString("STATUS_NAME"));
+	            		map.put("chaptersId",rs.getString("CHAPTERS_ID"));
+	            		map.put("chapterName",rs.getString("CHAPTER_NAME"));
+	            		list.add(map);
+					}
+	            	
+	            	//ResultSetのクローズ
+					rs.close();
+	            }
+				
+			} catch(Exception e) {
+				StringWriter stack = new StringWriter();
+	        	e.printStackTrace(new PrintWriter(stack));
+	        	log.error(stack.toString());
+	            throw e;
+			} finally {
+				//データベース切断
+				db.DBClose();
+				//終了ログ出力
+				log.warn("end");
+			}
+
+			return list;
+		}
 }
