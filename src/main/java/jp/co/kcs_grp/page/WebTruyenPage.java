@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import jp.co.kcs_grp.controller.WebTruyenControler;
+import jp.co.kcs_grp.utils.BeanUtils;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -111,6 +112,15 @@ public class WebTruyenPage {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 return webTruyenControler.getChapterDetail(request.queryParams("storyId"), request.queryParams("chapterId"));
+            }
+        };
+    }
+    
+    public Route getStoryItems() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getStoryItems(BeanUtils.mapBeanData(request.queryMap().toMap()));
             }
         };
     }

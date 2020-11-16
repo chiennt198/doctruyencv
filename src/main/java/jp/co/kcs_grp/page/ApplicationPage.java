@@ -78,6 +78,7 @@ public class ApplicationPage implements SparkApplication {
 		Spark.get("/get-category-list", webPage.getCategoryList(), new JsonTransformer());
 		Spark.get("/get-m-wide-list/:idx", webPage.getMWideList(), new JsonTransformer());
 		Spark.post("/get-chapter-detail", webPage.getChapterDetail(), new JsonTransformer());
+		Spark.get("/get-story-items", webPage.getStoryItems(), new JsonTransformer());
 	}
 
 	

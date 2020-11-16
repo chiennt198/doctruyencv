@@ -2,7 +2,11 @@ package jp.co.kcs_grp.controller;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 
@@ -186,6 +190,36 @@ public class WebTruyenControler {
 		 logger.info("start");
         try {
         	objectResponse.setDataInfo(adminDao.login(userId, password));
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
+	
+	public ObjectResponse getStoryItems(Map<String,String> cond) {
+		logger.info("start");
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	
+        	Map<String, Object> storyItem = new HashMap<>();
+        	
+        	List<Map<String,String>> storyList = storyDao.getList(cond);
+        	
+        	if ( storyList.size() > 0) {
+        		List<Map<String,String>> storyNominationsList = new Random().ints(4, 0, storyList.size()).distinct()
+            			.mapToObj(i -> storyList.get(i)).collect(Collectors.toList());
+        		
+        		storyItem.put("storyList", storyList);
+        		storyItem.put("storyNominationsList", storyNominationsList);
+        		objectResponse.setDataInfo(storyItem);
+        	} else {
+        		objectResponse.setStatus(Constants.RESPONSE_STATUS_NO_DATA);
+        	}
+        	
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();
         	e.printStackTrace(new PrintWriter(stack));

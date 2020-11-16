@@ -9,13 +9,17 @@
 
 package jp.co.kcs_grp.utils;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.log4j.Logger;
@@ -169,5 +173,32 @@ public class BeanUtils
         }
 
         return retVal;
+    }
+    
+    /**
+     * Set data from Map<String, String[]> to Map<String, String>
+     * @param Map<String, String[]>
+     * @return
+     */
+    public static Map<String, String> mapBeanData(Map<String, String[]> map) {
+        logger.info("start");
+        Map<String, String> rtnMap = new HashMap<>();
+        
+        if (map == null ||  (map != null && map.isEmpty()) ) {
+        	return rtnMap;
+        }
+
+        for (Entry<String, String[]> entry : map.entrySet()) {
+        	 try {
+        		 rtnMap.put(entry.getKey(), map.get(entry.getKey())[0]);
+             } catch (Exception e) {
+            	 StringWriter stack = new StringWriter();
+                 e.printStackTrace(new PrintWriter(stack));
+                 logger.error(stack.toString());
+ 			} 
+        }
+        logger.info("end");
+        return rtnMap;
+
     }
 }

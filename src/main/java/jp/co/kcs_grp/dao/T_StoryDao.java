@@ -264,12 +264,13 @@ public class T_StoryDao{
 				//SQL作成
 				sbSql = new StringBuilder();
 				sbSql.append(" SELECT ");
-				sbSql.append("  st.ID AS ID ");
+				sbSql.append("  st.ID AS STORY_ID ");
 				sbSql.append(" ,IFNULL(st.NAME, '') AS STORY_NAME ");
 				sbSql.append(" ,IFNULL(tc.ID,'') AS CHAPTERS_ID ");
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS CHAPTER_NAME ");
-
-				sbSql.append(" CASE   ");
+				sbSql.append(" ,IFNULL(st.LINK_IMG, '') AS LINK_IMG ");
+				
+				sbSql.append(" ,CASE   ");
 				sbSql.append("	WHEN TIMESTAMPDIFF(YEAR, tc.UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(YEAR, tc.UPDATE_DATETIME, NOW()),' năm trước')  ");
 				sbSql.append("	WHEN TIMESTAMPDIFF(MONTH, tc.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MONTH, tc.UPDATE_DATETIME, NOW()),' tháng trước')  ");
 				sbSql.append("	WHEN TIMESTAMPDIFF(DAY, tc.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(DAY, tc.UPDATE_DATETIME, NOW()),' ngày trước')  ");
@@ -293,7 +294,7 @@ public class T_StoryDao{
 
 				sbSql.append(" AND st.PUBLIC_FLG = '1' ");
 				
-				sbSql.append(" AND st.PUBLIC_DATETIME >= NOW() ");
+				sbSql.append(" AND st.PUBLIC_DATETIME <= NOW() ");
 				
 				sbSql.append(" ORDER BY STORY_ID DESC ");
 
@@ -302,11 +303,12 @@ public class T_StoryDao{
 	            if(rs != null) {
 	            	while (rs.next()) {
 	            		map =  new HashMap<>();
-	            		map.put("id",rs.getString("ID"));
+	            		map.put("storyId",rs.getString("STORY_ID"));
 	            		map.put("storyName",rs.getString("STORY_NAME"));
-	            		map.put("statusName",rs.getString("STATUS_NAME"));
 	            		map.put("chaptersId",rs.getString("CHAPTERS_ID"));
 	            		map.put("chapterName",rs.getString("CHAPTER_NAME"));
+	            		map.put("linkImg",rs.getString("LINK_IMG"));
+	            		map.put("updateChapterTime",rs.getString("UPDATE_CHAPTER_TIME"));
 	            		list.add(map);
 					}
 	            	

@@ -60,57 +60,28 @@
 					
 					<h3 class="abst_cat">TRUYỆN ĐỀ CỬ</h3>
 					
-					<div class="list-adv-listpage list-adv-lunchon">
-						<div>
-							<a href="javascript:void(0)"><img src="./img_truyen/vo_thuong_sat_than.jpg" alt=""></a>
-							<p class="speaker_right">Thiên Là Hồng Trần Ngạn Thiên Là Hồng Trần Ngạn Thiên Là Hồng Trần Ngạn</p>
-						</div>
-						
-						<div>
-							<a href="javascript:void(0)"><img src="./img_truyen/vo_thuong_sat_than.jpg" alt=""></a>
-							<p class="speaker_right">Thiên Là Hồng Trần Ngạn</p>
-						</div>
-						
-						<div>
-							<a href="javascript:void(0)"><img src="./img_truyen/vo_thuong_sat_than.jpg" alt=""></a>
-							<p class="speaker_right">Thiên Là Hồng Trần Ngạn</p>
-						</div>
-						
-						<div>
-							<a href="javascript:void(0)"><img src="./img_truyen/vo_thuong_sat_than.jpg" alt=""></a>
-							<p class="speaker_right">Thiên Là Hồng Trần Ngạn</p>
+					<div v-show="storyNominationsCnt > 0" class="list-adv-listpage list-adv-lunchon">
+						<div v-for="(item,index) in storyNominationsList">
+							<a href="javascript:void(0)">
+								<img :src="item.linkImg" alt="">
+							</a>
+							<p class="speaker_right">{{ item.storyName }}</p>
 						</div>
 					</div>
 					
 					<h3 class="abst_cat">TRUYỆN MỚI CẬP NHẬT</h3>
 					
-					<div class="list_truyen">
-						<a class="col-xs-12" href="javascript:void(0)">
-							<span class="col-xs-8">Cô Vợ Thần Bí Muốn Chạy Đâu</span>
-							<span class="col-xs-2">Chương 80</span>
-							<span class="col-xs-2">1 giờ trước</span>
+					<div v-show="dataCount > 0" class="list_truyen">
+						<a class="col-xs-12" href="javascript:void(0)" v-for="(story,index) in filteredList">
+							<span class="col-xs-4">{{ story.storyName }}</span>
+							<span class="col-xs-6">{{ story.chapterName }}</span>
+							<span class="col-xs-2">{{ story.updateChapterTime }}</span>
 						</a>
 						
-						<a class="col-xs-12" href="javascript:void(0)">
-							<span class="col-xs-8">Cô Vợ Thần Bí Muốn Chạy Đâu</span>
-							<span class="col-xs-2">Chương 80</span>
-							<span class="col-xs-2">1 giờ trước</span>
-						</a>
-						
-						<a class="col-xs-12" href="javascript:void(0)">
-							<span class="col-xs-8">Hôn Nhân Mỏng Manh, Chồng Trước Quá Ngang Tàng</span>
-							<span class="col-xs-2">Chương 80</span>
-							<span class="col-xs-2">1 giờ trước</span>
-						</a>
-						
-						
-						<a class="col-xs-12" href="javascript:void(0)">
-							<span class="col-xs-8">Đại Mộng Chủ</span>
-							<span class="col-xs-2">Chương 80</span>
-							<span class="col-xs-2">1 giờ trước</span>
-						</a>
+						<div v-if="totalPages > 1" id="pagination"></div>
 					</div>
-						
+					
+					
 					
 				</div>
 				
