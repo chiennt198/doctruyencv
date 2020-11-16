@@ -284,3 +284,8 @@ fieldset[disabled] .btn-primary-finish.focus {
 	font-weight: bold;
 }
 
+.pagination {
+	margin:0px !important;
+	padding: 0px !important;
+	padding-top: 7px !important;
+}

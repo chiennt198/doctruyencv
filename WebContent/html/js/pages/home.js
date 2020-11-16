@@ -6,7 +6,7 @@ var vueItem = new Vue({
     	filteredList:[],
     	dataCount:0,
     	currentPage: 0,
-		itemsPerPage: ITEMS_PER_PAGE,
+		itemsPerPage: 1,
 		storyNominationsList:[],
 		storyNominationsCnt:0,
     },
@@ -42,7 +42,7 @@ var vueItem = new Vue({
     				$('#pagination').twbsPagination('destroy');
     				$('#pagination').twbsPagination({
 			            totalPages: this_.totalPages,
-			            visiblePages: this_.itemsPerPage,
+			            visiblePages: 3,
 			            startPage : Number(this_.currentPage) + 1,
 			            onPageClick: function (event, page) {
 			            	this_.setPage(page -1);

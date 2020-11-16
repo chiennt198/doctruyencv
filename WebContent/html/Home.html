@@ -77,10 +77,9 @@
 							<span class="col-xs-6">{{ story.chapterName }}</span>
 							<span class="col-xs-2">{{ story.updateChapterTime }}</span>
 						</a>
-						
-						<div v-if="totalPages > 1" id="pagination"></div>
 					</div>
 					
+					<div v-show="totalPages > 1" id="pagination"></div>
 					
 					
 				</div>
