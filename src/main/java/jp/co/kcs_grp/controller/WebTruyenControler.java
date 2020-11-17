@@ -313,4 +313,19 @@ public class WebTruyenControler {
         logger.info("end");
         return objectResponse;
     }
+	
+	public ObjectResponse getStoryList(Map<String, String> mapCond) {
+		logger.info("start");
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	objectResponse.setDataInfo(storyDao.getList(mapCond));
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
 }

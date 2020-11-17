@@ -152,4 +152,13 @@ public class WebTruyenPage {
         };
     }
     
+    public Route getStoryList() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getStoryList(BeanUtils.mapBeanData(request.queryMap().toMap()));
+            }
+        };
+    }
+    
 }

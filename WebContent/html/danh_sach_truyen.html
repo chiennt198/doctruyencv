@@ -81,11 +81,12 @@
 						
 						<dt>Sắp xếp</dt>
 						<dd>
-							<select class="form_word_small" v-model="condInfo.orderStori">
+							<select class="form_word_small" v-model="condInfo.orderKey">
 								<option value=""></option>
-								<option :value="1">Mới Đăng</option>
-								<option :value="2">Lượt Đọc</option>
-								<option :value="3">Số chương</option>
+								<option value="1">Mới đăng</option>
+								<option value="2">Mới cập nhật</option>
+								<option value="3">Lượt đọc</option>
+								<option value="4">Số chương</option>
 							</select>
 						</dd>
 						
@@ -102,14 +103,14 @@
 					</dl>
 					
 					<p class="btn_center">
-						<a class="btn btn-lg btn-primary" href="javascript:void(0)"><span class="fa fa-search"></span>Tìm kiếm</a>
+						<a class="btn btn-lg btn-primary" href="javascript:void(0)" v-on:click="getStoryList"><span class="fa fa-search"></span>Tìm kiếm</a>
 					</p>
 				
 					<h3>Hiện có {{ dataCount }} truyện</h3>
 				
 					<div v-if="dataCount > 0" class="movie_block clearfix">
 						<div class="list_truyen">
-							<a class="col-xs-12" href="javascript:void(0)" v-for="(chapter,index) in filteredList" v-on:click="getChapter(chapter.id)">
+							<a class="col-xs-12" href="javascript:void(0)" v-for="(chapter,index) in filteredList" v-on:click="getStory(chapter.id)">
 								<span class="col-xs-10">{{ chapter.name }}</span>
 								<span class="col-xs-2">{{ chapter.updateChapterTime }}</span>
 							</a>

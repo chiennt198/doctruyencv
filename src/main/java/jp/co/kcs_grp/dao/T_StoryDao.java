@@ -205,7 +205,13 @@ public class T_StoryDao{
 				sbSql.append(" ,IFNULL(mw1.NAME,'') AS STATUS_NAME ");
 				sbSql.append(" ,IFNULL(st.LINK_IMG,'') AS LINK_IMG ");
 				sbSql.append(" ,IFNULL(st.PUBLIC_FLG,'0') AS PUBLIC_FLG ");
+				sbSql.append(" ,IFNULL(tc.ID,'') AS CHAPTER_ID ");
+				sbSql.append(" ,IFNULL(tc.NAME,'') AS CHAPTER_NAME ");
 				sbSql.append(" FROM T_STORIES st ");
+				
+				sbSql.append(" LEFT JOIN T_CHAPTERS as tc ");
+				sbSql.append(" ON tc.STORY_ID = st.ID  ");
+				sbSql.append(" AND tc.ID = st.NEWEST_CHAPTER_ID  ");
 				
 				sbSql.append(" LEFT JOIN M_WIDE mw1 ");
 				sbSql.append(" ON st.STATUS =  mw1.CD ");
@@ -234,6 +240,9 @@ public class T_StoryDao{
         		map.put("statusName",rs.getString("STATUS_NAME"));
         		map.put("linkImg",rs.getString("LINK_IMG"));
         		map.put("publicFlg",rs.getString("PUBLIC_FLG"));
+        		map.put("chapterName",rs.getString("CHAPTER_NAME"));
+        		map.put("chapterId",rs.getString("CHAPTER_ID"));
+        		
 	            }
 				
 			} catch(Exception e) {
@@ -276,34 +285,57 @@ public class T_StoryDao{
 				sbSql.append(" ,IFNULL(tc.ID,'') AS CHAPTERS_ID ");
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS CHAPTER_NAME ");
 				sbSql.append(" ,IFNULL(st.LINK_IMG, '') AS LINK_IMG ");
-				
 				sbSql.append(" ,CASE   ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(YEAR, tc.UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(YEAR, tc.UPDATE_DATETIME, NOW()),' năm trước')  ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(MONTH, tc.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MONTH, tc.UPDATE_DATETIME, NOW()),' tháng trước')  ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(DAY, tc.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(DAY, tc.UPDATE_DATETIME, NOW()),' ngày trước')  ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(HOUR, tc.UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(HOUR, tc.UPDATE_DATETIME, NOW()),' tiếng trước')  ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(MINUTE, tc.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MINUTE, tc.UPDATE_DATETIME, NOW()),' phút trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(YEAR, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(YEAR, st.NEWEST_UPDATE_DATETIME, NOW()),' năm trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(MONTH, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MONTH, st.NEWEST_UPDATE_DATETIME, NOW()),' tháng trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(DAY, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(DAY, st.NEWEST_UPDATE_DATETIME, NOW()),' ngày trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(HOUR, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(HOUR, st.NEWEST_UPDATE_DATETIME, NOW()),' tiếng trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(MINUTE, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MINUTE, st.NEWEST_UPDATE_DATETIME, NOW()),' phút trước')  ");
 				sbSql.append("	ELSE '1 phút trước'  ");
 				sbSql.append(" END AS UPDATE_CHAPTER_TIME ");
 
 				sbSql.append(" FROM T_STORIES as st ");
-
+				
 				sbSql.append(" LEFT JOIN T_CHAPTERS as tc ");
 				sbSql.append(" ON tc.STORY_ID = st.ID  ");
-
-				sbSql.append(" INNER JOIN (  ");
-				sbSql.append(" SELECT MAX(ID) AS CHAPTERS_ID, STORY_ID FROM T_CHAPTERS GROUP BY STORY_ID ");
-				sbSql.append(" ) AS CHAPTERS_TEMP  ");
-				sbSql.append(" ON CHAPTERS_TEMP.CHAPTERS_ID = tc.ID ");
-				sbSql.append(" AND CHAPTERS_TEMP.STORY_ID =  tc.STORY_ID ");
-
+				sbSql.append(" AND tc.ID = st.NEWEST_CHAPTER_ID  ");
+				
 				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
 
 				sbSql.append(" AND st.PUBLIC_FLG = '1' ");
 				
 				sbSql.append(" AND st.PUBLIC_DATETIME <= NOW() ");
 				
-				sbSql.append(" ORDER BY STORY_ID DESC ");
+				if ( StringUtils.isNotEmpty(cond.get("categoryId")) ) {
+					sbSql.append(" AND st.CATEGORY_ID = ? ");
+				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("status")) ) {
+					sbSql.append(" AND st.STATUS = ? ");		
+				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("authorName")) ) {
+					sbSql.append(" AND st.AUTHOR_NAME = ? ");		
+				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("name")) ) {
+					sbSql.append(" AND st.NAME = ? ");		
+				}
+				
+				sbSql.append(" GROUP BY STORY_ID ");	
+				
+				
+				if ( StringUtils.equals("1", cond.get("orderKey"))) {
+					sbSql.append(" ORDER BY st.INSERT_DATETIME DESC ");
+				} else if ( StringUtils.equals("2", cond.get("orderKey"))) {
+					sbSql.append(" ORDER BY tc.UPDATE_DATETIME DESC ");
+				} else if ( StringUtils.equals("3", cond.get("orderKey"))) {
+					sbSql.append(" ORDER BY COUNT(tw.STORY_ID) DESC ");
+				} else if ( StringUtils.equals("4", cond.get("orderKey"))) {
+					sbSql.append(" ORDER BY COUNT(tw.STORY_ID) DESC ");
+				} else {
+					sbSql.append(" ORDER BY STORY_ID DESC ");
+				}
 
 				KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
 	            rs = kps.executeQuery();

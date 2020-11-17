@@ -83,6 +83,7 @@ public class ApplicationPage implements SparkApplication {
 		Spark.get("/get-story-info/:storyId", webPage.getStoryInfo(), new JsonTransformer());
 		Spark.get("/get-chapter-list/:storyId", webPage.getChapterList(), new JsonTransformer());
 		Spark.get("/get-chapter-details/:storyId/:chapterId", webPage.getChapterInfo(), new JsonTransformer());
+		Spark.get("/get-story-list", webPage.getStoryList(), new JsonTransformer());
 	}
 
 }

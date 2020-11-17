@@ -66,18 +66,23 @@
 						<div class="movie_info float_right">
 							<h4>
 								<span class="prg"><a href="javascript:void(0)">{{ storyInfo.name }}</a></span>
+								
+								<p>
+									<span v-if="storyInfo.authorName" class="btn btn-xs btn-decision">Tác giả: {{ storyInfo.authorName }}</span>
+									
+									<span v-if="storyInfo.categoryName" class="btn btn-xs btn-decision">Thể loại: {{ storyInfo.categoryName }}</span>
+									
+									<span v-if="storyInfo.statusName" class="btn btn-xs btn-decision">Tình trạng: {{ storyInfo.statusName }}</span>
+								</p>
 							</h4>
+							
 							<p class="speaker">Số chương: {{ dataCount }}</p>
-							<p>
-								<span v-if="storyInfo.authorName" class="btn btn-xs btn-decision">Tác giả: {{ storyInfo.authorName }}</span>
-								
-								<span v-if="storyInfo.categoryName" class="btn btn-xs btn-decision">Thể loại: {{ storyInfo.categoryName }}</span>
-								
-								<span v-if="storyInfo.statusName" class="btn btn-xs btn-decision">Tình trạng: {{ storyInfo.statusName }}</span>
+							<p class="speaker" v-if="dataCount > 0">
+								Chương mới nhất: <a href="javascript:void(0)" v-on:click="getChapter(storyInfo.chapterId)"> {{ storyInfo.chapterName }}</a>
 							</p>
 							
 							<p class="sp_right_center">
-								<a class="btn btn-sm btn-primary" href="javascript:void(0)"><i class="fa fa-file-text"></i>Đọc truyện</a>
+								<a class="btn btn-sm btn-primary" href="javascript:void(0)" v-on:click="getChapter(chapterList[dataCount - 1].id)"><i class="fa fa-file-text"></i>Đọc truyện</a>
 							</p>
 						</div>
 					</div>

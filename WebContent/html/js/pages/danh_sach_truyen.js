@@ -10,7 +10,7 @@ var vueItem = new Vue({
 		categoryList:[],
 		statusList:[],
 		condInfo:{
-			orderStori: '1',
+			orderStory: '1',
 		},
     },
     created : function() {
@@ -48,30 +48,28 @@ var vueItem = new Vue({
     			this.condInfo.categoryId = sessionStorage.getItem("PARAM_CATEGORY_ID");
     		}
     		
-//    		get(this, contextPath + "/get-story-info/" + sessionStorage.getItem("PARAM_STORY_ID") , {}, function(data) {
-//    			if (data.status == STATUS_NORMAL) {
-//    				var storyItems = data.dataInfo;
-//    				this.storyInfo = storyItems.storyInfo;
-//    				this.chapterList = storyItems.chapterList;
-//    				
-//    				if ( this.storyList != null ) {
-//    					this.dataCount = this.chapterList.length;
-//    					this.sortList();
-//    					$('#pagination').twbsPagination('destroy');
-//        				$('#pagination').twbsPagination({
-//    			            totalPages: this_.totalPages,
-//    			            visiblePages: 3,
-//    			            startPage : Number(this_.currentPage) + 1,
-//    			            onPageClick: function (event, page) {
-//    			            	this_.setPage(page -1);
-//    			            }
-//        				 });
-//    				}
-//    				
-//    			} else {
-//    				this.error_message = data.errorMessage;
-//    			}
-//    		});
+    		get(this, contextPath + "/get-story-list", {}, function(data) {
+    			if (data.status == STATUS_NORMAL) {
+    				this.storyList = data.dataInfo;
+    				
+    				if ( this.storyList != null ) {
+    					this.dataCount = this.storyList.length;
+    					this.sortList();
+    					$('#pagination').twbsPagination('destroy');
+        				$('#pagination').twbsPagination({
+    			            totalPages: this_.totalPages,
+    			            visiblePages: 3,
+    			            startPage : Number(this_.currentPage) + 1,
+    			            onPageClick: function (event, page) {
+    			            	this_.setPage(page -1);
+    			            }
+        				 });
+    				}
+    				
+    			} else {
+    				this.error_message = data.errorMessage;
+    			}
+    		});
     	},
     	sortList: function(){
     		var _el = this;
@@ -82,9 +80,9 @@ var vueItem = new Vue({
     		this.currentPage = pageNumber;
 			this.sortList();
     	},
-    	getChapter: function(chapterId){
-    		sessionStorage.setItem("PARAM_CHAPTER_ID", chapterId);
-    		window.location.href= contextPath + "/html/doc_truyen.html";
+    	getStory: function(storyId){
+    		sessionStorage.setItem("PARAM_STORY_ID",storyId);
+    		window.location.href= contextPath + "/html/truyen.html";
     	},
     },
     computed : {
