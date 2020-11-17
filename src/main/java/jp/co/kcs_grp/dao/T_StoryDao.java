@@ -199,15 +199,21 @@ public class T_StoryDao{
 				sbSql.append(" ,IFNULL(st.NAME,'') AS NAME ");
 				sbSql.append(" ,IFNULL(st.DESCRIPTION,'') AS DESCRIPTION ");
 				sbSql.append(" ,IFNULL(st.CATEGORY_ID,'') AS CATEGORY_ID ");
+				sbSql.append(" ,IFNULL(mc.CATEGORY_NAME,'') AS CATEGORY_NAME ");
 				sbSql.append(" ,IFNULL(st.AUTHOR_NAME,'') AS AUTHOR_NAME ");
 				sbSql.append(" ,IFNULL(st.STATUS,'') AS STATUS ");
 				sbSql.append(" ,IFNULL(mw1.NAME,'') AS STATUS_NAME ");
 				sbSql.append(" ,IFNULL(st.LINK_IMG,'') AS LINK_IMG ");
 				sbSql.append(" ,IFNULL(st.PUBLIC_FLG,'0') AS PUBLIC_FLG ");
 				sbSql.append(" FROM T_STORIES st ");
+				
 				sbSql.append(" LEFT JOIN M_WIDE mw1 ");
 				sbSql.append(" ON st.STATUS =  mw1.CD ");
 				sbSql.append(" AND mw1.IDX =  1 ");
+				
+				sbSql.append(" LEFT JOIN M_CATEGORY mc ");
+				sbSql.append(" ON mc.CATEGORY_ID = st.CATEGORY_ID ");
+				
 				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
 				sbSql.append(" AND st.ID = ? ");
 				sbSql.append(" ORDER BY st.ID ");
@@ -222,6 +228,7 @@ public class T_StoryDao{
         		map.put("name",rs.getString("NAME"));
         		map.put("description",rs.getString("DESCRIPTION"));
         		map.put("categoryId",rs.getString("CATEGORY_ID"));
+        		map.put("categoryName",rs.getString("CATEGORY_NAME"));
         		map.put("authorName",rs.getString("AUTHOR_NAME"));
         		map.put("status",rs.getString("STATUS"));
         		map.put("statusName",rs.getString("STATUS_NAME"));

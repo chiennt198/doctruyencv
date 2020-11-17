@@ -88,9 +88,7 @@ header #logout .logout_message{
 /*コンテンツ*/
 /*見出し*/
 .contents h2 {
-	background: #0b294a url(../img/h2_bg.jpg);
-	background-repeat: no-repeat;
-	background-position: top right;
+	background: #2f85cf;
 	text-shadow: 2px 2px 5px rgb(25, 25, 25);
 }
 .contents h3 {

@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import jp.co.kcs_grp.base.DBAccess;
@@ -219,6 +220,89 @@ public class WebTruyenControler {
         	} else {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_NO_DATA);
         	}
+        	
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
+	
+	
+	
+	public ObjectResponse getChapterList(String storyId) {
+		logger.info("start");
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	
+        	if ( StringUtils.isEmpty(storyId) ) {
+        		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
+        		return objectResponse;
+        	}
+        	
+        	Map<String,String> cond = new HashMap<>();
+        	cond.put("storyId", storyId);
+        	
+        	objectResponse.setDataInfo(chapterDao.search(cond));
+        	
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
+	
+	public ObjectResponse getStoryInfo(String storyId) {
+		logger.info("start");
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	
+        	if ( StringUtils.isEmpty(storyId) ) {
+        		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
+        		return objectResponse;
+        	}
+        	Map<String,String> storyInfo = storyDao.getByKey(storyId);
+        	
+        	if (storyInfo == null || ( storyInfo != null && storyInfo.isEmpty()) ) {
+        		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
+        		return objectResponse;
+        	}
+        	
+        	Map<String,String> cond = new HashMap<>();
+        	cond.put("storyId", storyId);
+        	
+        	Map<String,Object> rtnMap = new HashMap<>();
+        	rtnMap.put("storyInfo", storyInfo);
+        	rtnMap.put("chapterList", chapterDao.search(cond));
+        	objectResponse.setDataInfo(rtnMap);
+        	
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
+	
+	public ObjectResponse getChapterInfo(String storyId, String chapterId) {
+		logger.info("start");
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	
+        	if ( StringUtils.isEmpty(storyId) || StringUtils.isEmpty(chapterId)) {
+        		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
+        		return objectResponse;
+        	}
+        	
+        	objectResponse.setDataInfo(chapterDao.getByKey(storyId, chapterId));
         	
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();

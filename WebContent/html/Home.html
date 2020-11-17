@@ -72,7 +72,7 @@
 					<h3 class="abst_cat">TRUYỆN MỚI CẬP NHẬT</h3>
 					
 					<div v-show="dataCount > 0" class="list_truyen">
-						<a class="col-xs-12" href="javascript:void(0)" v-for="(story,index) in filteredList">
+						<a class="col-xs-12" href="javascript:void(0)" v-for="(story,index) in filteredList" v-on:click="getStory(story.storyId)">
 							<span class="col-xs-4">{{ story.storyName }}</span>
 							<span class="col-xs-6">{{ story.chapterName }}</span>
 							<span class="col-xs-2">{{ story.updateChapterTime }}</span>

@@ -6,7 +6,7 @@ var vueItem = new Vue({
     	filteredList:[],
     	dataCount:0,
     	currentPage: 0,
-		itemsPerPage: 1,
+		itemsPerPage: ITEMS_PER_PAGE,
 		storyNominationsList:[],
 		storyNominationsCnt:0,
     },
@@ -33,23 +33,20 @@ var vueItem = new Vue({
     				
     				if (this.storyList != null) {
     					this.dataCount = this.storyList.length;
+    					$('#pagination').twbsPagination('destroy');
+        				$('#pagination').twbsPagination({
+    			            totalPages: this_.totalPages,
+    			            visiblePages: 3,
+    			            startPage : Number(this_.currentPage) + 1,
+    			            onPageClick: function (event, page) {
+    			            	this_.setPage(page -1);
+    			            }
+        				 });
     				}
     				
     				if (this.storyNominationsList != null) {
     					this.storyNominationsCnt = this.storyNominationsList.length;
     				}
-    				
-    				$('#pagination').twbsPagination('destroy');
-    				$('#pagination').twbsPagination({
-			            totalPages: this_.totalPages,
-			            visiblePages: 3,
-			            startPage : Number(this_.currentPage) + 1,
-			            onPageClick: function (event, page) {
-			            	this_.setPage(page -1);
-			            }
-    				 });
-    				
-    				
     				
     			} else {
     				this.error_message = data.errorMessage;
@@ -64,6 +61,10 @@ var vueItem = new Vue({
     	setPage: function(pageNumber) {
     		this.currentPage = pageNumber;
 			this.sortList();
+    	},
+    	getStory: function(storyId){
+    		sessionStorage.setItem("PARAM_STORY_ID",storyId);
+    		window.location.href= contextPath + "/html/Story.html";
     	},
     },
     computed : {

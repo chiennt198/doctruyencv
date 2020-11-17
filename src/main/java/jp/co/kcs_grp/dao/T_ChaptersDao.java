@@ -145,6 +145,16 @@ public class T_ChaptersDao {
 				sbSql.append(" ,IFNULL(NAME,'') AS NAME ");
 				sbSql.append(" ,IFNULL(STORY_ID,'') AS STORY_ID ");
 				sbSql.append(" ,IFNULL(CONTENT,'') AS CONTENT ");
+				
+				sbSql.append(" ,CASE   ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(YEAR, UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(YEAR, UPDATE_DATETIME, NOW()),' năm trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(MONTH, UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MONTH, UPDATE_DATETIME, NOW()),' tháng trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(DAY, UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(DAY, UPDATE_DATETIME, NOW()),' ngày trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(HOUR, UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(HOUR, UPDATE_DATETIME, NOW()),' tiếng trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(MINUTE, UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MINUTE, UPDATE_DATETIME, NOW()),' phút trước')  ");
+				sbSql.append("	ELSE '1 phút trước'  ");
+				sbSql.append(" END AS UPDATE_CHAPTER_TIME ");
+				
 				sbSql.append(" FROM T_CHAPTERS st ");
 				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
 				if(StringUtils.isNotBlank(cond.get("storyId"))) {
@@ -157,7 +167,7 @@ public class T_ChaptersDao {
 				if(StringUtils.isNotBlank(cond.get("status"))) {
 					sbSql.append(" AND st.STATUS like ? ");
 				}
-				sbSql.append(" ORDER BY st.ID ");
+				sbSql.append(" ORDER BY st.ID DESC ");
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
@@ -178,6 +188,8 @@ public class T_ChaptersDao {
 	            		map =  new HashMap<>();
 	            		map.put("id",rs.getString("ID"));
 	            		map.put("name",rs.getString("NAME"));
+	            		map.put("updateChapterTime",rs.getString("UPDATE_CHAPTER_TIME"));
+	            		map.put("content",rs.getString("CONTENT"));
 	            		list.add(map);
 					}
 	            	//ResultSetのクローズ
@@ -217,25 +229,43 @@ public class T_ChaptersDao {
 				//SQL作成
 				sbSql = new StringBuilder();
 				sbSql.append("SELECT ");
-				sbSql.append(" IFNULL(ID,'') AS ID ");
-				sbSql.append(" ,IFNULL(STORY_ID,'') AS STORY_ID ");
-				sbSql.append(" ,IFNULL(NAME,'') AS NAME ");
-				sbSql.append(" ,IFNULL(CONTENT,'') AS CONTENT ");
-				sbSql.append(" FROM T_CHAPTERS  ");
-				sbSql.append(" WHERE DELETE_FLG IS NULL ");
-				sbSql.append(" AND ID = ? ");
-				sbSql.append(" AND STORY_ID = ? ");
+				sbSql.append(" IFNULL(tc.ID,'') AS ID ");
+				sbSql.append(" ,IFNULL(tc.STORY_ID,'') AS STORY_ID ");
+				sbSql.append(" ,IFNULL(tc.NAME,'') AS NAME ");
+				sbSql.append(" ,IFNULL(tc.CONTENT,'') AS CONTENT ");
+				sbSql.append(" ,IFNULL(MAX(tcp.ID),'') AS CHAPTER_ID_PRE ");
+				sbSql.append(" ,IFNULL(MIN(tcn.ID),'') AS CHAPTER_ID_NEXT ");
+				
+				sbSql.append(" FROM T_CHAPTERS as tc ");
+				
+				sbSql.append(" LEFT JOIN T_CHAPTERS AS tcp ");
+				sbSql.append(" ON tcp.STORY_ID = tc.STORY_ID ");
+				sbSql.append(" AND tcp.ID < tc.ID ");
+				sbSql.append(" AND tcp.DELETE_FLG IS NULL ");
+						
+				sbSql.append(" LEFT JOIN T_CHAPTERS AS tcn  ");
+				sbSql.append(" ON tcn.STORY_ID = tc.STORY_ID  ");
+				sbSql.append(" AND tcn.ID > tc.ID ");
+				sbSql.append(" AND tcn.DELETE_FLG IS NULL ");
+				
+				
+				sbSql.append(" WHERE tc.DELETE_FLG IS NULL ");
+				sbSql.append(" AND tc.ID = ? ");
+				sbSql.append(" AND tc.STORY_ID = ? ");
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
 	            kps.setString(1, chapterId);
 	            kps.setString(2, storyId);
 	            rs = kps.executeQuery();
 	            if(rs != null && rs.next()) {
-	            		map =  new HashMap<>();
-	            		map.put("id",rs.getString("ID"));
-	            		map.put("storyId",rs.getString("STORY_ID"));
-	            		map.put("name",rs.getString("NAME"));
-	            		map.put("content",rs.getString("CONTENT"));
+            		map =  new HashMap<>();
+            		map.put("id",rs.getString("ID"));
+            		map.put("storyId",rs.getString("STORY_ID"));
+            		map.put("name",rs.getString("NAME"));
+            		map.put("content",rs.getString("CONTENT"));
+            		map.put("chapterIdPre",rs.getString("CHAPTER_ID_PRE"));
+            		map.put("chapterIdNext",rs.getString("CHAPTER_ID_NEXT"));
+	            		
 	            }
 				
 			} catch(Exception e) {

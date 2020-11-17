@@ -124,4 +124,32 @@ public class WebTruyenPage {
             }
         };
     }
+    
+    public Route getChapterList() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getChapterList(request.params("storyId"));
+            }
+        };
+    }
+    
+    public Route getStoryInfo() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getStoryInfo(request.params("storyId"));
+            }
+        };
+    }
+    
+    public Route getChapterInfo() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.getChapterInfo(request.params("storyId"), request.params("chapterId"));
+            }
+        };
+    }
+    
 }

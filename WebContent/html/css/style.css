@@ -384,7 +384,10 @@ ol.sonsyu{
 	font-size: 1.4em;
 	padding: 12px 12px 12px 36px;
 	background-color:#F8F4E1;
-	box-shadow: 0px 3px 6px rgba(0,0,0,0.2);}
+	box-shadow: 0px 3px 6px rgba(0,0,0,0.2);
+	white-space: pre-line;
+}
+
 /*動画リストタブ*/
 input[type="radio"]{
 	display:none;

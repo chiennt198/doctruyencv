@@ -289,3 +289,31 @@ fieldset[disabled] .btn-primary-finish.focus {
 	padding: 0px !important;
 	padding-top: 7px !important;
 }
+
+.float_right {
+	float: right;	
+}
+
+.float_left {
+	float: left;	
+}
+
+.tab_panel {
+	white-space: pre-line;
+}
+
+
+.movie_img img {
+    border: none !important;
+    max-width: 240px !important;
+    height: auto !important;
+    vertical-align: middle !important;
+}
+
+.text_align_left {
+	text-align: left;
+}
+
+.text_align_right {
+	text-align: right;
+}
