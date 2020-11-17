@@ -10,14 +10,22 @@ var vueItem = new Vue({
 		categoryList:[],
 		statusList:[],
 		condInfo:{
-			orderStory: '1',
+			orderKey: '2',
 		},
+		categoryItem:{},
     },
     created : function() {
     	
     	getContentMenu();
+    	
+    	if (!sessionStorage.getItem("PARAM_CATEGORY_ITEM")) {
+    		window.location.href= contextPath + "/html/Home.html";
+    		return;
+    	}
+    	
+    	this.categoryItem = JSON.parse(sessionStorage.getItem("PARAM_CATEGORY_ITEM"));
     	this.loadDefault();
-    	this.getStoryList();
+    	this.getStoryList('2');
     	
     },
     methods: {
@@ -37,18 +45,17 @@ var vueItem = new Vue({
     			}
     		});
     	},
-    	getStoryList: function(){
+    	getStoryList: function(orderKey){
     		this.error_message = '';
     		this.storyList = [];
     		this.filteredList = [];
     		this.dataCount = 0;
     		var this_ = this;
 
-    		if (sessionStorage.getItem("PARAM_CATEGORY_ID")) {
-    			this.condInfo.categoryId = sessionStorage.getItem("PARAM_CATEGORY_ID");
-    		}
+    		this.condInfo.categoryId = this.categoryItem.categoryId;
+    		this.condInfo.orderKey = orderKey;
     		
-    		get(this, contextPath + "/get-story-list", {}, function(data) {
+    		get(this, contextPath + "/get-story-list", this.condInfo, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.storyList = data.dataInfo;
     				
@@ -81,6 +88,7 @@ var vueItem = new Vue({
 			this.sortList();
     	},
     	getStory: function(storyId){
+    		debugger;
     		sessionStorage.setItem("PARAM_STORY_ID",storyId);
     		window.location.href= contextPath + "/html/truyen.html";
     	},

@@ -62,10 +62,10 @@
 					
 					<div v-show="storyNominationsCnt > 0" class="list-adv-listpage list-adv-lunchon">
 						<div v-for="(item,index) in storyNominationsList">
-							<a href="javascript:void(0)">
+							<a href="javascript:void(0)" v-on:click="getStory(item.storyId)">
 								<img :src="item.linkImg" alt="">
 							</a>
-							<p class="speaker_right">{{ item.storyName }}</p>
+							<p class="speaker_right" v-on:click="getStory(item.storyId)">{{ item.storyName }}</p>
 						</div>
 					</div>
 					

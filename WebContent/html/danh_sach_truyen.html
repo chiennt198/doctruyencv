@@ -57,62 +57,27 @@
 				</div>
 				
 				<div class="main-contents">
-					<h2>Danh Sách Truyện</h2>
-					<div class="page_about">
-						<p>Vui lòng chọn và nhập các điều kiện tìm kiếm truyện từ các mục sau.</p>
-					</div>
-					<h3>Tìm kiếm</h3>
-					<dl class="app_search">
-						<dt>Thể loại</dt>
-						<dd>
-							<select class="form_word_small" v-model="condInfo.categoryId">
-								<option value=""></option>
-								<option v-for="item in categoryList" :value="item.categoryId">{{ item.categoryName }}</option>
-							</select>
-						</dd>
-						
-						<dt>Tình trạng</dt>
-						<dd>
-							<select class="form_word_small" v-model="condInfo.status">
-								<option value=""></option>
-								<option v-for="item in statusList" :value="item.cd">{{ item.name }}</option>
-							</select>
-						</dd>
-						
-						<dt>Sắp xếp</dt>
-						<dd>
-							<select class="form_word_small" v-model="condInfo.orderKey">
-								<option value=""></option>
-								<option value="1">Mới đăng</option>
-								<option value="2">Mới cập nhật</option>
-								<option value="3">Lượt đọc</option>
-								<option value="4">Số chương</option>
-							</select>
-						</dd>
-						
-						<dt>Tên truyện</dt>
-						<dd>
-							<input type="text" class="form_word_015" v-model="condInfo.name">
-						</dd>
-						
-						<dt>Tác giả</dt>
-						<dd>
-							<input type="text" class="form_word_015" v-model="condInfo.authorName">
-						</dd>
-						
-					</dl>
+					<h2>Danh Sách Truyện {{ categoryItem.categoryName }}</h2>
 					
-					<p class="btn_center">
-						<a class="btn btn-lg btn-primary" href="javascript:void(0)" v-on:click="getStoryList"><span class="fa fa-search"></span>Tìm kiếm</a>
-					</p>
+					<div class="dropdown">
+					    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sắp xếp
+					    <span class="caret"></span></button>
+					    <ul class="dropdown-menu">
+					      	<li><a href="javascript:void(0)" v-on:click="getStoryList(1)">Mới đăng</a></li>
+					      	<li><a href="javascript:void(0)" v-on:click="getStoryList(2)">Mới cập nhật</a></li>
+					    	<li><a href="javascript:void(0)" v-on:click="getStoryList(3)">Số chương</a></li>
+				      		<li><a href="javascript:void(0)" v-on:click="getStoryList(4)">Lượt đọc</a></li>
+					    </ul>
+				 	</div>
 				
 					<h3>Hiện có {{ dataCount }} truyện</h3>
-				
 					<div v-if="dataCount > 0" class="movie_block clearfix">
+						
 						<div class="list_truyen">
-							<a class="col-xs-12" href="javascript:void(0)" v-for="(chapter,index) in filteredList" v-on:click="getStory(chapter.id)">
-								<span class="col-xs-10">{{ chapter.name }}</span>
-								<span class="col-xs-2">{{ chapter.updateChapterTime }}</span>
+							<a class="col-xs-12" href="javascript:void(0)" v-for="(item,index) in filteredList" v-on:click="getStory(item.storyId)">
+								<span class="col-xs-4">{{ item.storyName }}</span>
+								<span class="col-xs-6">{{ item.chapterName }}</span>
+								<span class="col-xs-2">{{ item.updateChapterTime }}</span>
 							</a>
 						</div>
 			

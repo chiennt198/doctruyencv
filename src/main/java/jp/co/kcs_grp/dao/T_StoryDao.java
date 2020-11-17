@@ -285,7 +285,7 @@ public class T_StoryDao{
 				sbSql.append(" ,IFNULL(tc.ID,'') AS CHAPTERS_ID ");
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS CHAPTER_NAME ");
 				sbSql.append(" ,IFNULL(st.LINK_IMG, '') AS LINK_IMG ");
-				sbSql.append(" ,CASE   ");
+				sbSql.append(" ,CASE  ");
 				sbSql.append("	WHEN TIMESTAMPDIFF(YEAR, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(YEAR, st.NEWEST_UPDATE_DATETIME, NOW()),' năm trước')  ");
 				sbSql.append("	WHEN TIMESTAMPDIFF(MONTH, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MONTH, st.NEWEST_UPDATE_DATETIME, NOW()),' tháng trước')  ");
 				sbSql.append("	WHEN TIMESTAMPDIFF(DAY, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(DAY, st.NEWEST_UPDATE_DATETIME, NOW()),' ngày trước')  ");
@@ -315,30 +315,47 @@ public class T_StoryDao{
 				}
 				
 				if ( StringUtils.isNotEmpty(cond.get("authorName")) ) {
-					sbSql.append(" AND st.AUTHOR_NAME = ? ");		
+					sbSql.append(" AND st.AUTHOR_NAME like ? ");		
 				}
 				
 				if ( StringUtils.isNotEmpty(cond.get("name")) ) {
-					sbSql.append(" AND st.NAME = ? ");		
+					sbSql.append(" AND st.NAME like ? ");		
 				}
 				
 				sbSql.append(" GROUP BY STORY_ID ");	
 				
-				
 				if ( StringUtils.equals("1", cond.get("orderKey"))) {
-					sbSql.append(" ORDER BY st.INSERT_DATETIME DESC ");
+					sbSql.append(" ORDER BY STORY_ID DESC ");
 				} else if ( StringUtils.equals("2", cond.get("orderKey"))) {
-					sbSql.append(" ORDER BY tc.UPDATE_DATETIME DESC ");
+					sbSql.append(" ORDER BY tc.UPDATE_DATETIME  DESC ");
 				} else if ( StringUtils.equals("3", cond.get("orderKey"))) {
-					sbSql.append(" ORDER BY COUNT(tw.STORY_ID) DESC ");
+					sbSql.append(" ORDER BY IFNULL(st.CHAPTER_COUNT,0) DESC ");
 				} else if ( StringUtils.equals("4", cond.get("orderKey"))) {
-					sbSql.append(" ORDER BY COUNT(tw.STORY_ID) DESC ");
+					sbSql.append(" ORDER BY IFNULL(st.WATCH_COUNT,0) DESC ");
 				} else {
 					sbSql.append(" ORDER BY STORY_ID DESC ");
 				}
 
 				KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-	            rs = kps.executeQuery();
+	            int index = 1;
+				if ( StringUtils.isNotEmpty(cond.get("categoryId")) ) {
+					kps.setString(index++, cond.get("categoryId"));
+				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("status")) ) {
+					kps.setString(index++, cond.get("status"));
+				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("authorName")) ) {
+					kps.setString(index++, "%" + cond.get("authorName") + "%");
+					
+				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("name")) ) {
+					kps.setString(index++, "%" + cond.get("name") + "%");
+				}
+				
+				rs = kps.executeQuery();
 	            if(rs != null) {
 	            	while (rs.next()) {
 	            		map =  new HashMap<>();

@@ -65,6 +65,7 @@ header #logout .logout_message{
 #menu .menu-box_left ul{
 	background-image: url("../img/sidemenu_bg.jpg");
 	background-position: center;
+	background-size: cover;
 }
 #menu .menu-box_left ul li{
 }

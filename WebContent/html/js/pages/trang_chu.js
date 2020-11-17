@@ -70,7 +70,7 @@ var vueItem = new Vue({
     	removeSes: function(){
     		sessionStorage.removeItem("PARAM_STORY_ID");
     		sessionStorage.removeItem("PARAM_CHAPTER_ID");
-    		sessionStorage.removeItem("PARAM_CATEGORY_ID");
+    		sessionStorage.removeItem("PARAM_CATEGORY_ITEM");
     	},
     },
     computed : {
