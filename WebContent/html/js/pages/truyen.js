@@ -63,7 +63,7 @@ var vueItem = new Vue({
     	},
     	getChapter: function(chapterId){
     		sessionStorage.setItem("PARAM_CHAPTER_ID", chapterId);
-    		window.location.href= contextPath + "/html/doctruyen.html";
+    		window.location.href= contextPath + "/html/doc_truyen.html";
     	},
     },
     computed : {

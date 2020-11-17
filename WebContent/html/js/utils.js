@@ -19,7 +19,7 @@ function getContentMenu() {
 			},
 			loadList: function(index){
 				
-			}
+			},
 		},
 	});
 }
