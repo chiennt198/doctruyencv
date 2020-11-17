@@ -56,21 +56,69 @@
 					</div>
 				</div>
 				
-				<div class="main-contents" v-on:keypress="onKeyPress(event)">
-					<h2>{{ chapterInfo.name }}</h2>
-					<div></div>
-					<ol class="sonsyu" v-html="chapterInfo.content"></ol>
-					<div class="row btn-area">
-						<div class="col-xs-6 text_align_left">
-							<a v-if="chapterInfo.chapterIdPre" href="javascript:void(0)" class="btn btn-lg btn-primary" v-on:click="loadPage('pre')">
-								<i class="fa fa-chevron-left" aria-hidden="true"></i>Chương trước
-							</a>
+				<div class="main-contents">
+					<div class="movie_block clearfix">
+						<div class="movie_thum float_left movie_img">
+							<a href="online_abstracts_luncheon_02.html">
+								<img :src="storyInfo.linkImg" alt="">
+							</a> 
 						</div>
-						<div class="col-xs-6 text_align_right">
-							<a v-if="chapterInfo.chapterIdNext" href="javascript:void(0)" class="btn btn-lg btn-primary" v-on:click="loadPage('next')">
-								Chương sau <i class="fa fa-chevron-right" aria-hidden="true"></i>
-							</a>
+						<div class="movie_info float_right">
+							<h4>
+								<span class="prg"><a href="javascript:void(0)">{{ storyInfo.name }}</a></span>
+							</h4>
+							<p class="speaker">Số chương: {{ dataCount }}</p>
+							<p>
+								<span v-if="storyInfo.authorName" class="btn btn-xs btn-decision">Tác giả: {{ storyInfo.authorName }}</span>
+								
+								<span v-if="storyInfo.categoryName" class="btn btn-xs btn-decision">Thể loại: {{ storyInfo.categoryName }}</span>
+								
+								<span v-if="storyInfo.statusName" class="btn btn-xs btn-decision">Tình trạng: {{ storyInfo.statusName }}</span>
+							</p>
+							
+							<p class="sp_right_center">
+								<a class="btn btn-sm btn-primary" href="javascript:void(0)"><i class="fa fa-file-text"></i>Đọc truyện</a>
+							</p>
 						</div>
+					</div>
+					
+					<div class="tab_wrap">
+						<input id="tab1" type="radio" name="tab_btn" checked="checked">
+						<input id="tab2" type="radio" name="tab_btn">
+						<input id="tab3" type="radio" name="tab_btn">
+						<input id="tab4" type="radio" name="tab_btn">
+						<input id="tab5" type="radio" name="tab_btn">
+						
+						<div class="tab_area">
+							<label class="tab1_label" for="tab1">Giới thiệu</label>
+							<label class="tab2_label" for="tab2">Đánh giá</label> 
+							<label class="tab3_label" for="tab3">Danh sách chương</label> 
+							<label class="tab4_label" for="tab4">Bình luận</label>
+							<label class="tab5_label" for="tab5">Hâm mộ</label>
+						</div>
+
+						<div class="panel_area"> 
+							<div id="panel1" class="tab_panel">
+								<span v-html="storyInfo.description"></span>
+							</div>
+							<div id="panel2" class="tab_panel">
+
+							</div>
+							<div id="panel3" class="tab_panel">
+								
+								<div class="list_truyen">
+									<a class="col-xs-12" href="javascript:void(0)" v-for="(chapter,index) in filteredList" v-on:click="getChapter(chapter.id)">
+										<span class="col-xs-10">{{ chapter.name }}</span>
+										<span class="col-xs-2">{{ chapter.updateChapterTime }}</span>
+									</a>
+								</div>
+					
+								<div v-show="totalPages > 1" id="pagination"></div>
+							
+							</div>
+							<div id="panel4" class="tab_panel"></div>
+							<div id="panel5" class="tab_panel"></div>
+						</div>				
 					</div>
 				</div>
 				
@@ -80,10 +128,10 @@
 		
 		</div>
 	</div>
-
+	
 	<div id="footer"></div>
 	
-<script src="./js/pages/chapter.js" type="text/javascript"></script>
+<script src="./js/pages/truyen.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
 	$('#header').load("header.html");

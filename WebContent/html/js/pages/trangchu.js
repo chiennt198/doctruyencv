@@ -64,7 +64,7 @@ var vueItem = new Vue({
     	},
     	getStory: function(storyId){
     		sessionStorage.setItem("PARAM_STORY_ID",storyId);
-    		window.location.href= contextPath + "/html/Story.html";
+    		window.location.href= contextPath + "/html/truyen.html";
     	},
     },
     computed : {
