@@ -11,6 +11,7 @@ var vueItem = new Vue({
 		storyNominationsCnt:0,
     },
     created : function() {
+    	this.removeSes();
     	getContentMenu();
     	this.getList();
     },
@@ -65,6 +66,11 @@ var vueItem = new Vue({
     	getStory: function(storyId){
     		sessionStorage.setItem("PARAM_STORY_ID",storyId);
     		window.location.href= contextPath + "/html/truyen.html";
+    	},
+    	removeSes: function(){
+    		sessionStorage.removeItem("PARAM_STORY_ID");
+    		sessionStorage.removeItem("PARAM_CHAPTER_ID");
+    		sessionStorage.removeItem("PARAM_CATEGORY_ID");
     	},
     },
     computed : {

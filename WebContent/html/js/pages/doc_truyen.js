@@ -56,14 +56,14 @@ var vueItem = new Vue({
 });
 
 $(function() {
-//	document.addEventListener("keydown", keyDownTextField, false);
-//	
-//	function keyDownTextField(e) {
-//		var keyCode = e.keyCode;
-//		if(keyCode == 37) {
-//			vueItem.loadPage('pre');
-//		} else if(keyCode== 39) {
-//			vueItem.loadPage('next');
-//		}
-//	}
+	document.addEventListener("keydown", keyDownTextField, false);
+	
+	function keyDownTextField(e) {
+		var keyCode = e.keyCode;
+		if(keyCode == 37) {
+			vueItem.loadPage('pre');
+		} else if(keyCode== 39) {
+			vueItem.loadPage('next');
+		}
+	}
 })

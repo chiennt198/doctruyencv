@@ -24,7 +24,7 @@ var vueItem = new Vue({
     		this.error_message = '';
     		this.chapterList = [];
     		this.filteredList = [];
-    		this.dataCount = [];
+    		this.dataCount = 0;
     		var this_ = this;
     		
     		get(this, contextPath + "/get-story-info/" + sessionStorage.getItem("PARAM_STORY_ID") , {}, function(data) {

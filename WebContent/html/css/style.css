@@ -503,7 +503,7 @@ dl.app_search dd div.endai_num_tyui{
 }
 select.form_word_small,
 input.form_word_small{
-	width: 5em;
+	width: 10em;
 }
 p.tyui{
 	margin: 0 0 -45px 0;

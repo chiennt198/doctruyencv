@@ -1,10 +1,140 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
+<!-- saved from url=(0074)http://kcs-grp.sakura.ne.jp/test_ol_meetingjspn2020/on-demount_search.html -->
+<html lang="ja"><!-- InstanceBegin template="/Templates/basic.dwt" codeOutsideHTMLIsLocked="false" --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- InstanceBeginEditable name="doctitle" -->
+<title>Đọc Truyện Cv</title>
+<!-- InstanceEndEditable -->
+<link rel="stylesheet" href="./css/bootstrap.css">
+<link rel="stylesheet" href="./css/font-awesome.min.css">
+<link rel="stylesheet" href="./css/basic.css">
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/jspn2020_unique.css">
+<link rel="stylesheet" href="./css/loading.css">
+<link rel="stylesheet" href="./css/header.css">
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.js" type="text/javascript"></script>
+<script src="./js/vue.js" type="text/javascript"></script>
+<script src="./js/constants.js" type="text/javascript"></script>
+<script src="./js/app.js" type="text/javascript"></script>
+<script src="../environ.js" type="text/javascript"></script>
+<script src="./js/utils.js" type="text/javascript"></script>
+<script type="text/javascript" src="./js/menu_openclose.js"></script>
+<script type="text/javascript" src="./js/dropmenu_min.js"></script>
+<script src="./js/basic.js" type="text/javascript"></script>
+<script src="./js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+<!-- InstanceParam name="ad_footer" type="boolean" value="false" -->
+<!-- InstanceParam name="fulldesign" type="boolean" value="false" -->
+<!-- InstanceParam name="menu_mypage" type="boolean" value="false" -->
+<!-- InstanceParam name="menu_live" type="boolean" value="false" -->
+<!-- InstanceParam name="menu_search" type="boolean" value="true" -->
+<!-- InstanceParam name="menu_handson" type="boolean" value="false" -->
+<!-- InstanceParam name="logout" type="boolean" value="true" -->
+<!-- InstanceParam name="menu_program" type="boolean" value="false" -->
+<!-- InstanceParam name="menu_info" type="boolean" value="false" -->
+<!-- InstanceBeginEditable name="head" -->
+<!-- InstanceEndEditable -->
+</head>
+<body class="vsc-initialized">
+	<div id="header"></div>
+	
+	<div id="cont-bar"></div>
+	
+	<div id="menubar_hdr">
+		<label for="toggle_area"><span></span> <span></span> <span></span></label>
+	</div>
+	
+	<div class="contents" id="main" v-cloak>
+		<div class="inner">
+			<section >
+				<div id="menu">
+					<input type="checkbox" id="toggle_area" class="on-off toggle">
+					<div class="menu-box_left">
+						<content-menu></content-menu>
+					</div>
+				</div>
+				
+				<div class="main-contents">
+					<h2>Danh Sách Truyện</h2>
+					<div class="page_about">
+						<p>Vui lòng chọn và nhập các điều kiện tìm kiếm truyện từ các mục sau.</p>
+					</div>
+					<h3>Tìm kiếm</h3>
+					<dl class="app_search">
+						<dt>Thể loại</dt>
+						<dd>
+							<select class="form_word_small" v-model="condInfo.categoryId">
+								<option value=""></option>
+								<option v-for="item in categoryList" :value="item.categoryId">{{ item.categoryName }}</option>
+							</select>
+						</dd>
+						
+						<dt>Tình trạng</dt>
+						<dd>
+							<select class="form_word_small" v-model="condInfo.status">
+								<option value=""></option>
+								<option v-for="item in statusList" :value="item.cd">{{ item.name }}</option>
+							</select>
+						</dd>
+						
+						<dt>Sắp xếp</dt>
+						<dd>
+							<select class="form_word_small" v-model="condInfo.orderStori">
+								<option value=""></option>
+								<option :value="1">Mới Đăng</option>
+								<option :value="2">Lượt Đọc</option>
+								<option :value="3">Số chương</option>
+							</select>
+						</dd>
+						
+						<dt>Tên truyện</dt>
+						<dd>
+							<input type="text" class="form_word_015" v-model="condInfo.name">
+						</dd>
+						
+						<dt>Tác giả</dt>
+						<dd>
+							<input type="text" class="form_word_015" v-model="condInfo.authorName">
+						</dd>
+						
+					</dl>
+					
+					<p class="btn_center">
+						<a class="btn btn-lg btn-primary" href="javascript:void(0)"><span class="fa fa-search"></span>Tìm kiếm</a>
+					</p>
+				
+					<h3>Hiện có {{ dataCount }} truyện</h3>
+				
+					<div v-if="dataCount > 0" class="movie_block clearfix">
+						<div class="list_truyen">
+							<a class="col-xs-12" href="javascript:void(0)" v-for="(chapter,index) in filteredList" v-on:click="getChapter(chapter.id)">
+								<span class="col-xs-10">{{ chapter.name }}</span>
+								<span class="col-xs-2">{{ chapter.updateChapterTime }}</span>
+							</a>
+						</div>
+			
+						<div v-show="totalPages > 1" id="pagination"></div>
+					</div>
+					
+				</div>
+				
+			</section>
+		</div>
+		<div class="inner">
+		
+		</div>
+	</div>
+	
+	<div id="footer"></div>
+	
+<script src="./js/pages/danh_sach_truyen.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(function(){
+	$('#header').load("header.html");
+	$('#footer').load("footer.html");
+});
+</script>
+	
 </body>
-</html>
