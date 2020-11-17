@@ -56,9 +56,15 @@
 					</div>
 				</div>
 				
-				<div class="main-contents" v-on:keypress="onKeyPress(event)">
+				<div class="main-contents">
 					<h2>{{ chapterInfo.name }}</h2>
-					<div></div>
+					
+					<h4>
+						<a href="javascript:void(0)" v-on:click="back">
+							<i class="fa fa-book" aria-hidden="true"></i>{{ chapterInfo.storyName }}
+						</a>
+					</h4>
+					
 					<ol class="sonsyu" v-html="chapterInfo.content"></ol>
 					<div class="row btn-area">
 						<div class="col-xs-6 text_align_left">
@@ -72,6 +78,16 @@
 							</a>
 						</div>
 					</div>
+					
+					<div class="row btn-area">
+						<div class="col-xs-6 text_align_left">
+							<a href="javascript:void(0)" class="btn btn-lg btn-reply" v-on:click="back">
+								<i class="fa fa-reply" aria-hidden="true"></i>Quay lại
+							</a>
+						</div>
+						<div class="col-xs-6 text_align_right"></div>
+					</div>
+					
 				</div>
 				
 			</section>

@@ -230,6 +230,7 @@ public class T_ChaptersDao {
 				sbSql = new StringBuilder();
 				sbSql.append("SELECT ");
 				sbSql.append(" IFNULL(tc.ID,'') AS ID ");
+				sbSql.append(" ,IFNULL(ts.NAME,'') AS STORY_NAME ");
 				sbSql.append(" ,IFNULL(tc.STORY_ID,'') AS STORY_ID ");
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS NAME ");
 				sbSql.append(" ,IFNULL(tc.CONTENT,'') AS CONTENT ");
@@ -237,6 +238,9 @@ public class T_ChaptersDao {
 				sbSql.append(" ,IFNULL(MIN(tcn.ID),'') AS CHAPTER_ID_NEXT ");
 				
 				sbSql.append(" FROM T_CHAPTERS as tc ");
+				
+				sbSql.append(" INNER JOIN T_STORIES as ts ");
+				sbSql.append(" ON ts.ID = tc.STORY_ID ");
 				
 				sbSql.append(" LEFT JOIN T_CHAPTERS AS tcp ");
 				sbSql.append(" ON tcp.STORY_ID = tc.STORY_ID ");
@@ -261,6 +265,7 @@ public class T_ChaptersDao {
             		map =  new HashMap<>();
             		map.put("id",rs.getString("ID"));
             		map.put("storyId",rs.getString("STORY_ID"));
+            		map.put("storyName",rs.getString("STORY_NAME"));
             		map.put("name",rs.getString("NAME"));
             		map.put("content",rs.getString("CONTENT"));
             		map.put("chapterIdPre",rs.getString("CHAPTER_ID_PRE"));

@@ -45,6 +45,10 @@ var vueItem = new Vue({
     		}
     		
     	},
+    	back: function(){
+    		sessionStorage.removeItem("PARAM_CHAPTER_ID");
+    		window.location.href= contextPath + "/html/truyen.html";
+    	},
     },
     computed : {
     	
@@ -52,15 +56,14 @@ var vueItem = new Vue({
 });
 
 $(function() {
-	document.addEventListener("keydown", keyDownTextField, false);
-	
-	function keyDownTextField(e) {
-		alert(e.keyCode);
-		var keyCode = e.keyCode;
-		if(keyCode == 37) {
-			vueItem.loadPage('pre');
-		} else if(keyCode== 39) {
-			vueItem.loadPage('next');
-		}
-	}
+//	document.addEventListener("keydown", keyDownTextField, false);
+//	
+//	function keyDownTextField(e) {
+//		var keyCode = e.keyCode;
+//		if(keyCode == 37) {
+//			vueItem.loadPage('pre');
+//		} else if(keyCode== 39) {
+//			vueItem.loadPage('next');
+//		}
+//	}
 })
