@@ -256,16 +256,22 @@ fieldset[disabled] .btn-primary-finish.focus {
     padding: 0;
 }
 
-.list-adv-listpage.list-adv-lunchon div.adv_lunchon_a {
+.list-adv-listpage.list-adv-lunchon div.adv_lunchon_a,
+.list-adv-listpage.list-danh-sach div.adv_lunchon_a {
     width: calc( 100% - 20px);
 }
-.list-adv-listpage.list-adv-lunchon div {
+
+.list-adv-listpage.list-adv-lunchon div ,
+.list-adv-listpage.list-danh-sach div{
     margin: 15px 10px 0;
     display: block;
-/*     width: calc( 50% - 20px); */
 }
 
 .list-adv-lunchon div {
+	width: 240px;
+}
+
+.list-danh-sach div {
 	width: 240px;
 }
 
@@ -317,3 +323,67 @@ fieldset[disabled] .btn-primary-finish.focus {
 .text_align_right {
 	text-align: right;
 }
+
+@media screen and (max-width:280px){
+	.list_truyen a {
+	    display: inline-block;
+	    width: 200px;
+	    white-space: nowrap;
+	    overflow: hidden !important;
+	    text-overflow: ellipsis;
+	}
+}
+
+@media screen and (min-width:281px) and (max-width:320px){
+	.list_truyen a {
+	    display: inline-block;
+	    width: 240px;
+	    white-space: nowrap;
+	    overflow: hidden !important;
+	    text-overflow: ellipsis;
+	}
+}
+
+@media screen and (min-width:321px) and (max-width:360px){
+	.list-adv-listpage.list-danh-sach div{
+	    margin: 30px 14px 0;
+	    padding-bottom: 15px;
+	    display: block;
+	}
+}
+
+@media screen and (min-width:361px) and (max-width:410px){
+	.list-adv-listpage.list-danh-sach div{
+	    margin: 30px 40px 0;
+	    padding-bottom: 15px;
+	    display: block;
+	}
+}
+
+@media screen and (min-width:411px) and (max-width:539px){
+	.list-adv-listpage.list-danh-sach div{
+	    margin: 30px 40px 0;
+	    padding-bottom: 15px;
+	    display: block;
+	}
+}
+
+@media screen and (min-width:540px){
+	.list-adv-listpage.list-danh-sach div{
+	    margin: 30px 95px 0;
+	    padding-bottom: 15px;
+	    display: block;
+	}
+}
+
+@media screen and (min-width:768px) {
+	.list-adv-listpage.list-adv-lunchon div, .list-adv-listpage.list-danh-sach div {
+	    margin: 15px 22px 0;
+	    display: block;
+	}
+}
+	
+.line_soild {
+	border-bottom: solid 1px #666;
+}    
+	

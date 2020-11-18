@@ -71,17 +71,25 @@
 				 	</div>
 				
 					<h3>Hiện có {{ dataCount }} truyện</h3>
-					<div v-if="dataCount > 0" class="movie_block clearfix">
+					
+					
+					<div v-if="dataCount > 0" class="list-adv-listpage list-danh-sach" style="float: left;">
+
+						<template v-for="(item,index) in filteredList">
+							<div class="list_truyen" >
+								<a href="javascript:void(0)" v-on:click="getStory(item.storyId)">
+									<img src="./img_truyen/vo_thuong_sat_than.jpg" onerror="this.src='./img/no_thumbnail.gif'">
+								</a>
+								<b>
+									{{ item.storyName }}<br>
+									Số chương: {{ item.chapterCount }}<br>
+									Tình trạng: {{ item.statusName }}
+								</b>
+							</div>
+						</template>
 						
-						<div class="list_truyen">
-							<a class="col-xs-12" href="javascript:void(0)" v-for="(item,index) in filteredList" v-on:click="getStory(item.storyId)">
-								<span class="col-xs-4">{{ item.storyName }}</span>
-								<span class="col-xs-6">{{ item.chapterName }}</span>
-								<span class="col-xs-2">{{ item.updateChapterTime }}</span>
-							</a>
-						</div>
-			
 						<div v-show="totalPages > 1" id="pagination"></div>
+						
 					</div>
 					
 				</div>

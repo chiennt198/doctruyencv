@@ -20,6 +20,7 @@ import jp.co.kcs_grp.dao.M_CategoryDaoImpl;
 import jp.co.kcs_grp.dao.M_WideDao;
 import jp.co.kcs_grp.dao.T_ChaptersDao;
 import jp.co.kcs_grp.dao.T_StoryDao;
+import jp.co.kcs_grp.utils.AppParams;
 
 public class WebTruyenControler {
 	
@@ -206,18 +207,38 @@ public class WebTruyenControler {
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
         	
-        	Map<String, Object> storyItem = new HashMap<>();
+        	long totalStory = storyDao.getTotalStory();
         	
-        	List<Map<String,String>> storyList = storyDao.getList(cond);
-        	
-        	if ( storyList.size() > 0) {
-        		int randCnt = storyList.size() >= 4 ? 4 : storyList.size();
-        		List<Map<String,String>> randLst = new ArrayList<>();
-        		randLst.addAll(storyList);
-        		Collections.shuffle(randLst);
-        		storyItem.put("storyList", storyList);
-        		storyItem.put("storyNominationsList", randLst.subList(0, randCnt));
+        	if (totalStory > 0 ) {
+        		
+        		Map<String, Object> storyItem = new HashMap<>();
+        		
+        		if ( StringUtils.equals("1", cond.get("pagingFlg")) ) {
+        			storyItem.put("storyList", storyDao.getList(cond));
+        		} else {
+            		int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
+
+            		long totalPage = 0;
+            		if ( itemsPerPage != 1 ) {
+            			totalPage = totalStory / itemsPerPage;
+                		
+                		if (totalStory % itemsPerPage != 0) {
+                			totalPage += 1;
+                		}
+            		} else {
+            			totalPage = totalStory;
+            		}
+            		
+            		Map<String,String> condRand = new HashMap<>();
+            		condRand.put("randomType", "1");
+            		
+            		storyItem.put("randomLst", storyDao.getList(condRand));
+            		storyItem.put("storyCnt", String.valueOf(totalStory));
+            		storyItem.put("totalPages", String.valueOf(totalPage));
+        		}
+        		
         		objectResponse.setDataInfo(storyItem);
+        		
         	} else {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_NO_DATA);
         	}

@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import jp.co.kcs_grp.base.DBAccess;
 import jp.co.kcs_grp.base.KcsPreparedStatement;
+import jp.co.kcs_grp.utils.AppParams;
 
 public class T_StoryDao{
 
@@ -293,8 +294,14 @@ public class T_StoryDao{
 				sbSql.append("	WHEN TIMESTAMPDIFF(MINUTE, st.NEWEST_UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MINUTE, st.NEWEST_UPDATE_DATETIME, NOW()),' phút trước')  ");
 				sbSql.append("	ELSE '1 phút trước'  ");
 				sbSql.append(" END AS UPDATE_CHAPTER_TIME ");
-
+				sbSql.append(" ,IFNULL(mw1.NAME,'') AS STATUS_NAME ");
+				sbSql.append(" ,IFNULL(st.CHAPTER_COUNT,0) AS CHAPTER_COUNT ");
+				
 				sbSql.append(" FROM T_STORIES as st ");
+				
+				sbSql.append(" LEFT JOIN M_WIDE mw1 ");
+				sbSql.append(" ON st.STATUS = mw1.CD ");
+				sbSql.append(" AND mw1.IDX = 1 ");
 				
 				sbSql.append(" LEFT JOIN T_CHAPTERS as tc ");
 				sbSql.append(" ON tc.STORY_ID = st.ID  ");
@@ -322,19 +329,26 @@ public class T_StoryDao{
 					sbSql.append(" AND st.NAME like ? ");		
 				}
 				
-				sbSql.append(" GROUP BY STORY_ID ");	
-				
-				if ( StringUtils.equals("1", cond.get("orderKey"))) {
-					sbSql.append(" ORDER BY STORY_ID DESC ");
-				} else if ( StringUtils.equals("2", cond.get("orderKey"))) {
-					sbSql.append(" ORDER BY tc.UPDATE_DATETIME  DESC ");
-				} else if ( StringUtils.equals("3", cond.get("orderKey"))) {
-					sbSql.append(" ORDER BY IFNULL(st.CHAPTER_COUNT,0) DESC ");
-				} else if ( StringUtils.equals("4", cond.get("orderKey"))) {
-					sbSql.append(" ORDER BY IFNULL(st.WATCH_COUNT,0) DESC ");
+				if ( StringUtils.equals("1", cond.get("randomType")) ) {
+					sbSql.append(" ORDER BY RAND() LIMIT 4 ");
 				} else {
-					sbSql.append(" ORDER BY STORY_ID DESC ");
+					if ( StringUtils.equals("1", cond.get("orderKey"))) {
+						sbSql.append(" ORDER BY STORY_ID DESC ");
+					} else if ( StringUtils.equals("2", cond.get("orderKey"))) {
+						sbSql.append(" ORDER BY tc.UPDATE_DATETIME  DESC ");
+					} else if ( StringUtils.equals("3", cond.get("orderKey"))) {
+						sbSql.append(" ORDER BY IFNULL(st.CHAPTER_COUNT,0) DESC ");
+					} else if ( StringUtils.equals("4", cond.get("orderKey"))) {
+						sbSql.append(" ORDER BY IFNULL(st.WATCH_COUNT,0) DESC ");
+					} else {
+						sbSql.append(" ORDER BY STORY_ID DESC ");
+					}
 				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("currentPage")) ) {
+					sbSql.append(" LIMIT ?, ? ");
+				}
+				
 
 				KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
 	            int index = 1;
@@ -355,6 +369,11 @@ public class T_StoryDao{
 					kps.setString(index++, "%" + cond.get("name") + "%");
 				}
 				
+				if ( StringUtils.isNotEmpty(cond.get("currentPage")) ) {
+					kps.setInt(index++, Integer.valueOf(cond.get("currentPage")));
+					kps.setInt(index++, Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE")));
+				}
+				
 				rs = kps.executeQuery();
 	            if(rs != null) {
 	            	while (rs.next()) {
@@ -365,6 +384,8 @@ public class T_StoryDao{
 	            		map.put("chapterName",rs.getString("CHAPTER_NAME"));
 	            		map.put("linkImg",rs.getString("LINK_IMG"));
 	            		map.put("updateChapterTime",rs.getString("UPDATE_CHAPTER_TIME"));
+	            		map.put("statusName",rs.getString("STATUS_NAME"));
+	            		map.put("chapterCount",rs.getString("CHAPTER_COUNT"));
 	            		list.add(map);
 					}
 	            	
@@ -385,5 +406,52 @@ public class T_StoryDao{
 			}
 
 			return list;
+		}
+	 
+	 
+	 public long getTotalStory() throws Exception {
+			DBAccess db = null;
+			ResultSet rs = null;
+			StringBuilder sbSql = null;
+			//開始ログ出力
+			log.warn("start");
+			long totalStory = 0;
+			try {
+				//データベース接続
+	            db = new DBAccess();
+	            if (!db.dbConnection()) {
+	                db.DBClose();
+	                throw new Exception("データベース接続が失敗です。");
+	            }
+	            
+				//SQL作成
+				sbSql = new StringBuilder();
+				sbSql.append(" SELECT COUNT(ID) AS STORY_CNT ");
+				sbSql.append(" FROM T_STORIES WHERE ");
+				sbSql.append(" DELETE_FLG IS NULL ");
+				sbSql.append(" AND PUBLIC_FLG = '1' ");
+				sbSql.append(" AND PUBLIC_DATETIME <= NOW() ");
+
+				KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
+				rs = kps.executeQuery();
+	            if(rs != null && (rs.next()) ) {
+	            	totalStory = rs.getLong("STORY_CNT");
+	            	//ResultSetのクローズ
+					rs.close();
+	            }
+				
+			} catch(Exception e) {
+				StringWriter stack = new StringWriter();
+	        	e.printStackTrace(new PrintWriter(stack));
+	        	log.error(stack.toString());
+	            throw e;
+			} finally {
+				//データベース切断
+				db.DBClose();
+				//終了ログ出力
+				log.warn("end");
+			}
+
+			return totalStory;
 		}
 }

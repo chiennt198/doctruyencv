@@ -3,70 +3,65 @@ var vueItem = new Vue({
     data:{
     	error_message : '',
     	storyList:[],
-    	filteredList:[],
     	dataCount:0,
-    	currentPage: 0,
-		itemsPerPage: ITEMS_PER_PAGE,
-		storyNominationsList:[],
-		storyNominationsCnt:0,
+		randomLst:[],
+		randomCnt:0,
+		totalPages:0
     },
     created : function() {
     	this.removeSes();
     	getContentMenu();
-    	this.getList();
+    	this.loadDefault();
     },
     methods: {
-    	getList: function(){
+    	loadDefault: function(){
     		this.error_message = '';
-    		this.storyNominationsCnt = 0;
-    		this.storyList = [];
-    		this.filteredList = [];
-    		this.storyNominationsList = [];
+    		this.randomCnt = 0;
+    		this.randomLst = [];
     		this.dataCount = [];
     		var this_ = this;
     		
     		get(this, contextPath + "/get-story-items" , {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				var storyItems = data.dataInfo;
-    				this.storyList = storyItems.storyList;
-    				this.storyNominationsList = storyItems.storyNominationsList;
-    				this.sortList();
     				
-    				if (this.storyList != null) {
-    					this.dataCount = this.storyList.length;
-    					if (this.dataCount > 0) {
-    						$('#pagination').twbsPagination('destroy');
-            				$('#pagination').twbsPagination({
-        			            totalPages: this_.totalPages,
-        			            visiblePages: 3,
-        			            startPage : Number(this_.currentPage) + 1,
-        			            onPageClick: function (event, page) {
-        			            	this_.setPage(page -1);
-        			            }
-            				 });
-    					}
-    					
-    					
+    				this.totalPages = storyItems.totalPages;
+    				this.dataCount = Number(storyItems.storyCnt);
+    				
+    				this.randomLst = storyItems.randomLst;
+    				if (this.randomLst != null) {
+    					this.randomCnt = this.randomLst.length;
     				}
     				
-    				if (this.storyNominationsList != null) {
-    					this.storyNominationsCnt = this.storyNominationsList.length;
-    				}
+    				$('#pagination').twbsPagination('destroy');
+    				$('#pagination').twbsPagination({
+    		            totalPages: this_.totalPages,
+    		            visiblePages: 3,
+    		            startPage : 1,
+    		            onPageClick: function (event, page) {
+    		            	this_.getPagingList(page - 1)
+    		            }
+    				 });
+    				
     				
     			} else {
     				this.error_message = data.errorMessage;
     			}
     		});
     	},
-    	sortList: function(){
-    		var _el = this;
-    		var index = this.currentPage * this.itemsPerPage;
-    		this.filteredList = this.storyList.slice(index, index + this.itemsPerPage);
+    	getPagingList: function(page){
+    		debugger;
+    		this.error_message = '';
+    		this.storyList = [];
+    		get(this, contextPath + "/get-story-items" , {currentPage: page, pagingFlg:'1'}, function(data) {
+    			if (data.status == STATUS_NORMAL) {
+    				this.storyList = data.dataInfo.storyList;
+    			} else {
+    				this.error_message = data.errorMessage;
+    			}
+    		});
     	},
-    	setPage: function(pageNumber) {
-    		this.currentPage = pageNumber;
-			this.sortList();
-    	},
+    	
     	getStory: function(storyId){
     		sessionStorage.setItem("PARAM_STORY_ID",storyId);
     		window.location.href= contextPath + "/html/truyen.html";
@@ -77,14 +72,6 @@ var vueItem = new Vue({
     		sessionStorage.removeItem("PARAM_CATEGORY_ITEM");
     	},
     },
-    computed : {
-		totalPages : function() {
-			return Math.ceil(this.storyList.length / this.itemsPerPage);
-		},
-	}, 
-	watch: {
-		
-	},
 });
 
 

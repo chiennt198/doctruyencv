@@ -60,6 +60,12 @@ public class ApplicationPage implements SparkApplication {
 		Spark.get("/environ.js", (req, res) -> {
 			StringBuffer cont = new StringBuffer();
 			cont.append("var API_HTTP_COMMON = \"" + AppParams.getValue("parameterpath", "API_HTTP_COMMON") + "\";\n");
+			cont.append("var ITEMS_PER_PAGE = \"" + AppParams.getValue("parameterpath", "ITEMS_PER_PAGE") + "\";\n");
+			cont.append("var contextPath = \"" + AppParams.getValue("parameterpath", "contextPath") + "\";\n");
+			cont.append("var STATUS_NORMAL = \"" + AppParams.getValue("parameterpath", "STATUS_NORMAL") + "\";\n");
+			cont.append("var STATUS_NO_DATA = \"" + AppParams.getValue("parameterpath", "STATUS_NO_DATA") + "\";\n");
+			cont.append("var STATUS_INPUT_URI_ERROR = \"" + AppParams.getValue("parameterpath", "STATUS_INPUT_URI_ERROR") + "\";\n");
+			cont.append("var STATUS_DB_ERROR = \"" + AppParams.getValue("parameterpath", "STATUS_DB_ERROR") + "\";\n");
 			cont.append("\n");
 			return cont.toString();
 		});

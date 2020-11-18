@@ -54,6 +54,8 @@ var vueItem = new Vue({
 
     		this.condInfo.categoryId = this.categoryItem.categoryId;
     		this.condInfo.orderKey = orderKey;
+    		this.condInfo.currentPage = this.currentPage;
+    		this.condInfo.itemsPerPage = this.itemsPerPage;
     		
     		get(this, contextPath + "/get-story-list", this.condInfo, function(data) {
     			if (data.status == STATUS_NORMAL) {
