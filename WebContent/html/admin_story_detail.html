@@ -9,7 +9,7 @@
 <meta name="author" content="">
 <link rel="icon" href="./img/favicon.ico">
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>オンライン総会　管理側</title>
+<title>Đọc Truyện Convert</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap core CSS -->
 <link href="./css/bootstrap.css" rel="stylesheet">
@@ -25,7 +25,7 @@
 <script src="./js/vue.js" type="text/javascript"></script>
 <script src="./js/constants.js" type="text/javascript"></script>
 <script src="./js/validator.js" type="text/javascript"></script>
-<script src="./js/app.js" type="text/javascript"></script>
+<script src="./js/app_admin.js" type="text/javascript"></script>
 <script src="../environ.js" type="text/javascript"></script>
 <!-- <script src="./js/joa.js"></script> -->
 <script src="./js/utils.js"></script>
@@ -105,8 +105,7 @@
 			<a style="cursor: pointer;" href="admin_story_search.html" class="btn btn-lg btn-back">QUAY LẠI</a>
 		</div>
 		<div class="col-xs-6 move-next">
-			<a style="cursor: pointer;" v-on:click="update" class="btn btn-lg btn-primary">CHỈNH SỬA</a>
-			<a style="cursor: pointer;" v-on:click="createChapter" class="btn btn-lg btn-primary">TẠO CHƯƠNG MỚI</a>
+			<a style="cursor: pointer;" v-on:click="update" class="btn btn-lg btn-primary">CHỈNH SỬA TRUYỆN</a>
 		</div>
 	</div>
 	</div>
@@ -134,7 +133,10 @@
 							</tr>
 						</tbody>
 					</table>
-					<div id="pagination"></div>
+					<div id="pagination" style="float: left"></div>
+					<div style="float: right;">
+						<a style="cursor: pointer;" v-on:click="createChapter" class="btn btn-lg btn-primary">TẠO CHƯƠNG MỚI</a>
+					</div>
 				</div>
 		</div>
 </div>
@@ -142,9 +144,12 @@
 <!-- /container -->
 
 
-<p id="page-top" style="display: none;"><a href="http://www.kcs-grp.co.jp/test/joa_member_renewal/training/manual/facility_operation.html#">ページトップ<br>
-<span class="fa fa-chevron-up"></span></a></p>
 
 <script src="./js/bootbox.min.js" type="text/javascript"></script>
 <script src="./js/pages/admin_story_detail.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#header').load("admin_header.html");
+	});
+</script>
 </body></html>

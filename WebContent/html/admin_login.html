@@ -9,7 +9,7 @@
 <meta name="author" content="">
 <link rel="icon" href="./img/favicon.ico">
 <!-- InstanceBeginEditable name="doctitle" -->
-<title>オンライン総会　管理側</title>
+<title>Đọc Truyện Convert</title>
 <!-- InstanceEndEditable -->
 <!-- Bootstrap core CSS -->
 <link href="./css/bootstrap.css" rel="stylesheet">
@@ -25,51 +25,51 @@
 <script src="./js/vue.js" type="text/javascript"></script>
 <script src="./js/constants.js" type="text/javascript"></script>
 <script src="./js/validator.js" type="text/javascript"></script>
-<script src="./js/app.js" type="text/javascript"></script>
+<script src="./js/app_admin.js" type="text/javascript"></script>
 <script src="../environ.js" type="text/javascript"></script>
-<!-- <script src="./js/joa.js"></script> -->
-<script src="./js/utils.js"></script>
 </head>
 
 <body role="document">
 
 <div id="header"></div>
-
-<div class="contents">
-			<div class="inner" id="main" v-cloak>
-				<section>
-					<h2>オンライン学術総会　管理側　ログイン</h2>
-					<p class="page_about">事務局ID・パスワードを入力してログインしてください。</p>
-					<p class="page_error" v-if="error_message" v-html="error_message" style="color: red;"></p>
-					
-					<div class="form-wrapper">
-						<form>
-							<div class="form-item">
-								<span class="input_name">事務局ID</span>
-								<input type="text" name="user" v-model="loginInfo.kaiinId" style="ime-mode: disabled;" v-on:keypress="loginEnter">
-							</div>
-							<div class="form-item">
-								<span class="input_pass">パスワード</span>
-								<input id="password" name="password" type="password" name="password" v-model="loginInfo.password" v-on:keypress="loginEnter">
-							</div>
-							
-							<input type="hidden" id="societyCd" value="1001" name="societyCd" >
-							
-							<div class="button-panel"> 
-								<a class="btn btn-block btn-lg btn-primary" style="cursor: pointer;" v-on:click="login" v-on:keypress="loginEnter">ログイン</a> 
-							</div>
-						</form>
-					</div>
-				</section>
-			</div>
+<div class="container theme-showcase" role="main" id="main" v-cloak>
+	<div class="row">
+		<div class="col-md-10">
+		<div class="main-contents">
+			<h2>Quảng Trị Viên Đăng Nhập Vào Hệ Thống</h2>
+			<p class="page_error" v-if="error_message" v-html="error_message" style="color: red;"></p>
+			<table class="table table_layout_02">
+				<tbody>
+					<tr>
+						<th>Tên Đăng Nhập</th>
+						<td>
+							<input type="text" name="user" v-model="loginInfo.userId" style="width: 25%" v-on:keypress="loginEnter">
+						</td>
+					</tr>
+					<tr>
+						<th>Tên Truyện</th>
+						<td>
+							<input id="password" name="password" type="password" name="password" style="width: 25%"  v-model="loginInfo.password" v-on:keypress="loginEnter">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		    <div class="col text-center">
+		      <button class="btn btn-primary" style="cursor: pointer;width: 20%" v-on:click="login"  v-on:keypress="loginEnter">Đăng Nhập</button>
+		    </div>
 		</div>
-
+	</div>
+</div>
+</div>
 <!-- /container -->
 
 
-<p id="page-top" style="display: none;"><a href="http://www.kcs-grp.co.jp/test/joa_member_renewal/training/manual/facility_operation.html#">ページトップ<br>
-<span class="fa fa-chevron-up"></span></a></p>
 
 <script src="./js/bootbox.min.js" type="text/javascript"></script>
-<script src="./js/pages/admin_story_search.js" type="text/javascript"></script>
+<script src="./js/pages/admin_login.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$('#header').load("admin_header.html");
+	});
+</script>
 </body></html>
