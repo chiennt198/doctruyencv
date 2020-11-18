@@ -2,6 +2,8 @@ package jp.co.kcs_grp.controller;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +22,7 @@ import jp.co.kcs_grp.dao.M_CategoryDaoImpl;
 import jp.co.kcs_grp.dao.M_WideDao;
 import jp.co.kcs_grp.dao.T_ChaptersDao;
 import jp.co.kcs_grp.dao.T_StoryDao;
+import jp.co.kcs_grp.utils.BeanUtils;
 
 public class WebTruyenControler {
 	
@@ -211,11 +214,12 @@ public class WebTruyenControler {
         	List<Map<String,String>> storyList = storyDao.getList(cond);
         	
         	if ( storyList.size() > 0) {
-        		List<Map<String,String>> storyNominationsList = new Random().ints(4, 0, storyList.size()).distinct()
-            			.mapToObj(i -> storyList.get(i)).collect(Collectors.toList());
-        		
+        		int randCnt = storyList.size() >= 4 ? 4 : storyList.size();
+        		List<Map<String,String>> randLst = new ArrayList<>();
+        		randLst.addAll(storyList);
+        		Collections.shuffle(randLst);
         		storyItem.put("storyList", storyList);
-        		storyItem.put("storyNominationsList", storyNominationsList);
+        		storyItem.put("storyNominationsList", randLst.subList(0, randCnt));
         		objectResponse.setDataInfo(storyItem);
         	} else {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_NO_DATA);
@@ -230,8 +234,6 @@ public class WebTruyenControler {
         logger.info("end");
         return objectResponse;
     }
-	
-	
 	
 	public ObjectResponse getChapterList(String storyId) {
 		logger.info("start");

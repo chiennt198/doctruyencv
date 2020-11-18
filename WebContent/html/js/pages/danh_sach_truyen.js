@@ -62,15 +62,19 @@ var vueItem = new Vue({
     				if ( this.storyList != null ) {
     					this.dataCount = this.storyList.length;
     					this.sortList();
-    					$('#pagination').twbsPagination('destroy');
-        				$('#pagination').twbsPagination({
-    			            totalPages: this_.totalPages,
-    			            visiblePages: 3,
-    			            startPage : Number(this_.currentPage) + 1,
-    			            onPageClick: function (event, page) {
-    			            	this_.setPage(page -1);
-    			            }
-        				 });
+    					
+    					if (this.dataCount > 0) {
+    						$('#pagination').twbsPagination('destroy');
+            				$('#pagination').twbsPagination({
+        			            totalPages: this_.totalPages,
+        			            visiblePages: 3,
+        			            startPage : Number(this_.currentPage) + 1,
+        			            onPageClick: function (event, page) {
+        			            	this_.setPage(page -1);
+        			            }
+            				 });
+    					}
+    					
     				}
     				
     			} else {
