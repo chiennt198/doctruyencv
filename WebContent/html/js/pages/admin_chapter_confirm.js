@@ -20,7 +20,7 @@ var vueItem = new Vue({
     				sessionStorage.removeItem("PARAM_CHAPTER_INFO");
     				if(this.chapterData.registType = '0') {
     					alert("Đã tạo chương mới thành công");
-    					window.location.href= contextPath + "/html/admin_story_new.html";
+    					window.location.href= contextPath + "/html/admin_story_detail.html";
     				} else {
     					alert("Đã chỉnh sửa chương thành công");
     					window.location.href= contextPath + "/html/admin_story_detail.html";

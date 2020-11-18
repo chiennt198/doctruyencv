@@ -3,20 +3,19 @@ var loginVue = new Vue({
     data:{
     	error_message : '',
     	loginInfo:{
-    		kaiinId:'', 
+    		userId:'', 
     		password:''
     	},
-    	GakkaiOptions:[]
     },
     created : function() {
-    	this.loginInfo.kaiinId = '';
+    	this.loginInfo.userId = '';
     	this.loginInfo.password = '';
     	sessionStorage.clear();
     },
     methods: {
     	login: function() {
     		this.error_message = '';
-    		if(!this.loginInfo.kaiinId) {
+    		if(!this.loginInfo.userId) {
     			this.error_message += '<p>' + 'You must enter a value for 会員番号' + '</p>';
     		}
     		if(!this.loginInfo.password) {
@@ -26,67 +25,28 @@ var loginVue = new Vue({
     			return false;
     		}
     		showLoading();
-    		var thisItems =  this;
-    		var url = '';
-    		var param = {
-    				"kaiin_code":thisItems.loginInfo.kaiinId,
-    				"gakkai_code":$('#societyCd').val(),
-    				"password":thisItems.loginInfo.password,
-    				"url_key":'13'
-    			}
-    		$.ajax({
-  			  url: API_AUTH_WEB_API + "/login",
-  			  type:'post',
-  			  async: false,
-  			  cache : false,
-  			 data : {json:JSON.stringify(param)},
-    		}).done(function( jsond ) {
 
-    			var auth_data = JSON.parse(jsond);
-    			var result = auth_data.result;
-	  			url = API_HTTP_COMMON + "/admin/admin-get-user-login";
-				if(result != "true"){
-					thisItems.error_message = '認証に失敗しました。';
-					hideLoading();
-					return;
-				}
-				sessionStorage.setItem(PARAM_AUTH_DATA,JSON.stringify(auth_data));
+  			url = API_HTTP_COMMON + "/admin-login";
 			$.ajax({
 				  url: url,
 				  type:'post',
 				  async: false,
-					  headers: {'AUTH-DATA' : sessionStorage.getItem(PARAM_AUTH_DATA)},
-					  data : thisItems.loginInfo
+					  headers: {},
+					  data : loginVue.loginInfo
 			}).done(function( jsond ) {
 				var data = JSON.parse(jsond);
 				if (data.status == STATUS_NORMAL) {
-					sessionStorage.setItem("ADMIN_ID", data.dataInfo.id);
-					sessionStorage.setItem("ADMIN_ROLE", data.dataInfo.role);
-					sessionStorage.setItem("NAME_LOGIN", data.dataInfo.sei + data.dataInfo.mei);
-					sessionStorage.setItem("ADMIN_BEAN", JSON.stringify(data.dataInfo));
-					sessionStorage.setItem("GAKKAI_CD", data.dataInfo.gakkaiCd);
-					sessionStorage.setItem("GAKKAI_NM", data.dataInfo.gakkaiNm);
-					sessionStorage.setItem("MULTIPLE_GAKKAI_FLG", data.dataInfo.multipleGakkaiFlg);
 					
-					if(!data.dataInfo.gakkaiSponsorKbn) {
-						data.dataInfo.gakkaiSponsorKbn = '';
-					}
-					sessionStorage.setItem("GAKKAI_SPONSOR_KBN", data.dataInfo.gakkaiSponsorKbn);
-					window.location.href= contextPath + "/html/admin_menu.html";
+					sessionStorage.setItem("ADMIN_ID", data.dataInfo.userID);
+					sessionStorage.setItem("ADMIN_ROLE", data.dataInfo.role);
+					sessionStorage.setItem("ADMIN_NAME", data.dataInfo.name);
+					window.location.href= contextPath + "/html/admin_story_search.html";
+				} else if (data.status == STATUS_NO_DATA) {
+					loginVue.error_message = "Tên Đăng Nhập Hoặc Mật Khẩu bị sai";
 				} else {
-					var objArr = data.dataInfo;
-
-					if(objArr != null && objArr.length > 0){
-						var strError ="";
-						$.each(objArr,function(index, value) {
-							strError += value
-						});
-
-						thisItems.error_message = strError;
-					}else{
-						thisItems.error_message = '<p>' + data.errorMessage + '</p>';
-					};
+					loginVue.error_message = data.errorMessage;
 				}
+				
 				hideLoading();
 			}).fail(function(jqXHR, textStatus, errorThrown) {
 				hideLoading();
@@ -95,14 +55,6 @@ var loginVue = new Vue({
 				    location.href=contextPath + "/html/admin_login.html";
 				return;
 			});
-  		}).fail(function(jqXHR, textStatus, errorThrown) {
-  			hideLoading();
-  		    sessionStorage.clear();
-  		    alert("エラー：" + textStatus);
-  		    location.href=contextPath + "/html/admin_login.html";
-  			return;
-  		});
-    		
 			
         },
         loginEnter:function(event) {

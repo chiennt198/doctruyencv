@@ -12,6 +12,9 @@ var movieList = new Vue({
 		statusList : []
     },
     created : function() {
+    	if(!sessionStorage.getItem("ADMIN_ID")) {
+    		logout();
+    	}
     	$('#kekka_list').hide();
     	
     	get(this, contextPath + "/get-m-wide-list/1" , {}, function(data) {
