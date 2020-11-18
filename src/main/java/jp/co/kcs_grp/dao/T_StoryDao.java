@@ -53,7 +53,7 @@ public class T_StoryDao{
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
 		int index = 1;
 		kps.setString(index++,param.get("name"));
-		kps.setString(index++,param.get("description"));
+		kps.setStringNoneSqlLiteral(index++,param.get("description"));
 		kps.setString(index++,param.get("categoryId"));
 		kps.setString(index++,param.get("authorName"));
 		kps.setString(index++,param.get("chapterCount"));

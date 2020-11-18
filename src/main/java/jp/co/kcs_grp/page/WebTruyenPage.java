@@ -161,4 +161,12 @@ public class WebTruyenPage {
         };
     }
     
+    public Route adminLogin() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.adminLogin(request.queryParams("userId"), request.queryParams("password"));
+            }
+        };
+    }
 }

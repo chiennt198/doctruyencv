@@ -73,6 +73,7 @@ public class ApplicationPage implements SparkApplication {
 	}
 	
 	private void adminRoute() {
+		Spark.post("/admin-login", webPage.adminLogin(), new JsonTransformer());
 		Spark.post("/admin-regist-story", webPage.adminRegistStory(), new JsonTransformer());
 		Spark.post("/admin-regist-chapter", webPage.adminRegistChapter(), new JsonTransformer());
 		Spark.post("/admin-get-list-story", webPage.adminGetListStory(), new JsonTransformer());
