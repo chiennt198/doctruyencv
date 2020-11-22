@@ -53,6 +53,12 @@
 								</td>
 							</tr>
 							<tr>
+								<th>Tên Đánh Dấu</th>
+								<td>
+									<input type="text" v-model="storyData.keySearch" size="50" maxlength="128" style="IME-MODE:active">
+								</td>
+							</tr>
+							<tr>
 								<th>Tác Giả</th>
 								<td>
 									<input type="text" v-model="storyData.authorName" size="50" maxlength="128" style="IME-MODE:active">
@@ -91,7 +97,7 @@
 							<tr>
 								<th>Chương Mới Nhất</th>
 								<td>
-									{{storyData.newestChapterName}}
+									{{storyData.chapterName}}
 								</td>
 							</tr>
 						</tbody>

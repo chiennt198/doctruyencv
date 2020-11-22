@@ -121,8 +121,12 @@ public class WebTruyenControler {
 			db.DBTranStart();
 			if("0".equals(map.get("registType"))) {
 				String id = chapterDao.getNewChapterId(map.get("storyId"));
+				String chCount = chapterDao.countChapter(map.get("storyId"));
 				map.put("id", id);
 				chapterDao.insert(map, db);
+				map.put("newestChapterId", id);
+				map.put("chapterCount", chCount);
+				storyDao.updateNewInfo(map, db);
 			} else {
 				chapterDao.update(map, db);
 			}

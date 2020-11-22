@@ -28,6 +28,7 @@ public class T_StoryDao{
 		sql = new StringBuilder();
 		sql.append(" INSERT INTO T_STORIES ( ");
 		sql.append(" NAME ");
+		sql.append(" ,KEY_SEARCH ");
 		sql.append(" ,DESCRIPTION ");
 		sql.append(" ,CATEGORY_ID ");	
 		sql.append(" ,AUTHOR_NAME ");
@@ -39,6 +40,7 @@ public class T_StoryDao{
 		sql.append(" ,UPDATE_DATETIME ");
 		sql.append(" ) VALUES ( ");
 		sql.append(" ? ");
+		sql.append(" ,? ");
 		sql.append(" ,? ");
 		sql.append(" ,? ");
 		sql.append(" ,? ");	
@@ -53,6 +55,7 @@ public class T_StoryDao{
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
 		int index = 1;
 		kps.setString(index++,param.get("name"));
+		kps.setString(index++,param.get("keySearch"));
 		kps.setStringNoneSqlLiteral(index++,param.get("description"));
 		kps.setString(index++,param.get("categoryId"));
 		kps.setString(index++,param.get("authorName"));
@@ -70,6 +73,7 @@ public class T_StoryDao{
 		sql = new StringBuilder();
 		sql.append(" UPDATE T_STORIES SET ");
 		sql.append(" NAME = ? ");
+		sql.append(" ,KEY_SEARCH = ? ");
 		sql.append(" ,DESCRIPTION = ? ");
 		sql.append(" ,CATEGORY_ID = ? ");	
 		sql.append(" ,AUTHOR_NAME = ? ");
@@ -87,6 +91,7 @@ public class T_StoryDao{
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
 		int index = 1;
 		kps.setString(index++,param.get("name"));
+		kps.setString(index++,param.get("keySearch"));
 		kps.setStringNoneSqlLiteral(index++,param.get("description"));
 		kps.setString(index++,param.get("categoryId"));
 		kps.setString(index++,param.get("authorName"));
@@ -198,6 +203,7 @@ public class T_StoryDao{
 				sbSql.append("SELECT ");
 				sbSql.append(" IFNULL(st.ID,'') AS ID ");
 				sbSql.append(" ,IFNULL(st.NAME,'') AS NAME ");
+				sbSql.append(" ,IFNULL(st.KEY_SEARCH,'') AS KEY_SEARCH ");
 				sbSql.append(" ,IFNULL(st.DESCRIPTION,'') AS DESCRIPTION ");
 				sbSql.append(" ,IFNULL(st.CATEGORY_ID,'') AS CATEGORY_ID ");
 				sbSql.append(" ,IFNULL(mc.CATEGORY_NAME,'') AS CATEGORY_NAME ");
@@ -209,7 +215,6 @@ public class T_StoryDao{
 				sbSql.append(" ,IFNULL(tc.ID,'') AS CHAPTER_ID ");
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS CHAPTER_NAME ");
 				sbSql.append(" FROM T_STORIES st ");
-				
 				sbSql.append(" LEFT JOIN T_CHAPTERS as tc ");
 				sbSql.append(" ON tc.STORY_ID = st.ID  ");
 				sbSql.append(" AND tc.ID = st.NEWEST_CHAPTER_ID  ");
@@ -233,6 +238,7 @@ public class T_StoryDao{
         		map =  new HashMap<>();
         		map.put("id",rs.getString("ID"));
         		map.put("name",rs.getString("NAME"));
+        		map.put("keySearch",rs.getString("KEY_SEARCH"));
         		map.put("description",rs.getString("DESCRIPTION"));
         		map.put("categoryId",rs.getString("CATEGORY_ID"));
         		map.put("categoryName",rs.getString("CATEGORY_NAME"));
@@ -453,5 +459,24 @@ public class T_StoryDao{
 			}
 
 			return totalStory;
+		}
+	 
+	 public void  updateNewInfo(Map<String,String> param, DBAccess db) throws Exception {
+			log.info("start");
+			StringBuilder sql = null;
+			// 請求TBL取得の処理
+			sql = new StringBuilder();
+			sql.append(" UPDATE T_STORIES SET ");
+			sql.append("  NEWEST_CHAPTER_ID = ? ");
+			sql.append(" ,CHAPTER_COUNT = ? ");
+			sql.append(" ,NEWEST_UPDATE_DATETIME = NOW() ");	
+			sql.append(" WHERE ID = ? ");
+			KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
+			int index = 1;
+			kps.setString(index++,param.get("newestChapterId"));
+			kps.setString(index++,param.get("chapterCount"));
+			kps.setString(index++,param.get("storyId"));
+			kps.execute();
+			log.info("end");
 		}
 }

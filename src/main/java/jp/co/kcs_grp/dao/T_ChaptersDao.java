@@ -287,4 +287,49 @@ public class T_ChaptersDao {
 
 			return map;
 		}
+	 	
+	 	public String countChapter(String storyId) throws Exception {
+			DBAccess db = null;
+			ResultSet rs = null;
+			StringBuilder sbSql = null;
+			//開始ログ出力
+			String result = "0";
+			log.warn("start");
+			try {
+				//データベース接続
+	            db = new DBAccess();
+	            if (!db.dbConnection()) {
+	                db.DBClose();
+	                throw new Exception("データベース接続が失敗です。");
+	            }
+	            
+				//SQL作成
+				sbSql = new StringBuilder();
+				sbSql.append("SELECT ");
+				sbSql.append(" COUNT(*) chCount ");
+				sbSql.append(" FROM T_CHAPTERS ");
+				sbSql.append(" WHERE STORY_ID = ? ");
+				sbSql.append(" AND DELETE_FLG IS NULL ");
+				
+				//SQL実行
+	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
+	            kps.setString(1, storyId);
+	            rs = kps.executeQuery();
+	            if(rs != null && rs.next()) {
+	            	result = rs.getString("chCount");
+	            }
+			} catch(Exception e) {
+				StringWriter stack = new StringWriter();
+	        	e.printStackTrace(new PrintWriter(stack));
+	        	log.error(stack.toString());
+	            throw e;
+			} finally {
+				//データベース切断
+				db.DBClose();
+				//終了ログ出力
+				log.warn("end");
+			}
+
+			return result;
+		}
 }

@@ -18,6 +18,9 @@ var vueItem = new Vue({
     		if(!this.storyData.name) {
     			this.error_message = '<p>Vui lòng nhập tên truyện</p>';
     		}
+    		if(!this.storyData.keySearch) {
+    			this.error_message = '<p>Vui lòng nhập tên đánh dấu</p>';
+    		}
     		if(!this.storyData.authorName) {
     			this.error_message += '<p>Vui lòng nhập tác giả</p>';
     		}
