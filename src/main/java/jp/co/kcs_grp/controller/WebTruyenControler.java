@@ -125,7 +125,7 @@ public class WebTruyenControler {
 				map.put("id", id);
 				chapterDao.insert(map, db);
 				map.put("newestChapterId", id);
-				map.put("chapterCount", chCount);
+				map.put("chapterCount", String.valueOf(Integer.parseInt(chCount) + 1));
 				storyDao.updateNewInfo(map, db);
 			} else {
 				chapterDao.update(map, db);
