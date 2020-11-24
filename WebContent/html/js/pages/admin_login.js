@@ -26,7 +26,7 @@ var loginVue = new Vue({
     		}
     		showLoading();
 
-  			url = API_HTTP_COMMON + "/admin-login";
+  			url = API_HTTP_COMMON + "/api/admin-login";
 			$.ajax({
 				  url: url,
 				  type:'post',

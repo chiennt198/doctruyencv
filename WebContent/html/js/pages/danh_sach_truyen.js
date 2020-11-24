@@ -30,13 +30,13 @@ var vueItem = new Vue({
     },
     methods: {
     	loadDefault: function(){
-    		get(this, contextPath + "/get-category-list" , {}, function(data) {
+    		get(this, contextPath + "/api/get-category-list" , {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.categoryList = data.dataInfo;
     			}
     		});
     		
-    		get(this, contextPath + "/get-m-wide-list/1" , {}, function(data) {
+    		get(this, contextPath + "/api/get-m-wide-list/1" , {}, function(data) {
     			
     			if (data.status == STATUS_NORMAL) {
     				this.statusList = data.dataInfo;

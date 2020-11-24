@@ -7,7 +7,7 @@ var vueItem = new Vue({
     created : function() {
     	
     	if (!sessionStorage.getItem("PARAM_STORY_ID") || !sessionStorage.getItem("PARAM_CHAPTER_ID")) {
-    		window.location.href= contextPath + "/html/Home.html";
+    		window.location.href= contextPath + "/html/trang_chu.html";
     		return;
     	}
     	
@@ -19,7 +19,7 @@ var vueItem = new Vue({
     		this.error_message = '';
     		this.chapterInfo = {};
     		
-    		get(this, contextPath + "/get-chapter-details/" + sessionStorage.getItem("PARAM_STORY_ID") + "/" + sessionStorage.getItem("PARAM_CHAPTER_ID"), {}, function(data) {
+    		get(this, contextPath + "/api/get-chapter-details/" + sessionStorage.getItem("PARAM_STORY_ID") + "/" + sessionStorage.getItem("PARAM_CHAPTER_ID"), {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.chapterInfo = data.dataInfo;
     			}
@@ -35,7 +35,7 @@ var vueItem = new Vue({
     		
     		if (  chapterId ) {
     			this.chapterInfo = {};
-        		get(this, contextPath + "/get-chapter-details/" + sessionStorage.getItem("PARAM_STORY_ID") + "/" + chapterId, {}, function(data) {
+        		get(this, contextPath + "/api/get-chapter-details/" + sessionStorage.getItem("PARAM_STORY_ID") + "/" + chapterId, {}, function(data) {
         			
         			if (data.status == STATUS_NORMAL) {
         				this.chapterInfo = data.dataInfo;

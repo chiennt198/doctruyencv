@@ -15,7 +15,7 @@ var vueItem = new Vue({
     },
     methods: {
     	createChapter: function(){
-    		post(this, contextPath + "/admin-regist-chapter" , {json:JSON.stringify(this.chapterData)}, function(data) {
+    		post(this, contextPath + "/api/admin-regist-chapter" , {json:JSON.stringify(this.chapterData)}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				sessionStorage.removeItem("PARAM_CHAPTER_INFO");
     				if(this.chapterData.registType = '0') {

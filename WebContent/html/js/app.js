@@ -162,6 +162,7 @@ function getView(context, url, data) {
 				doc.write(data);
 				doc.close();
 				window.location.href = url;
+				
 			},
 			error : function (data, status, request) {
 				hideLoading();

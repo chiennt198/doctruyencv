@@ -31,7 +31,7 @@ var vueItem = new Vue({
     		this.dataCount = 0;
     		var this_ = this;
     		
-    		get(this, contextPath + "/get-story-info/" + this.keySearch , {}, function(data) {
+    		get(this, contextPath + "/api/get-story-info/" + this.keySearch , {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				var storyItems = data.dataInfo;
     				this.storyInfo = storyItems.storyInfo;
@@ -56,7 +56,7 @@ var vueItem = new Vue({
     	getPagingList: function(page){
     		this.error_message = '';
     		this.storyList = [];
-    		get(this, contextPath + "/get-story-info/" + this.keySearch , {currentPage: page, pagingFlg:'1'}, function(data) {
+    		get(this, contextPath + "/api/get-story-info/" + this.keySearch , {currentPage: page, pagingFlg:'1'}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.chapterList = data.dataInfo.storyList;
     			} else {

@@ -17,7 +17,7 @@ var movieList = new Vue({
     	}
     	$('#kekka_list').hide();
     	
-    	get(this, contextPath + "/get-m-wide-list/1" , {}, function(data) {
+    	get(this, contextPath + "/api/get-m-wide-list/1" , {}, function(data) {
 			
 			if (data.status == STATUS_NORMAL) {
 				this.statusList = data.dataInfo;
@@ -37,7 +37,7 @@ var movieList = new Vue({
     		this.error_message = '';
     		this_.storyList = [];
     		this_.filteredList = [];
-    		post(this_, contextPath + "/admin-get-list-story" , {json: JSON.stringify(movieList.searchCond)}, function(data) {
+    		post(this_, contextPath + "/api/admin-get-list-story" , {json: JSON.stringify(movieList.searchCond)}, function(data) {
     			
     			if (data.status == STATUS_NORMAL) {
     	    		var offset = $('#topScroll').offset();

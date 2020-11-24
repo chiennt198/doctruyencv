@@ -54,6 +54,7 @@ public class ApplicationPage implements SparkApplication {
 			if ("/logout".equals(url)) {
 				response.redirect(request.raw().getContextPath() + "/");
 			}
+			
 		});
 
 		webRoute();
@@ -75,24 +76,24 @@ public class ApplicationPage implements SparkApplication {
 	}
 	
 	private void adminRoute() {
-		Spark.post("/admin-login", webPage.adminLogin(), new JsonTransformer());
-		Spark.post("/admin-regist-story", webPage.adminRegistStory(), new JsonTransformer());
-		Spark.post("/admin-regist-chapter", webPage.adminRegistChapter(), new JsonTransformer());
-		Spark.post("/admin-get-list-story", webPage.adminGetListStory(), new JsonTransformer());
-		Spark.get("/admin-get-story-detail/:id", webPage.getStoryDetail(), new JsonTransformer());
-		Spark.post("/admin-get-list-chapters", webPage.adminGetListChapters(), new JsonTransformer());
-		Spark.post("/get-chapter-detail", webPage.adminGetListChapters(), new JsonTransformer());
+		Spark.post("/api/admin-login", webPage.adminLogin(), new JsonTransformer());
+		Spark.post("/api/admin-regist-story", webPage.adminRegistStory(), new JsonTransformer());
+		Spark.post("/api/admin-regist-chapter", webPage.adminRegistChapter(), new JsonTransformer());
+		Spark.post("/api/admin-get-list-story", webPage.adminGetListStory(), new JsonTransformer());
+		Spark.get("/api/admin-get-story-detail/:id", webPage.getStoryDetail(), new JsonTransformer());
+		Spark.post("/api/admin-get-list-chapters", webPage.adminGetListChapters(), new JsonTransformer());
+		Spark.post("/api/get-chapter-detail", webPage.adminGetListChapters(), new JsonTransformer());
 	}
 	
 	private void webRoute() {
-		Spark.get("/get-category-list", webPage.getCategoryList(), new JsonTransformer());
-		Spark.get("/get-m-wide-list/:idx", webPage.getMWideList(), new JsonTransformer());
-		Spark.post("/get-chapter-detail", webPage.getChapterDetail(), new JsonTransformer());
-		Spark.get("/get-story-items", webPage.getStoryItems(), new JsonTransformer());
-		Spark.get("/get-story-info/:storyId", webPage.getStoryInfo(), new JsonTransformer());
-		Spark.get("/get-chapter-list/:storyId", webPage.getChapterList(), new JsonTransformer());
-		Spark.get("/get-chapter-details/:storyId/:chapterId", webPage.getChapterInfo(), new JsonTransformer());
-		Spark.get("/get-story-list", webPage.getStoryList(), new JsonTransformer());
+		Spark.get("/api/get-category-list", webPage.getCategoryList(), new JsonTransformer());
+		Spark.get("/api/get-m-wide-list/:idx", webPage.getMWideList(), new JsonTransformer());
+		Spark.post("/api/get-chapter-detail", webPage.getChapterDetail(), new JsonTransformer());
+		Spark.get("/api/get-story-items", webPage.getStoryItems(), new JsonTransformer());
+		Spark.get("/api/get-story-info/:storyId", webPage.getStoryInfo(), new JsonTransformer());
+		Spark.get("/api/get-chapter-list/:storyId", webPage.getChapterList(), new JsonTransformer());
+		Spark.get("/api/get-chapter-details/:storyId/:chapterId", webPage.getChapterInfo(), new JsonTransformer());
+		Spark.get("/api/get-story-list", webPage.getStoryList(), new JsonTransformer());
 		
 
 	}
