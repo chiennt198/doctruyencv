@@ -61,7 +61,7 @@
 					
 					<div v-show="randomCnt > 0" class="list-adv-listpage list-adv-lunchon">
 						<div v-for="(item,index) in randomLst">
-							<a href="javascript:void(0)" v-on:click="getStory(item.storyId)">
+							<a href="javascript:void(0)" v-on:click="getStory(item.storyId, item.keySearch)">
 								<img :src="item.linkImg" onerror="this.src='./img/no_thumbnail.gif'" >
 							</a>
 							<p class="speaker_right" v-on:click="getStory(item.storyId)">{{ item.storyName }}</p>
@@ -71,7 +71,7 @@
 					<h3 class="abst_cat">TRUYỆN MỚI CẬP NHẬT</h3>
 					
 					<div v-show="dataCount > 0" class="list_truyen">
-						<a class="col-xs-12" href="javascript:void(0)" v-for="(story,index) in storyList" v-on:click="getStory(story.storyId)">
+						<a class="col-xs-12" href="javascript:void(0)" v-for="(story,index) in storyList" v-on:click="getStory(story.storyId, story.keySearch)">
 							<span class="col-xs-4">{{ story.storyName }}</span>
 							<span class="col-xs-6">{{ story.chapterName }}</span>
 							<span class="col-xs-2">{{ story.updateChapterTime }}</span>

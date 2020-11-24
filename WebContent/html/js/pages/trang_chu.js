@@ -50,7 +50,6 @@ var vueItem = new Vue({
     		});
     	},
     	getPagingList: function(page){
-    		debugger;
     		this.error_message = '';
     		this.storyList = [];
     		get(this, contextPath + "/get-story-items" , {currentPage: page, pagingFlg:'1'}, function(data) {
@@ -61,10 +60,10 @@ var vueItem = new Vue({
     			}
     		});
     	},
-    	
-    	getStory: function(storyId){
-    		sessionStorage.setItem("PARAM_STORY_ID",storyId);
-    		window.location.href= contextPath + "/html/truyen.html";
+    	getStory: function(storyId, keySearch){
+//    		sessionStorage.setItem("PARAM_STORY_ID",storyId);
+    		getView(this, contextPath + "/truyen/" + keySearch , null);
+    		
     	},
     	removeSes: function(){
     		sessionStorage.removeItem("PARAM_STORY_ID");

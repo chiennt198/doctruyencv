@@ -227,29 +227,32 @@ public class T_StoryDao{
 				sbSql.append(" ON mc.CATEGORY_ID = st.CATEGORY_ID ");
 				
 				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
-				sbSql.append(" AND st.ID = ? ");
+				sbSql.append(" AND ( ");
+				sbSql.append("   st.ID = ? ");
+				sbSql.append(" OR st.KEY_SEARCH = ? ");
+				sbSql.append(" ) ");
 				sbSql.append(" ORDER BY st.ID ");
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
 	            kps.setString(1, id);
+	            kps.setString(2, id);
 	            rs = kps.executeQuery();
 	            if(rs != null && rs.next()) {
-        		map =  new HashMap<>();
-        		map.put("id",rs.getString("ID"));
-        		map.put("name",rs.getString("NAME"));
-        		map.put("keySearch",rs.getString("KEY_SEARCH"));
-        		map.put("description",rs.getString("DESCRIPTION"));
-        		map.put("categoryId",rs.getString("CATEGORY_ID"));
-        		map.put("categoryName",rs.getString("CATEGORY_NAME"));
-        		map.put("authorName",rs.getString("AUTHOR_NAME"));
-        		map.put("status",rs.getString("STATUS"));
-        		map.put("statusName",rs.getString("STATUS_NAME"));
-        		map.put("linkImg",rs.getString("LINK_IMG"));
-        		map.put("publicFlg",rs.getString("PUBLIC_FLG"));
-        		map.put("chapterName",rs.getString("CHAPTER_NAME"));
-        		map.put("chapterId",rs.getString("CHAPTER_ID"));
-        		
+	        		map =  new HashMap<>();
+	        		map.put("id",rs.getString("ID"));
+	        		map.put("name",rs.getString("NAME"));
+	        		map.put("keySearch",rs.getString("KEY_SEARCH"));
+	        		map.put("description",rs.getString("DESCRIPTION"));
+	        		map.put("categoryId",rs.getString("CATEGORY_ID"));
+	        		map.put("categoryName",rs.getString("CATEGORY_NAME"));
+	        		map.put("authorName",rs.getString("AUTHOR_NAME"));
+	        		map.put("status",rs.getString("STATUS"));
+	        		map.put("statusName",rs.getString("STATUS_NAME"));
+	        		map.put("linkImg",rs.getString("LINK_IMG"));
+	        		map.put("publicFlg",rs.getString("PUBLIC_FLG"));
+	        		map.put("chapterName",rs.getString("CHAPTER_NAME"));
+	        		map.put("chapterId",rs.getString("CHAPTER_ID"));
 	            }
 				
 			} catch(Exception e) {
@@ -302,6 +305,7 @@ public class T_StoryDao{
 				sbSql.append(" END AS UPDATE_CHAPTER_TIME ");
 				sbSql.append(" ,IFNULL(mw1.NAME,'') AS STATUS_NAME ");
 				sbSql.append(" ,IFNULL(st.CHAPTER_COUNT,0) AS CHAPTER_COUNT ");
+				sbSql.append(" ,IFNULL(st.KEY_SEARCH, '') AS KEY_SEARCH ");
 				
 				sbSql.append(" FROM T_STORIES as st ");
 				
@@ -392,6 +396,7 @@ public class T_StoryDao{
 	            		map.put("updateChapterTime",rs.getString("UPDATE_CHAPTER_TIME"));
 	            		map.put("statusName",rs.getString("STATUS_NAME"));
 	            		map.put("chapterCount",rs.getString("CHAPTER_COUNT"));
+	            		map.put("keySearch",rs.getString("KEY_SEARCH"));
 	            		list.add(map);
 					}
 	            	

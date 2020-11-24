@@ -14,6 +14,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import jp.co.kcs_grp.base.json.JsonTransformer;
+import jp.co.kcs_grp.common.FreeMarkerTemplateEngine;
 import jp.co.kcs_grp.utils.AppParams;
 import spark.Spark;
 import spark.servlet.SparkApplication;
@@ -30,7 +31,7 @@ public class ApplicationPage implements SparkApplication {
 	 */
 	private WebTruyenPage  webPage = new WebTruyenPage();
 
-
+	private HtmlPage  htmlPage = new HtmlPage();
 	@Override
 	public void init() {
 		logger.info("start");
@@ -57,6 +58,7 @@ public class ApplicationPage implements SparkApplication {
 
 		webRoute();
 		adminRoute();
+		htmlRoute();
 		Spark.get("/environ.js", (req, res) -> {
 			StringBuffer cont = new StringBuffer();
 			cont.append("var API_HTTP_COMMON = \"" + AppParams.getValue("parameterpath", "API_HTTP_COMMON") + "\";\n");
@@ -91,6 +93,12 @@ public class ApplicationPage implements SparkApplication {
 		Spark.get("/get-chapter-list/:storyId", webPage.getChapterList(), new JsonTransformer());
 		Spark.get("/get-chapter-details/:storyId/:chapterId", webPage.getChapterInfo(), new JsonTransformer());
 		Spark.get("/get-story-list", webPage.getStoryList(), new JsonTransformer());
+		
+
 	}
 
+	private void htmlRoute() {
+		Spark.get("/truyen/:keySearch", htmlPage.getTruyenHtml(), new FreeMarkerTemplateEngine());
+	}
+	
 }

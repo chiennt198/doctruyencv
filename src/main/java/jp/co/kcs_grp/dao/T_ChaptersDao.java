@@ -13,6 +13,7 @@ import org.apache.log4j.Logger;
 
 import jp.co.kcs_grp.base.DBAccess;
 import jp.co.kcs_grp.base.KcsPreparedStatement;
+import jp.co.kcs_grp.utils.AppParams;
 
 public class T_ChaptersDao {
 
@@ -167,7 +168,14 @@ public class T_ChaptersDao {
 				if(StringUtils.isNotBlank(cond.get("status"))) {
 					sbSql.append(" AND st.STATUS like ? ");
 				}
+				
 				sbSql.append(" ORDER BY st.ID DESC ");
+				
+				if ( StringUtils.isNotEmpty(cond.get("currentPage")) ) {
+					sbSql.append(" LIMIT ?, ? ");
+				} else {
+					sbSql.append(" LIMIT 0, ? ");
+				}
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
@@ -182,6 +190,12 @@ public class T_ChaptersDao {
 				if(StringUtils.isNotBlank(cond.get("status"))) {
 					kps.setString(idx++, cond.get("status"));
 				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("currentPage")) ) {
+					kps.setInt(idx++, Integer.valueOf(cond.get("currentPage")));
+					kps.setInt(idx++, Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE")));
+				}
+				
 	            rs = kps.executeQuery();
 	            if(rs != null) {
 	            	while (rs.next()) {
@@ -332,4 +346,53 @@ public class T_ChaptersDao {
 
 			return result;
 		}
+	 	
+	 	
+ 	 public long totalChapterInStories(String storyId) throws Exception {
+		DBAccess db = null;
+		ResultSet rs = null;
+		StringBuilder sbSql = null;
+		//開始ログ出力
+		long totalChapter = 0;
+		log.warn("start");
+		try {
+			//データベース接続
+            db = new DBAccess();
+            if (!db.dbConnection()) {
+                db.DBClose();
+                throw new Exception("データベース接続が失敗です。");
+            }
+            
+			//SQL作成
+			sbSql = new StringBuilder();
+			sbSql.append("SELECT COUNT(*) as CNT ");
+			sbSql.append(" FROM T_CHAPTERS st ");
+			sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
+			sbSql.append(" AND st.STORY_ID = ? ");
+			
+			//SQL実行
+            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
+            int idx = 1;
+            kps.setString(idx++, storyId);
+            rs = kps.executeQuery();
+            if(rs != null  && rs.next()) {
+            	totalChapter = rs.getLong("CNT");
+            	//ResultSetのクローズ
+				rs.close();
+            }
+			
+		} catch(Exception e) {
+			StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+        	log.error(stack.toString());
+            throw e;
+		} finally {
+			//データベース切断
+			db.DBClose();
+			//終了ログ出力
+			log.warn("end");
+		}
+
+		return totalChapter;
+	}
 }
