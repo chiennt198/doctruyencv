@@ -7,24 +7,23 @@
 <!-- InstanceBeginEditable name="doctitle" -->
 <title>Đọc Truyện Cv</title>
 <!-- InstanceEndEditable -->
-<link rel="stylesheet" href="./css/bootstrap.css">
-<link rel="stylesheet" href="./css/font-awesome.min.css">
-<link rel="stylesheet" href="./css/basic.css">
-<link rel="stylesheet" href="./css/style.css">
-<link rel="stylesheet" href="./css/jspn2020_unique.css">
-<link rel="stylesheet" href="./css/loading.css">
-<link rel="stylesheet" href="./css/header.css">
-<script src="./js/jquery.min.js"></script>
-<script src="./js/bootstrap.js" type="text/javascript"></script>
-<script src="./js/vue.js" type="text/javascript"></script>
-<script src="./js/constants.js" type="text/javascript"></script>
-<script src="./js/app.js" type="text/javascript"></script>
+<link rel="stylesheet" href="../html/css/bootstrap.css">
+<link rel="stylesheet" href="../html/css/font-awesome.min.css">
+<link rel="stylesheet" href="../html/css/basic.css">
+<link rel="stylesheet" href="../html/css/style.css">
+<link rel="stylesheet" href="../html/css/jspn2020_unique.css">
+<link rel="stylesheet" href="../html/css/loading.css">
+<link rel="stylesheet" href="../html/css/header.css">
+<script src="../html/js/jquery.min.js"></script>
+<script src="../html/js/bootstrap.js" type="text/javascript"></script>
+<script src="../html/js/vue.js" type="text/javascript"></script>
+<script src="../html/js/app.js" type="text/javascript"></script>
 <script src="../environ.js" type="text/javascript"></script>
-<script src="./js/utils.js" type="text/javascript"></script>
-<script type="text/javascript" src="./js/menu_openclose.js"></script>
-<script type="text/javascript" src="./js/dropmenu_min.js"></script>
-<script src="./js/basic.js" type="text/javascript"></script>
-<script src="./js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+<script src="../html/js/utils.js" type="text/javascript"></script>
+<script type="text/javascript" src="../html/js/menu_openclose.js"></script>
+<script type="text/javascript" src="../html/js/dropmenu_min.js"></script>
+<script src="../html/js/basic.js" type="text/javascript"></script>
+<script src="../html/js/jquery.twbsPagination.min.js" type="text/javascript"></script>
 <!-- InstanceParam name="ad_footer" type="boolean" value="false" -->
 <!-- InstanceParam name="fulldesign" type="boolean" value="false" -->
 <!-- InstanceParam name="menu_mypage" type="boolean" value="false" -->
@@ -60,7 +59,7 @@
 					<div class="movie_block clearfix">
 						<div class="movie_thum float_left movie_img">
 							<a href="online_abstracts_luncheon_02.html">
-								<img :src="storyInfo.linkImg" alt="">
+								<img :src="storyInfo.linkImg" onerror="this.src='../html/img/no_thumbnail.gif'">
 							</a> 
 						</div>
 						<div class="movie_info float_right">
@@ -112,7 +111,7 @@
 							<div id="panel3" class="tab_panel">
 								
 								<div class="list_truyen">
-									<a class="col-xs-12" href="javascript:void(0)" v-for="(chapter,index) in filteredList" v-on:click="getChapter(chapter.id)">
+									<a class="col-xs-12" href="javascript:void(0)" v-for="(chapter,index) in chapterList" v-on:click="getChapter(chapter.id)">
 										<span class="col-xs-10">{{ chapter.name }}</span>
 										<span class="col-xs-2">{{ chapter.updateChapterTime }}</span>
 									</a>
@@ -136,7 +135,7 @@
 	
 	<div id="footer"></div>
 	
-<script src="./js/pages/truyen.js" type="text/javascript"></script>
+<script src="../html/js/pages/truyen.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
 	$('#header').load("header.html");

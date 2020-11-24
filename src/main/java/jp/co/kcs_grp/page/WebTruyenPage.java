@@ -138,7 +138,8 @@ public class WebTruyenPage {
         return new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                return webTruyenControler.getStoryInfo(request.params("storyId"));
+                return webTruyenControler.getStoryInfo(request.params("storyId"), 
+                		request.queryParams("currentPage"), request.queryParams("pagingFlg"));
             }
         };
     }
@@ -169,4 +170,8 @@ public class WebTruyenPage {
             }
         };
     }
+    
+    
+   
+    
 }

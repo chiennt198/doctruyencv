@@ -4,15 +4,19 @@ var vueItem = new Vue({
     	error_message : '',
     	storyInfo:{},
     	chapterList:[],
-    	filteredList:[],
     	dataCount:0,
     	currentPage: 0,
 		itemsPerPage: ITEMS_PER_PAGE,
+		keySearch: '',
     },
     created : function() {
+    	debugger;
+    	var url = window.location.href.split('/');
+    	var keySearch = url[url.length - 1];
+    	this.keySearch = keySearch ? keySearch : sessionStorage.getItem("PARAM_STORY_ID");
     	
-    	if (!sessionStorage.getItem("PARAM_STORY_ID")) {
-    		window.location.href= contextPath + "/html/Home.html";
+    	if (!this.keySearch ) {
+    		window.location.href= contextPath + "/html/trang_chu.html";
     		return;
     	}
     	
@@ -27,43 +31,38 @@ var vueItem = new Vue({
     		this.dataCount = 0;
     		var this_ = this;
     		
-    		get(this, contextPath + "/get-story-info/" + sessionStorage.getItem("PARAM_STORY_ID") , {}, function(data) {
+    		get(this, contextPath + "/get-story-info/" + this.keySearch , {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				var storyItems = data.dataInfo;
     				this.storyInfo = storyItems.storyInfo;
-    				this.chapterList = storyItems.chapterList;
+    				this.totalPages = storyItems.totalPages;
+    				this.dataCount = Number(storyItems.dataCnt);
     				
-    				if ( this.chapterList != null ) {
-    					this.dataCount = this.chapterList.length;
-    					this.sortList();
-    					
-    					if (this.dataCount > 0) {
-    						$('#pagination').twbsPagination('destroy');
-            				$('#pagination').twbsPagination({
-        			            totalPages: this_.totalPages,
-        			            visiblePages: 3,
-        			            startPage : Number(this_.currentPage) + 1,
-        			            onPageClick: function (event, page) {
-        			            	this_.setPage(page -1);
-        			            }
-            				 });
-    					}
-    					
-    				}
+    				$('#pagination').twbsPagination('destroy');
+    				$('#pagination').twbsPagination({
+    		            totalPages: this_.totalPages,
+    		            visiblePages: 3,
+    		            startPage : 1,
+    		            onPageClick: function (event, page) {
+    		            	this_.getPagingList(page - 1)
+    		            }
+    				});
     				
     			} else {
     				this.error_message = data.errorMessage;
     			}
     		});
     	},
-    	sortList: function(){
-    		var _el = this;
-    		var index = this.currentPage * this.itemsPerPage;
-    		this.filteredList = this.chapterList.slice(index, index + this.itemsPerPage);
-    	},
-    	setPage: function(pageNumber) {
-    		this.currentPage = pageNumber;
-			this.sortList();
+    	getPagingList: function(page){
+    		this.error_message = '';
+    		this.storyList = [];
+    		get(this, contextPath + "/get-story-info/" + this.keySearch , {currentPage: page, pagingFlg:'1'}, function(data) {
+    			if (data.status == STATUS_NORMAL) {
+    				this.chapterList = data.dataInfo.storyList;
+    			} else {
+    				this.error_message = data.errorMessage;
+    			}
+    		});
     	},
     	getChapter: function(chapterId){
     		sessionStorage.setItem("PARAM_CHAPTER_ID", chapterId);
@@ -77,4 +76,6 @@ var vueItem = new Vue({
 	}, 
 });
 
-
+function getURLParameter(name) {
+	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+}

@@ -2,10 +2,7 @@ package jp.co.kcs_grp.controller;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -220,22 +217,20 @@ public class WebTruyenControler {
         		if ( StringUtils.equals("1", cond.get("pagingFlg")) ) {
         			storyItem.put("storyList", storyDao.getList(cond));
         		} else {
-            		int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
-
-            		long totalPage = 0;
-            		if ( itemsPerPage != 1 ) {
-            			totalPage = totalStory / itemsPerPage;
+        			long totalPage = 0;
+        			int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
+        			if ( itemsPerPage == 1 ) {
+        				totalPage = totalStory;
+        			} else {
+        				totalPage = totalStory / itemsPerPage;
                 		
                 		if (totalStory % itemsPerPage != 0) {
                 			totalPage += 1;
                 		}
-            		} else {
-            			totalPage = totalStory;
-            		}
+        			}
             		
             		Map<String,String> condRand = new HashMap<>();
             		condRand.put("randomType", "1");
-            		
             		storyItem.put("randomLst", storyDao.getList(condRand));
             		storyItem.put("storyCnt", String.valueOf(totalStory));
             		storyItem.put("totalPages", String.valueOf(totalPage));
@@ -282,7 +277,7 @@ public class WebTruyenControler {
         return objectResponse;
     }
 	
-	public ObjectResponse getStoryInfo(String storyId) {
+	public ObjectResponse getStoryInfo(String storyId, String currentPage, String pagingFlg) {
 		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
@@ -298,12 +293,32 @@ public class WebTruyenControler {
         		return objectResponse;
         	}
         	
-        	Map<String,String> cond = new HashMap<>();
-        	cond.put("storyId", storyId);
-        	
         	Map<String,Object> rtnMap = new HashMap<>();
         	rtnMap.put("storyInfo", storyInfo);
-        	rtnMap.put("chapterList", chapterDao.search(cond));
+
+    		if ( StringUtils.equals("1", pagingFlg) ) {
+    			Map<String,String> cond = new HashMap<>();
+            	cond.put("storyId", storyInfo.get("id"));
+            	cond.put("currentPage", currentPage);
+    			rtnMap.put("chapterList", chapterDao.search(cond));
+    		} else {
+    			long dataCnt = chapterDao.totalChapterInStories(storyInfo.get("id"));
+    			long totalPage = 0;
+    			int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
+    			if ( itemsPerPage == 1 ) {
+    				totalPage = dataCnt;
+    			} else {
+    				totalPage = dataCnt / itemsPerPage;
+            		
+            		if (dataCnt % itemsPerPage != 0) {
+            			totalPage += 1;
+            		}
+    			}
+        		
+    			rtnMap.put("dataCnt", String.valueOf(dataCnt));
+    			rtnMap.put("totalPages", String.valueOf(totalPage));
+    		}
+        	
         	objectResponse.setDataInfo(rtnMap);
         	
         } catch (Exception e) {
