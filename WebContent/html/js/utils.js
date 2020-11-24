@@ -11,7 +11,6 @@ function getContentMenu() {
 		},
 		methods: {
 			loadPage: function(index, html){
-				debugger;
 				get(this, contextPath + "/api/get-category-list" , {}, function(data) {
 	    			if (data.status == STATUS_NORMAL) {
 	    				this.contentList = data.dataInfo;
