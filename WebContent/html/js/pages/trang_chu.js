@@ -54,20 +54,16 @@ var vueItem = new Vue({
     		this.storyList = [];
     		get(this, contextPath + "/api/get-story-items" , {currentPage: page, pagingFlg:'1'}, function(data) {
     			if (data.status == STATUS_NORMAL) {
-    				this.storyList = data.dataInfo.storyList;
+    				this.storyList = data.dataInfo;
     			} else {
     				this.error_message = data.errorMessage;
     			}
     		});
     	},
-    	getStory: function(storyId, keySearch){
-//    		sessionStorage.setItem("PARAM_STORY_ID",storyId);
-    		getView(this, contextPath + "/truyen/" + keySearch , null);
-    		
+    	getStory: function(keySearch){
+    		window.location.href = contextPath + "/html/truyen.html?storyKey=" + keySearch;
     	},
     	removeSes: function(){
-    		sessionStorage.removeItem("PARAM_STORY_ID");
-    		sessionStorage.removeItem("PARAM_CHAPTER_ID");
     		sessionStorage.removeItem("PARAM_CATEGORY_ITEM");
     	},
     },

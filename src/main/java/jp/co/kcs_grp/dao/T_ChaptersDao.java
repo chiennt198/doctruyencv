@@ -143,16 +143,17 @@ public class T_ChaptersDao {
 				sbSql = new StringBuilder();
 				sbSql.append("SELECT ");
 				sbSql.append(" ID ");
-				sbSql.append(" ,IFNULL(NAME,'') AS NAME ");
-				sbSql.append(" ,IFNULL(STORY_ID,'') AS STORY_ID ");
-				sbSql.append(" ,IFNULL(CONTENT,'') AS CONTENT ");
+				sbSql.append(" ,IFNULL(st.NAME,'') AS NAME ");
+				sbSql.append(" ,IFNULL(st.STORY_ID,'') AS STORY_ID ");
+				sbSql.append(" ,IFNULL(st.CONTENT,'') AS CONTENT ");
+				sbSql.append(" ,IFNULL(st.KEY_SEARCH,'') AS KEY_SEARCH ");
 				
 				sbSql.append(" ,CASE   ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(YEAR, UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(YEAR, UPDATE_DATETIME, NOW()),' năm trước')  ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(MONTH, UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MONTH, UPDATE_DATETIME, NOW()),' tháng trước')  ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(DAY, UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(DAY, UPDATE_DATETIME, NOW()),' ngày trước')  ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(HOUR, UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(HOUR, UPDATE_DATETIME, NOW()),' tiếng trước')  ");
-				sbSql.append("	WHEN TIMESTAMPDIFF(MINUTE, UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MINUTE, UPDATE_DATETIME, NOW()),' phút trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(YEAR, st.UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(YEAR, UPDATE_DATETIME, NOW()),' năm trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(MONTH, st.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MONTH, UPDATE_DATETIME, NOW()),' tháng trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(DAY, st.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(DAY, UPDATE_DATETIME, NOW()),' ngày trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(HOUR, st.UPDATE_DATETIME, NOW()) > 0 THEN  CONCAT(TIMESTAMPDIFF(HOUR, UPDATE_DATETIME, NOW()),' tiếng trước')  ");
+				sbSql.append("	WHEN TIMESTAMPDIFF(MINUTE, st.UPDATE_DATETIME, NOW()) > 0 THEN CONCAT(TIMESTAMPDIFF(MINUTE, UPDATE_DATETIME, NOW()),' phút trước')  ");
 				sbSql.append("	ELSE '1 phút trước'  ");
 				sbSql.append(" END AS UPDATE_CHAPTER_TIME ");
 				
@@ -204,6 +205,7 @@ public class T_ChaptersDao {
 	            		map.put("name",rs.getString("NAME"));
 	            		map.put("updateChapterTime",rs.getString("UPDATE_CHAPTER_TIME"));
 	            		map.put("content",rs.getString("CONTENT"));
+	            		map.put("chapterKey",rs.getString("KEY_SEARCH"));
 	            		list.add(map);
 					}
 	            	//ResultSetのクローズ
@@ -225,7 +227,7 @@ public class T_ChaptersDao {
 			return list;
 		}
 	 
-	 	public Map<String,String> getByKey(String storyId, String chapterId) throws Exception {
+	 	public Map<String,String> getByKey(String storyKey, String chapterKey) throws Exception {
 			DBAccess db = null;
 			ResultSet rs = null;
 			StringBuilder sbSql = null;
@@ -249,8 +251,9 @@ public class T_ChaptersDao {
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS NAME ");
 				sbSql.append(" ,IFNULL(tc.CONTENT,'') AS CONTENT ");
 				sbSql.append(" ,IFNULL(MAX(tcp.ID),'') AS CHAPTER_ID_PRE ");
+				sbSql.append(" ,IFNULL(MAX(tcp.KEY_SEARCH),'') AS KEY_SEARCH_PRE ");
 				sbSql.append(" ,IFNULL(MIN(tcn.ID),'') AS CHAPTER_ID_NEXT ");
-				
+				sbSql.append(" ,IFNULL(MIN(tcn.KEY_SEARCH),'') AS KEY_SEARCH_NEXT ");
 				sbSql.append(" FROM T_CHAPTERS as tc ");
 				
 				sbSql.append(" INNER JOIN T_STORIES as ts ");
@@ -266,14 +269,13 @@ public class T_ChaptersDao {
 				sbSql.append(" AND tcn.ID > tc.ID ");
 				sbSql.append(" AND tcn.DELETE_FLG IS NULL ");
 				
-				
 				sbSql.append(" WHERE tc.DELETE_FLG IS NULL ");
-				sbSql.append(" AND tc.ID = ? ");
-				sbSql.append(" AND tc.STORY_ID = ? ");
+				sbSql.append(" AND ts.KEY_SEARCH = ? ");
+				sbSql.append(" AND tc.KEY_SEARCH = ? ");
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-	            kps.setString(1, chapterId);
-	            kps.setString(2, storyId);
+	            kps.setString(1, storyKey);
+	            kps.setString(2, chapterKey);
 	            rs = kps.executeQuery();
 	            if(rs != null && rs.next()) {
             		map =  new HashMap<>();
@@ -284,7 +286,8 @@ public class T_ChaptersDao {
             		map.put("content",rs.getString("CONTENT"));
             		map.put("chapterIdPre",rs.getString("CHAPTER_ID_PRE"));
             		map.put("chapterIdNext",rs.getString("CHAPTER_ID_NEXT"));
-	            		
+            		map.put("keySearchPre",rs.getString("KEY_SEARCH_PRE"));
+            		map.put("keySearchNext",rs.getString("KEY_SEARCH_NEXT"));
 	            }
 				
 			} catch(Exception e) {

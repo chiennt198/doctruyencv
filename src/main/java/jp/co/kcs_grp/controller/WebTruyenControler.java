@@ -208,34 +208,35 @@ public class WebTruyenControler {
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
         	
+        	
+        	if ( StringUtils.equals("1", cond.get("pagingFlg")) ) {
+    			objectResponse.setDataInfo(storyDao.getList(cond));
+    			return objectResponse;
+    		} 
+        	
         	long totalStory = storyDao.getTotalStory();
         	
         	if (totalStory > 0 ) {
         		
         		Map<String, Object> storyItem = new HashMap<>();
         		
-        		if ( StringUtils.equals("1", cond.get("pagingFlg")) ) {
-        			storyItem.put("storyList", storyDao.getList(cond));
-        		} else {
-        			long totalPage = 0;
-        			int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
-        			if ( itemsPerPage == 1 ) {
-        				totalPage = totalStory;
-        			} else {
-        				totalPage = totalStory / itemsPerPage;
-                		
-                		if (totalStory % itemsPerPage != 0) {
-                			totalPage += 1;
-                		}
-        			}
+        		long totalPage = 0;
+    			int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
+    			if ( itemsPerPage == 1 ) {
+    				totalPage = totalStory;
+    			} else {
+    				totalPage = totalStory / itemsPerPage;
             		
-            		Map<String,String> condRand = new HashMap<>();
-            		condRand.put("randomType", "1");
-            		storyItem.put("randomLst", storyDao.getList(condRand));
-            		storyItem.put("storyCnt", String.valueOf(totalStory));
-            		storyItem.put("totalPages", String.valueOf(totalPage));
-        		}
+            		if (totalStory % itemsPerPage != 0) {
+            			totalPage += 1;
+            		}
+    			}
         		
+        		Map<String,String> condRand = new HashMap<>();
+        		condRand.put("randomType", "1");
+        		storyItem.put("randomLst", storyDao.getList(condRand));
+        		storyItem.put("storyCnt", String.valueOf(totalStory));
+        		storyItem.put("totalPages", String.valueOf(totalPage));
         		objectResponse.setDataInfo(storyItem);
         		
         	} else {
@@ -277,16 +278,16 @@ public class WebTruyenControler {
         return objectResponse;
     }
 	
-	public ObjectResponse getStoryInfo(String storyId, String currentPage, String pagingFlg) {
+	public ObjectResponse getStoryInfo(String storyKey, String currentPage, String pagingFlg) {
 		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
         	
-        	if ( StringUtils.isEmpty(storyId) ) {
+        	if ( StringUtils.isEmpty(storyKey) ) {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
         		return objectResponse;
         	}
-        	Map<String,String> storyInfo = storyDao.getByKey(storyId);
+        	Map<String,String> storyInfo = storyDao.getByKey(storyKey);
         	
         	if (storyInfo == null || ( storyInfo != null && storyInfo.isEmpty()) ) {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
@@ -294,30 +295,32 @@ public class WebTruyenControler {
         	}
         	
         	Map<String,Object> rtnMap = new HashMap<>();
-        	rtnMap.put("storyInfo", storyInfo);
-
-    		if ( StringUtils.equals("1", pagingFlg) ) {
+        	
+        	if ( StringUtils.equals("1", pagingFlg) ) {
     			Map<String,String> cond = new HashMap<>();
             	cond.put("storyId", storyInfo.get("id"));
             	cond.put("currentPage", currentPage);
-    			rtnMap.put("chapterList", chapterDao.search(cond));
-    		} else {
-    			long dataCnt = chapterDao.totalChapterInStories(storyInfo.get("id"));
-    			long totalPage = 0;
-    			int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
-    			if ( itemsPerPage == 1 ) {
-    				totalPage = dataCnt;
-    			} else {
-    				totalPage = dataCnt / itemsPerPage;
-            		
-            		if (dataCnt % itemsPerPage != 0) {
-            			totalPage += 1;
-            		}
-    			}
+            	objectResponse.setDataInfo(chapterDao.search(cond));
+            	return objectResponse;
+    		} 
+        	
+        	rtnMap.put("storyInfo", storyInfo);
+
+        	long dataCnt = chapterDao.totalChapterInStories(storyInfo.get("id"));
+			long totalPage = 0;
+			int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
+			if ( itemsPerPage == 1 ) {
+				totalPage = dataCnt;
+			} else {
+				totalPage = dataCnt / itemsPerPage;
         		
-    			rtnMap.put("dataCnt", String.valueOf(dataCnt));
-    			rtnMap.put("totalPages", String.valueOf(totalPage));
-    		}
+        		if (dataCnt % itemsPerPage != 0) {
+        			totalPage += 1;
+        		}
+			}
+    		
+			rtnMap.put("dataCnt", String.valueOf(dataCnt));
+			rtnMap.put("totalPages", String.valueOf(totalPage));
         	
         	objectResponse.setDataInfo(rtnMap);
         	
@@ -331,17 +334,17 @@ public class WebTruyenControler {
         return objectResponse;
     }
 	
-	public ObjectResponse getChapterInfo(String storyId, String chapterId) {
+	public ObjectResponse getChapterInfo(String storyKey, String chapterKey) {
 		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
         	
-        	if ( StringUtils.isEmpty(storyId) || StringUtils.isEmpty(chapterId)) {
+        	if ( StringUtils.isEmpty(storyKey) || StringUtils.isEmpty(chapterKey)) {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
         		return objectResponse;
         	}
         	
-        	objectResponse.setDataInfo(chapterDao.getByKey(storyId, chapterId));
+        	objectResponse.setDataInfo(chapterDao.getByKey(storyKey, chapterKey));
         	
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();

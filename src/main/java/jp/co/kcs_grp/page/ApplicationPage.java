@@ -90,9 +90,9 @@ public class ApplicationPage implements SparkApplication {
 		Spark.get("/api/get-m-wide-list/:idx", webPage.getMWideList(), new JsonTransformer());
 		Spark.post("/api/get-chapter-detail", webPage.getChapterDetail(), new JsonTransformer());
 		Spark.get("/api/get-story-items", webPage.getStoryItems(), new JsonTransformer());
-		Spark.get("/api/get-story-info/:storyId", webPage.getStoryInfo(), new JsonTransformer());
+		Spark.get("/api/get-story-info/:storyKey", webPage.getStoryInfo(), new JsonTransformer());
 		Spark.get("/api/get-chapter-list/:storyId", webPage.getChapterList(), new JsonTransformer());
-		Spark.get("/api/get-chapter-details/:storyId/:chapterId", webPage.getChapterInfo(), new JsonTransformer());
+		Spark.get("/api/get-chapter-details/:storyKey/:chapterKey", webPage.getChapterInfo(), new JsonTransformer());
 		Spark.get("/api/get-story-list", webPage.getStoryList(), new JsonTransformer());
 		
 

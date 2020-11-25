@@ -146,27 +146,3 @@ function hideLoading(hideId) {
 	}
 	},1)
 }
-
-
-function getView(context, url, data) {
-	showLoading();
-	setTimeout(function() {
-		$.ajax({
-			url : url,
-			type : 'get',
-			async: false,
-			data : {},
-			cache: false,
-			success : function (data, status, request) {
-				var doc = document.open("text/html");
-				doc.write(data);
-				doc.close();
-				window.location.href = url;
-				
-			},
-			error : function (data, status, request) {
-				hideLoading();
-		    }
-		});
-	}, 1);
-}

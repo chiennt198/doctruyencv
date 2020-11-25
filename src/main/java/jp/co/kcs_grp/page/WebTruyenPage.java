@@ -138,7 +138,7 @@ public class WebTruyenPage {
         return new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                return webTruyenControler.getStoryInfo(request.params("storyId"), 
+                return webTruyenControler.getStoryInfo(request.params("storyKey"), 
                 		request.queryParams("currentPage"), request.queryParams("pagingFlg"));
             }
         };
@@ -148,7 +148,7 @@ public class WebTruyenPage {
         return new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
-                return webTruyenControler.getChapterInfo(request.params("storyId"), request.params("chapterId"));
+                return webTruyenControler.getChapterInfo(request.params("storyKey"), request.params("chapterKey"));
             }
         };
     }

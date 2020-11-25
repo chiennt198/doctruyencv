@@ -3,10 +3,15 @@ var vueItem = new Vue({
     data:{
     	error_message : '',
     	chapterInfo:{},
+    	storyKey:'',
+    	chapterKey:'',
     },
     created : function() {
     	
-    	if (!sessionStorage.getItem("PARAM_STORY_ID") || !sessionStorage.getItem("PARAM_CHAPTER_ID")) {
+    	this.storyKey = getURLParameter('storyKey');
+    	this.chapterKey = getURLParameter('chapterKey');
+    	
+    	if (!this.storyKey || !this.chapterKey) {
     		window.location.href= contextPath + "/html/trang_chu.html";
     		return;
     	}
@@ -19,35 +24,28 @@ var vueItem = new Vue({
     		this.error_message = '';
     		this.chapterInfo = {};
     		
-    		get(this, contextPath + "/api/get-chapter-details/" + sessionStorage.getItem("PARAM_STORY_ID") + "/" + sessionStorage.getItem("PARAM_CHAPTER_ID"), {}, function(data) {
+    		get(this, contextPath + "/api/get-chapter-details/" + this.storyKey + "/" + this.chapterKey, {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.chapterInfo = data.dataInfo;
     			}
     		});
     	},
     	loadPage: function(page){
-    		var chapterId = '';
+    		var chapterKey = '';
+    		debugger;
     		if ( page == 'next' ) {
-    			chapterId = this.chapterInfo.chapterIdNext;
+    			chapterKey = this.chapterInfo.keySearchNext;
     		} else {
-    			chapterId = this.chapterInfo.chapterIdPre;
+    			chapterKey = this.chapterInfo.keySearchPre;
     		}
     		
-    		if (  chapterId ) {
-    			this.chapterInfo = {};
-        		get(this, contextPath + "/api/get-chapter-details/" + sessionStorage.getItem("PARAM_STORY_ID") + "/" + chapterId, {}, function(data) {
-        			
-        			if (data.status == STATUS_NORMAL) {
-        				this.chapterInfo = data.dataInfo;
-        				$('body,html').animate({scrollTop: 0}, 300);
-        			}
-        		});
+    		if (  chapterKey ) {
+    			window.location.href= contextPath + "/html/doc_truyen.html?storyKey=" + this.storyKey + "&chapterKey=" + chapterKey;
     		}
     		
     	},
     	back: function(){
-    		sessionStorage.removeItem("PARAM_CHAPTER_ID");
-    		window.location.href= contextPath + "/html/truyen.html";
+    		window.location.href= contextPath + "/html/truyen.html?storyKey=" + this.storyKey;
     	},
     },
     computed : {

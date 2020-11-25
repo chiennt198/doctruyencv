@@ -24,36 +24,6 @@ public class ApplicationFilter extends SparkFilter {
 			 return;
 		}
 		
-		if ( !httpRequest.getRequestURI().contains("/api/")) {
-			String[] arrFile = httpRequest.getServletPath().split("\\.");
-			
-			if (  arrFile == null || arrFile != null && arrFile.length == 1) {
-				String[] arrUrl = httpRequest.getRequestURI().split("/");
-				
-				if ( arrUrl == null || ( arrUrl != null && arrUrl.length != 4 ) ||  !"truyen".equals(arrUrl[2]) ) {
-					 ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_OK);
-					 return;
-				}
-				
-				
-				if ( httpRequest.getRequestURI().contains("/truyen/")) {
-					
-					if ( httpRequest.getSession().getAttribute("truyen") == null) {
-						httpRequest.getSession().setAttribute("truyen", httpRequest.getServletPath());
-					} else {
-						String session = String.valueOf(httpRequest.getSession().getAttribute("truyen"));
-						
-						if ( httpRequest.getRequestURI().contains(session) ) {
-							 ((HttpServletResponse) response).setStatus(HttpServletResponse.SC_OK);
-							 return;
-						}
-					}
-							
-					
-				}
-			}
-		}
-		
 		super.doFilter(request, response, chain);
 	}
 }

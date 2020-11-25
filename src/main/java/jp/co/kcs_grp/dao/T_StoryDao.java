@@ -183,7 +183,7 @@ public class T_StoryDao{
 			return list;
 		}
 	 
-	 public Map<String,String> getByKey(String id) throws Exception {
+	 public Map<String,String> getByKey(String storyKey) throws Exception {
 			DBAccess db = null;
 			ResultSet rs = null;
 			StringBuilder sbSql = null;
@@ -227,16 +227,12 @@ public class T_StoryDao{
 				sbSql.append(" ON mc.CATEGORY_ID = st.CATEGORY_ID ");
 				
 				sbSql.append(" WHERE st.DELETE_FLG IS NULL ");
-				sbSql.append(" AND ( ");
-				sbSql.append("   st.ID = ? ");
-				sbSql.append(" OR st.KEY_SEARCH = ? ");
-				sbSql.append(" ) ");
+				sbSql.append(" AND st.KEY_SEARCH = ? ");
 				sbSql.append(" ORDER BY st.ID ");
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-	            kps.setString(1, id);
-	            kps.setString(2, id);
+	            kps.setString(1, storyKey);
 	            rs = kps.executeQuery();
 	            if(rs != null && rs.next()) {
 	        		map =  new HashMap<>();

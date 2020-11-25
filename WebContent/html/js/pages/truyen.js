@@ -7,15 +7,13 @@ var vueItem = new Vue({
     	dataCount:0,
     	currentPage: 0,
 		itemsPerPage: ITEMS_PER_PAGE,
-		keySearch: '',
+		storyKey: '',
+		totalPages:0,
     },
     created : function() {
-    	debugger;
-    	var url = window.location.href.split('/');
-    	var keySearch = url[url.length - 1];
-    	this.keySearch = keySearch ? keySearch : sessionStorage.getItem("PARAM_STORY_ID");
+    	this.storyKey = getURLParameter('storyKey');
     	
-    	if (!this.keySearch ) {
+    	if (!this.storyKey ) {
     		window.location.href= contextPath + "/html/trang_chu.html";
     		return;
     	}
@@ -27,11 +25,10 @@ var vueItem = new Vue({
     	getChapterList: function(){
     		this.error_message = '';
     		this.chapterList = [];
-    		this.filteredList = [];
     		this.dataCount = 0;
     		var this_ = this;
     		
-    		get(this, contextPath + "/api/get-story-info/" + this.keySearch , {}, function(data) {
+    		get(this, contextPath + "/api/get-story-info/" + this.storyKey , {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				var storyItems = data.dataInfo;
     				this.storyInfo = storyItems.storyInfo;
@@ -55,27 +52,19 @@ var vueItem = new Vue({
     	},
     	getPagingList: function(page){
     		this.error_message = '';
-    		this.storyList = [];
-    		get(this, contextPath + "/api/get-story-info/" + this.keySearch , {currentPage: page, pagingFlg:'1'}, function(data) {
+    		this.chapterList = [];
+    		get(this, contextPath + "/api/get-story-info/" + this.storyKey , {currentPage: page, pagingFlg:'1'}, function(data) {
     			if (data.status == STATUS_NORMAL) {
-    				this.chapterList = data.dataInfo.storyList;
+    				this.chapterList = data.dataInfo;
     			} else {
     				this.error_message = data.errorMessage;
     			}
     		});
     	},
-    	getChapter: function(chapterId){
-    		sessionStorage.setItem("PARAM_CHAPTER_ID", chapterId);
-    		window.location.href= contextPath + "/html/doc_truyen.html";
+    	getChapter: function(chapterKey){
+    		window.location.href= contextPath + "/html/doc_truyen.html?storyKey=" + this.storyKey + "&chapterKey=" + chapterKey;
     	},
     },
-    computed : {
-		totalPages : function() {
-			return Math.ceil(this.chapterList.length / this.itemsPerPage);
-		},
-	}, 
 });
 
-function getURLParameter(name) {
-	return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
-}
+
