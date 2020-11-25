@@ -262,9 +262,7 @@ public class T_ChaptersDao {
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS NAME ");
 				sbSql.append(" ,IFNULL(tc.CONTENT,'') AS CONTENT ");
 				sbSql.append(" ,IFNULL(MAX(tcp.ID),'') AS CHAPTER_ID_PRE ");
-				sbSql.append(" ,IFNULL(MAX(tcp.KEY_SEARCH),'') AS KEY_SEARCH_PRE ");
 				sbSql.append(" ,IFNULL(MIN(tcn.ID),'') AS CHAPTER_ID_NEXT ");
-				sbSql.append(" ,IFNULL(MIN(tcn.KEY_SEARCH),'') AS KEY_SEARCH_NEXT ");
 				sbSql.append(" FROM T_CHAPTERS as tc ");
 				
 				sbSql.append(" INNER JOIN T_STORIES as ts ");
@@ -297,9 +295,38 @@ public class T_ChaptersDao {
             		map.put("content",rs.getString("CONTENT"));
             		map.put("chapterIdPre",rs.getString("CHAPTER_ID_PRE"));
             		map.put("chapterIdNext",rs.getString("CHAPTER_ID_NEXT"));
-            		map.put("keySearchPre",rs.getString("KEY_SEARCH_PRE"));
-            		map.put("keySearchNext",rs.getString("KEY_SEARCH_NEXT"));
 	            }
+	            
+	            if (map !=null && !map.isEmpty()) {
+	            	
+	            	if ( StringUtils.isNotEmpty(map.get("chapterIdPre")) ) {
+	            		sbSql = new StringBuilder();
+		            	sbSql.append("SELECT KEY_SEARCH FROM T_CHAPTERS ");
+		            	sbSql.append(" WHERE DELETE_FLG IS NULL ");
+		            	sbSql.append(" AND ID = ? ");
+		            	kps = db.getPreparedStatement(sbSql.toString());
+		            	kps.setString(1, map.get("chapterIdPre"));
+		            	rs = kps.executeQuery();
+			            if(rs != null && rs.next()) {
+			            	map.put("keySearchPre",rs.getString("KEY_SEARCH"));
+			            }
+	            	}
+	            	
+	            	if ( StringUtils.isNotEmpty(map.get("chapterIdNext")) ) {
+	            		sbSql = new StringBuilder();
+		            	sbSql.append("SELECT KEY_SEARCH FROM T_CHAPTERS ");
+		            	sbSql.append(" WHERE DELETE_FLG IS NULL ");
+		            	sbSql.append(" AND ID = ? ");
+		            	kps = db.getPreparedStatement(sbSql.toString());
+		            	kps.setString(1, map.get("chapterIdNext"));
+		            	rs = kps.executeQuery();
+			            if(rs != null && rs.next()) {
+			            	map.put("keySearchNext",rs.getString("KEY_SEARCH"));
+			            }
+	            	}
+		            
+	            }
+	            
 				
 			} catch(Exception e) {
 				StringWriter stack = new StringWriter();
