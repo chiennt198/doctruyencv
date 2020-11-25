@@ -5,6 +5,7 @@ var vueItem = new Vue({
     	categoryList : [],
     	chapterData : {},
     	registType : '0',
+    	newestChapterName : '',
     },
     created : function() {
     	if(!sessionStorage.getItem("PARAM_STORY_ID")) {
@@ -16,9 +17,10 @@ var vueItem = new Vue({
     		this.chapterData = JSON.parse(sessionStorage.getItem("PARAM_CHAPTER_INFO"));
     	} else {
     		this.chapterData.storyId =  sessionStorage.getItem("PARAM_STORY_ID");
+    		this.newestChapterName = sessionStorage.getItem("PARAM_NEWEST_CHAPTER_NAME");
         	if(sessionStorage.getItem("PARAM_CHAPTER_ID")) {
         		this.registType = '1';
-        		post(this, contextPath + "/api/get-chapter-detail" , {storyId :this.chapterData.storyId, chapterId :  sessionStorage.getItem("PARAM_CHAPTER_ID")}, function(data) {
+        		post(this, contextPath + "/get-chapter-detail" , {storyId :this.chapterData.storyId, chapterId :  sessionStorage.getItem("PARAM_CHAPTER_ID")}, function(data) {
         			if (data.status == STATUS_NORMAL) {
         				this.chapterData = data.dataInfo;
         			} else {
