@@ -44,9 +44,21 @@
 				<table class="table table_layout_02">
 					<tbody>
 						<tr>
+							<th>Chương Mới Nhất</th>
+							<td>
+								{{newestChapterName}}
+							</td>
+						</tr>
+						<tr>
 							<th>Tên Chương</th>
 							<td>
 								<input type="text" v-model="chapterData.name" size="50" maxlength="128" style="IME-MODE:active">
+							</td>
+						</tr>
+						<tr>
+							<th>Tên Đánh Dấu</th>
+							<td>
+								<input type="text" v-model="chapterData.keySearch" size="50" maxlength="128" style="IME-MODE:active">
 							</td>
 						</tr>
 						<tr>
