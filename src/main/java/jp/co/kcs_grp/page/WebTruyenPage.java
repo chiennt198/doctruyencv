@@ -139,7 +139,7 @@ public class WebTruyenPage {
             @Override
             public Object handle(Request request, Response response) throws Exception {
                 return webTruyenControler.getStoryInfo(request.params("storyKey"), 
-                		request.queryParams("currentPage"), request.queryParams("pagingFlg"));
+                		request.queryParams("currentPage"), request.queryParams("pagingFlg"), request.queryParams("orderBy"));
             }
         };
     }

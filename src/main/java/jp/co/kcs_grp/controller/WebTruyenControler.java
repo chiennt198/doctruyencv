@@ -278,7 +278,7 @@ public class WebTruyenControler {
         return objectResponse;
     }
 	
-	public ObjectResponse getStoryInfo(String storyKey, String currentPage, String pagingFlg) {
+	public ObjectResponse getStoryInfo(String storyKey, String currentPage, String pagingFlg, String orderBy) {
 		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
@@ -301,6 +301,7 @@ public class WebTruyenControler {
     			Map<String,String> cond = new HashMap<>();
             	cond.put("storyId", storyInfo.get("id"));
             	cond.put("currentPage", currentPage);
+            	cond.put("orderBy", orderBy);
             	objectResponse.setDataInfo(chapterDao.search(cond));
             	return objectResponse;
     		} 

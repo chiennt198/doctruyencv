@@ -170,8 +170,13 @@ public class T_ChaptersDao {
 					sbSql.append(" AND st.STATUS like ? ");
 				}
 				
-				sbSql.append(" ORDER BY st.ID DESC ");
-				
+				if ( StringUtils.equals("1", cond.get("orderBy")) ) {
+					sbSql.append(" ORDER BY st.ID DESC ");
+				} else if ( StringUtils.equals("0", cond.get("orderBy")) ) {
+					sbSql.append(" ORDER BY st.ID ASC ");
+				} else {
+					sbSql.append(" ORDER BY st.ID DESC ");
+				}
 
 				if ( !StringUtils.equals("-1", cond.get("currentPage")) ) {
 					if ( StringUtils.isNotEmpty(cond.get("currentPage")) ) {

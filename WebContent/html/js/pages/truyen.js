@@ -10,6 +10,7 @@ var vueItem = new Vue({
 		storyKey: '',
 		totalPages:0,
 		viewFlg:1,
+		orderBy:1,
     },
     created : function() {
     	this.storyKey = getURLParameter('storyKey');
@@ -36,7 +37,6 @@ var vueItem = new Vue({
     				this.totalPages = storyItems.totalPages;
     				this.dataCount = Number(storyItems.dataCnt);
     				
-    				
     				$('#pagination').twbsPagination({
     		            totalPages: this_.totalPages,
     		            visiblePages: 3,
@@ -61,7 +61,8 @@ var vueItem = new Vue({
     			this.viewFlg = 0;
     		}
     		
-    		get(this, contextPath + "/api/get-story-info/" + this.storyKey , {currentPage: page, pagingFlg:'1'}, function(data) {
+    		this.currentPage = page;
+    		get(this, contextPath + "/api/get-story-info/" + this.storyKey , {currentPage: page, pagingFlg:'1', orderBy: this.orderBy}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.chapterList = data.dataInfo;
     			} else {
@@ -71,6 +72,10 @@ var vueItem = new Vue({
     	},
     	getChapter: function(chapterKey){
     		window.location.href= contextPath + "/html/doc_truyen.html?storyKey=" + this.storyKey + "&chapterKey=" + chapterKey;
+    	},
+    	orderByPaging: function(order){
+    		this.orderBy = order;
+    		this.getPagingList(this.currentPage);
     	},
     },
 });
