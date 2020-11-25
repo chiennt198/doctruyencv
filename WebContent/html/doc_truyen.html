@@ -56,7 +56,50 @@
 				</div>
 				
 				<div class="main-contents">
-					<h2>{{ chapterInfo.name }}</h2>
+					<h2>
+						{{ chapterInfo.name }}
+						<a class="setting" href="javascript:void(0)" v-on:click="openSetting('1')"><i class="fa fa-cog" aria-hidden="true"></i></a>
+					</h2>
+					
+					
+					<div class="page_about" v-if="config == '1'">
+						<span><i class="fa fa-font" aria-hidden="true"></i>Cỡ chữ</span>
+						<span>
+							<select style="width:5em;" v-model="setting.fontSize" v-on:change="settingFun">
+								<option v-for="index in 30" v-if="index > 13" :value="index + 'px'">{{ index }}px</option>
+							</select>
+						</span>
+						
+						<div class="dropdown">
+						    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Màu nền
+						    <span class="caret"></span></button>
+						    <ul class="dropdown-menu dropdown-menu-custom" style="padding-top: -6px;">
+						      	<li v-on:click="settingColor('1','1')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-1"></a></li>
+						      	<li v-on:click="settingColor('2','1')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-2"></a></li>
+						    	<li v-on:click="settingColor('3','1')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-3"></a></li>
+					      		<li v-on:click="settingColor('4','1')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-4"></a></li>
+					      		<li v-on:click="settingColor('5','1')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-5"></a></li>
+					      		<li v-on:click="settingColor('6','1')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-6"></a></li>
+					      		<li v-on:click="settingColor('7','1')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-7"></a></li>
+					      		<li v-on:click="settingColor('8','1')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-8"></a></li>
+						    </ul>
+					 	</div>
+						
+						<div class="dropdown">
+						    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Màu chữ
+						    <span class="caret"></span></button>
+						    <ul class="dropdown-menu dropdown-menu-custom" style="padding-top: -6px;">
+						      	<li v-on:click="settingColor('1','2')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-1"></a></li>
+						      	<li v-on:click="settingColor('2','2')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-2"></a></li>
+						    	<li v-on:click="settingColor('3','2')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-3"></a></li>
+					      		<li v-on:click="settingColor('4','2')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-4"></a></li>
+					      		<li v-on:click="settingColor('5','2')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-5"></a></li>
+					      		<li v-on:click="settingColor('6','2')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-6"></a></li>
+					      		<li v-on:click="settingColor('7','2')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-7"></a></li>
+					      		<li v-on:click="settingColor('8','2')"><a href="javascript:void(0)" class="rounded-circle rounded-circle-8"></a></li>
+						    </ul>
+					 	</div>
+					</div>
 					
 					<h4>
 						<a href="javascript:void(0)" v-on:click="back">
