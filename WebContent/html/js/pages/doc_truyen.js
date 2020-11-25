@@ -52,8 +52,14 @@ var vueItem = new Vue({
     	back: function(){
     		window.location.href= contextPath + "/html/truyen.html?storyKey=" + this.storyKey;
     	},
-    	openSetting: function(flg){
-    		this.config = flg;
+    	openSetting: function(){
+    		
+    		if (this.config == 1) {
+    			this.config = 0;
+    		} else {
+    			this.config = 1;
+    		}
+    		
     	},
     	settingFun: function(){
     		$('.sonsyu').css("font-size",this.setting.fontSize );
