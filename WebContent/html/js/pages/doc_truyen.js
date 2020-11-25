@@ -32,7 +32,6 @@ var vueItem = new Vue({
     	},
     	loadPage: function(page){
     		var chapterKey = '';
-    		debugger;
     		if ( page == 'next' ) {
     			chapterKey = this.chapterInfo.keySearchNext;
     		} else {
