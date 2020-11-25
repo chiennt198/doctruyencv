@@ -82,7 +82,7 @@
 							</p>
 							
 							<p class="sp_right_center">
-								<a class="btn btn-sm btn-primary" href="javascript:void(0)" v-on:click="getChapter(chapterList[dataCount - 1].id)"><i class="fa fa-file-text"></i>Đọc truyện</a>
+								<a class="btn btn-sm btn-primary" href="javascript:void(0)" v-on:click="getChapter(storyInfo.keySearchFirst)"><i class="fa fa-file-text"></i>Đọc truyện</a>
 							</p>
 						</div>
 					</div>
@@ -111,15 +111,18 @@
 							</div>
 							<div id="panel3" class="tab_panel">
 								
+								<p v-if="dataCount > 0 && viewFlg == 1">
+									<a class="btn btn-sm btn-primary" href="javascript:void(0)" v-on:click="getPagingList(-1)"><i class="fa fa-file-text"></i>Xem hết</a>
+								</p>
+								
 								<div class="list_truyen">
 									<a class="col-xs-12" href="javascript:void(0)" v-for="(chapter,index) in chapterList" v-on:click="getChapter(chapter.chapterKey)">
-										<span class="col-xs-10">{{ chapter.name }}</span>
+										<div class="col-xs-10">{{ chapter.name }}</div>
 										<span class="col-xs-2">{{ chapter.updateChapterTime }}</span>
 									</a>
 								</div>
 					
 								<div v-show="totalPages > 1" id="pagination"></div>
-							
 							</div>
 							<div id="panel4" class="tab_panel"></div>
 							<div id="panel5" class="tab_panel"></div>

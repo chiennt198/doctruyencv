@@ -214,10 +214,19 @@ public class T_StoryDao{
 				sbSql.append(" ,IFNULL(st.PUBLIC_FLG,'0') AS PUBLIC_FLG ");
 				sbSql.append(" ,IFNULL(tc.ID,'') AS CHAPTER_ID ");
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS CHAPTER_NAME ");
+				sbSql.append(" ,IFNULL(MIN(tcf.ID),'') AS CHAPTER_ID_FIRST ");
+				sbSql.append(" ,IFNULL(MIN(tcf.KEY_SEARCH),'') AS KEY_SEARCH_FIRST ");
+				
 				sbSql.append(" FROM T_STORIES st ");
 				sbSql.append(" LEFT JOIN T_CHAPTERS as tc ");
 				sbSql.append(" ON tc.STORY_ID = st.ID  ");
 				sbSql.append(" AND tc.ID = st.NEWEST_CHAPTER_ID  ");
+				
+				
+				sbSql.append(" LEFT JOIN T_CHAPTERS AS tcf "); 
+				sbSql.append(" ON tcf.STORY_ID = st.ID ");
+				sbSql.append(" AND tcf.DELETE_FLG IS NULL "); 
+						
 				
 				sbSql.append(" LEFT JOIN M_WIDE mw1 ");
 				sbSql.append(" ON st.STATUS =  mw1.CD ");
@@ -249,6 +258,9 @@ public class T_StoryDao{
 	        		map.put("publicFlg",rs.getString("PUBLIC_FLG"));
 	        		map.put("chapterName",rs.getString("CHAPTER_NAME"));
 	        		map.put("chapterId",rs.getString("CHAPTER_ID"));
+	        		map.put("chapterIdFirst",rs.getString("CHAPTER_ID_FIRST"));
+	        		map.put("keySearchFirst",rs.getString("KEY_SEARCH_FIRST"));
+	        		
 	            }
 				
 			} catch(Exception e) {

@@ -9,6 +9,7 @@ var vueItem = new Vue({
 		itemsPerPage: ITEMS_PER_PAGE,
 		storyKey: '',
 		totalPages:0,
+		viewFlg:1,
     },
     created : function() {
     	this.storyKey = getURLParameter('storyKey');
@@ -35,7 +36,7 @@ var vueItem = new Vue({
     				this.totalPages = storyItems.totalPages;
     				this.dataCount = Number(storyItems.dataCnt);
     				
-    				$('#pagination').twbsPagination('destroy');
+    				
     				$('#pagination').twbsPagination({
     		            totalPages: this_.totalPages,
     		            visiblePages: 3,
@@ -46,6 +47,7 @@ var vueItem = new Vue({
     				});
     				
     			} else {
+    				$('#pagination').twbsPagination('destroy');
     				this.error_message = data.errorMessage;
     			}
     		});
@@ -53,6 +55,12 @@ var vueItem = new Vue({
     	getPagingList: function(page){
     		this.error_message = '';
     		this.chapterList = [];
+    		
+    		if (page == -1) {
+    			$('#pagination').twbsPagination('destroy');
+    			this.viewFlg = 0;
+    		}
+    		
     		get(this, contextPath + "/api/get-story-info/" + this.storyKey , {currentPage: page, pagingFlg:'1'}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.chapterList = data.dataInfo;

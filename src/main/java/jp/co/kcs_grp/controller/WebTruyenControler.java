@@ -287,6 +287,7 @@ public class WebTruyenControler {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
         		return objectResponse;
         	}
+        	
         	Map<String,String> storyInfo = storyDao.getByKey(storyKey);
         	
         	if (storyInfo == null || ( storyInfo != null && storyInfo.isEmpty()) ) {

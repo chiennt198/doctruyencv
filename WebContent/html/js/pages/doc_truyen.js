@@ -47,9 +47,6 @@ var vueItem = new Vue({
     		window.location.href= contextPath + "/html/truyen.html?storyKey=" + this.storyKey;
     	},
     },
-    computed : {
-    	
-	}, 
 });
 
 $(function() {
