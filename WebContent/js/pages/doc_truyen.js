@@ -19,7 +19,7 @@ var vueItem = new Vue({
     	this.chapterKey = getURLParameter('chapterKey');
     	
     	if (!this.storyKey || !this.chapterKey) {
-    		window.location.href= contextPath + "/html/trang_chu.html";
+    		window.location.href= contextPath + "/trang_chu.html";
     		return;
     	}
     	this.fbCommentsUrl = API_HTTP_COMMON + 'html/doc_truyen.html?storyKey=' + this.storyKey + '&amp;chapterKey=' + this.chapterKey;
@@ -46,12 +46,12 @@ var vueItem = new Vue({
     		}
     		
     		if (  chapterKey ) {
-    			window.location.href= contextPath + "/html/doc_truyen.html?storyKey=" + this.storyKey + "&chapterKey=" + chapterKey;
+    			window.location.href= contextPath + "/doc_truyen.html?storyKey=" + this.storyKey + "&chapterKey=" + chapterKey;
     		}
     		
     	},
     	back: function(){
-    		window.location.href= contextPath + "/html/truyen.html?storyKey=" + this.storyKey;
+    		window.location.href= contextPath + "/truyen.html?storyKey=" + this.storyKey;
     	},
     	openSetting: function(){
     		

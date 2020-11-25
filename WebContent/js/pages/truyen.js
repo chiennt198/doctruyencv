@@ -16,7 +16,7 @@ var vueItem = new Vue({
     	this.storyKey = getURLParameter('storyKey');
     	
     	if (!this.storyKey ) {
-    		window.location.href= contextPath + "/html/trang_chu.html";
+    		window.location.href= contextPath + "/trang_chu.html";
     		return;
     	}
     	
@@ -71,7 +71,7 @@ var vueItem = new Vue({
     		});
     	},
     	getChapter: function(chapterKey){
-    		window.location.href= contextPath + "/html/doc_truyen.html?storyKey=" + this.storyKey + "&chapterKey=" + chapterKey;
+    		window.location.href= contextPath + "/doc_truyen.html?storyKey=" + this.storyKey + "&chapterKey=" + chapterKey;
     	},
     	orderByPaging: function(order){
     		this.orderBy = order;

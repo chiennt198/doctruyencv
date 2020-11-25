@@ -9,7 +9,7 @@ var vueItem = new Vue({
     },
     created : function() {
     	if(!sessionStorage.getItem("PARAM_STORY_ID")) {
-    		window.location.href= contextPath + "/html/admin_story_search.html";
+    		window.location.href= contextPath + "/admin_story_search.html";
     		return;
     	}
     	
@@ -35,7 +35,7 @@ var vueItem = new Vue({
     	createChapter: function(){
     		this.chapterData.registType = this.registType;
     		sessionStorage.setItem("PARAM_CHAPTER_INFO", JSON.stringify(this.chapterData));
-    		window.location.href= contextPath + "/html/admin_chapter_confirm.html";
+    		window.location.href= contextPath + "/admin_chapter_confirm.html";
     	},
     },
     computed : {

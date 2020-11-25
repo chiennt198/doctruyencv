@@ -24,7 +24,7 @@ var vueItem = new Vue({
     methods: {
     	loadStory: function(){
     		if(!sessionStorage.getItem("PARAM_STORY_ID")) {
-    			window.location.href= contextPath + "/html/admin_story_search.html";
+    			window.location.href= contextPath + "/admin_story_search.html";
         		return;
     		}
     		sessionStorage.removeItem("PARAM_NEWEST_CHAPTER_NAME");
@@ -79,13 +79,13 @@ var vueItem = new Vue({
     		sessionStorage.setItem("PARAM_STORY_ID",this.storyData.id);
     		sessionStorage.setItem("PARAM_CHAPTER_ID",id);
     		sessionStorage.setItem("PARAM_NEWEST_CHAPTER_NAME",this.storyData.chapterName);
-    		window.location.href= contextPath + "/html/admin_chapter_new.html";
+    		window.location.href= contextPath + "/admin_chapter_new.html";
     	},
     	createChapter : function() {
     		sessionStorage.setItem("PARAM_STORY_ID",this.storyData.id);
     		sessionStorage.setItem("PARAM_CHAPTER_ID",'');
     		sessionStorage.setItem("PARAM_NEWEST_CHAPTER_NAME",this.storyData.chapterName);
-    		window.location.href= contextPath + "/html/admin_chapter_new.html";
+    		window.location.href= contextPath + "/admin_chapter_new.html";
     	},search: function(){
     		var this_ = this;
     		this.error_message = '';

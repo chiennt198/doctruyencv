@@ -7,7 +7,7 @@ var host = location.host;
 function logout(context) {
 	var url = window.location.href;
 	if ( url && url.indexOf('admin') > -1) {
-		window.location.href = contextPath + '/html/admin_login.html';
+		window.location.href = contextPath + '/admin_login.html';
 	}
 }
 //++++++++++++++++++++++++++
@@ -38,7 +38,7 @@ function post(context, url, data, successfunc) {
 					}
 					successfunc.call(context, data, status, request);
 				} else {
-					var doc = document.open("text/html");
+					var doc = document.open("text");
 					doc.write(data);
 					doc.close();
 				}
@@ -77,7 +77,7 @@ function put(context, url, data, successfunc) {
 					}
 					successfunc.call(context, data, status, request);
 				} else {
-					var doc = document.open("text/html");
+					var doc = document.open("text");
 					doc.write(data);
 					doc.close();
 				}
@@ -116,7 +116,7 @@ function get(context, url, data, successfunc) {
 					}
 					successfunc.call(context, data, status, request);
 				} else {
-					var doc = document.open("text/html");
+					var doc = document.open("text");
 					doc.write(data);
 					doc.close();
 				}
@@ -154,7 +154,7 @@ function httpsDelete(context, url, data, successfunc) {
 					}
 					successfunc.call(context, data, status, request);
 				} else {
-					var doc = document.open("text/html");
+					var doc = document.open("text");
 					doc.write(data);
 					doc.close();
 				}

@@ -37,7 +37,7 @@ var vueItem = new Vue({
     		post(this, contextPath + "/api/admin-regist-story" , {json:JSON.stringify(this.storyData)}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				alert("Đã tạo truyện mới thành công");
-    				window.location.href= contextPath + "/html/admin_story_search.html";
+    				window.location.href= contextPath + "/admin_story_search.html";
     			}
     		});
     	},

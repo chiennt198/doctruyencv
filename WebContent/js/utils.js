@@ -20,7 +20,7 @@ function getContentMenu() {
 			loadList: function(item){
 				sessionStorage.setItem("PARAM_CATEGORY_ITEM", JSON.stringify(item));
 				$('#' + item.categoryId).attr('class', 'active');
-				window.location.href= contextPath + "/html/danh_sach_truyen.html";
+				window.location.href= contextPath + "/danh_sach_truyen.html";
 				
 			},
 			isActive: function(item){

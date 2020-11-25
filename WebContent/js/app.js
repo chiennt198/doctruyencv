@@ -6,7 +6,7 @@ img3.src = "./img/ajax_loader.gif";
 //セッションストレージ
 // ウェブストレージに対応している
 function logout() {
-	location.href=contextPath + "/html/login.html";
+	location.href=contextPath + "/login.html";
 }
 //++++++++++++++++++++++++++
 //HTTP CONNECTTION
@@ -34,7 +34,7 @@ function post(context, url, data, successfunc) {
 					}
 					successfunc.call(context, data, status, request);
 				} else {
-					var doc = document.open("text/html");
+					var doc = document.open("text");
 					doc.write(data);
 					doc.close();
 				}
@@ -70,7 +70,7 @@ function get(context, url, data, successfunc) {
 					}
 					successfunc.call(context, data, status, request);
 				} else {
-					var doc = document.open("text/html");
+					var doc = document.open("text");
 					doc.write(data);
 					doc.close();
 				}

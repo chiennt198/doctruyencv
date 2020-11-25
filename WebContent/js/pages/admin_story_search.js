@@ -29,7 +29,7 @@ var movieList = new Vue({
     methods: {
     	storyDetails: function(id){
     		sessionStorage.setItem("PARAM_STORY_ID",id);
-    		window.location.href= contextPath + "/html/admin_story_detail.html";
+    		window.location.href= contextPath + "/admin_story_detail.html";
     	},
     	
     	search: function(type){
@@ -82,7 +82,7 @@ var movieList = new Vue({
     		});
     	},
     	createStory : function() {
-    		window.location.href= contextPath + "/html/admin_story_new.html";
+    		window.location.href= contextPath + "/admin_story_new.html";
     	},
     	sortList: function(){
     		var _el = this;

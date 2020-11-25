@@ -19,7 +19,7 @@ var vueItem = new Vue({
     	getContentMenu();
     	
     	if (!sessionStorage.getItem("PARAM_CATEGORY_ITEM")) {
-    		window.location.href= contextPath + "/html/Home.html";
+    		window.location.href= contextPath + "/Home.html";
     		return;
     	}
     	
@@ -96,7 +96,7 @@ var vueItem = new Vue({
     	getStory: function(storyId){
     		debugger;
     		sessionStorage.setItem("PARAM_STORY_ID",storyId);
-    		window.location.href= contextPath + "/html/truyen.html";
+    		window.location.href= contextPath + "/truyen.html";
     	},
     },
     computed : {

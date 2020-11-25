@@ -40,7 +40,7 @@ var loginVue = new Vue({
 					sessionStorage.setItem("ADMIN_ID", data.dataInfo.userID);
 					sessionStorage.setItem("ADMIN_ROLE", data.dataInfo.role);
 					sessionStorage.setItem("ADMIN_NAME", data.dataInfo.name);
-					window.location.href= contextPath + "/html/admin_story_search.html";
+					window.location.href= contextPath + "/admin_story_search.html";
 				} else if (data.status == STATUS_NO_DATA) {
 					loginVue.error_message = "Tên Đăng Nhập Hoặc Mật Khẩu bị sai";
 				} else {
@@ -52,7 +52,7 @@ var loginVue = new Vue({
 				hideLoading();
 			    sessionStorage.clear();
 			    bootbox.alert("エラー：" + textStatus);
-				    location.href=contextPath + "/html/admin_login.html";
+				    location.href=contextPath + "/admin_login.html";
 				return;
 			});
 			

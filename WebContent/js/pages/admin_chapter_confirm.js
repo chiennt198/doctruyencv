@@ -8,7 +8,7 @@ var vueItem = new Vue({
     },
     created : function() {
     	if(!sessionStorage.getItem("PARAM_CHAPTER_INFO")) {
-    		window.location.href= contextPath + "/html/admin_story_search.html";
+    		window.location.href= contextPath + "/admin_story_search.html";
     		return;
     	}
     	this.chapterData = JSON.parse(sessionStorage.getItem("PARAM_CHAPTER_INFO"));
@@ -20,10 +20,10 @@ var vueItem = new Vue({
     				sessionStorage.removeItem("PARAM_CHAPTER_INFO");
     				if(this.chapterData.registType = '0') {
     					alert("Đã tạo chương mới thành công");
-    					window.location.href= contextPath + "/html/admin_story_detail.html";
+    					window.location.href= contextPath + "/admin_story_detail.html";
     				} else {
     					alert("Đã chỉnh sửa chương thành công");
-    					window.location.href= contextPath + "/html/admin_story_detail.html";
+    					window.location.href= contextPath + "/admin_story_detail.html";
     				}
     			} else {
     				this.error_message = data.errorMessage;

@@ -61,7 +61,7 @@ var vueItem = new Vue({
     		});
     	},
     	getStory: function(keySearch){
-    		window.location.href = contextPath + "/html/truyen.html?storyKey=" + keySearch;
+    		window.location.href = contextPath + "/truyen.html?storyKey=" + keySearch;
     	},
     	removeSes: function(){
     		sessionStorage.removeItem("PARAM_CATEGORY_ITEM");
