@@ -11,6 +11,7 @@ var vueItem = new Vue({
     		color:''
     	},
     	config:'0',
+    	fbCommentsUrl : '',
     },
     created : function() {
     	
@@ -21,7 +22,7 @@ var vueItem = new Vue({
     		window.location.href= contextPath + "/html/trang_chu.html";
     		return;
     	}
-    	
+    	this.fbCommentsUrl = API_HTTP_COMMON + 'html/doc_truyen.html?storyKey=' + this.storyKey + '&amp;chapterKey=' + this.chapterKey;
     	getContentMenu();
     	this.getChapter();
     },

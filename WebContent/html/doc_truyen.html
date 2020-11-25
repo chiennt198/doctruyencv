@@ -24,6 +24,7 @@
 <script type="text/javascript" src="./js/dropmenu_min.js"></script>
 <script src="./js/basic.js" type="text/javascript"></script>
 <script src="./js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v9.0&appId=194413262305879&autoLogAppEvents=1" nonce="FWzjcJ8T"></script>
 <!-- InstanceParam name="ad_footer" type="boolean" value="false" -->
 <!-- InstanceParam name="fulldesign" type="boolean" value="false" -->
 <!-- InstanceParam name="menu_mypage" type="boolean" value="false" -->
@@ -129,7 +130,8 @@
 						</div>
 						<div class="col-xs-6 text_align_right"></div>
 					</div>
-					
+					<div id="fb-root"></div>
+					<div class="fb-comments" v-bind:data-href="fbCommentsUrl" data-numposts="5" data-width=""></div>
 				</div>
 				
 			</section>
