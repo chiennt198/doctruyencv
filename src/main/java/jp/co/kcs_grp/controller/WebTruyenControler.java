@@ -362,7 +362,38 @@ public class WebTruyenControler {
 		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
-        	objectResponse.setDataInfo(storyDao.getList(mapCond));
+        	
+        	if ( StringUtils.equals("1", mapCond.get("pagingFlg")) ) {
+    			objectResponse.setDataInfo(storyDao.getList(mapCond));
+    			return objectResponse;
+    		} 
+        	
+        	long totalStory = storyDao.getTotalStory(mapCond.get("categoryId"));
+        	
+        	if (totalStory > 0 ) {
+        		
+        		Map<String, Object> storyItem = new HashMap<>();
+        		
+        		long totalPage = 0;
+    			int itemsPerPage = Integer.valueOf(AppParams.getValue("parameterpath", "ITEMS_PER_PAGE"));
+    			if ( itemsPerPage == 1 ) {
+    				totalPage = totalStory;
+    			} else {
+    				totalPage = totalStory / itemsPerPage;
+            		
+            		if (totalStory % itemsPerPage != 0) {
+            			totalPage += 1;
+            		}
+    			}
+        		
+        		storyItem.put("dataCnt", String.valueOf(totalStory));
+        		storyItem.put("totalPages", String.valueOf(totalPage));
+        		objectResponse.setDataInfo(storyItem);
+        		
+        	} else {
+        		objectResponse.setStatus(Constants.RESPONSE_STATUS_NO_DATA);
+        	}
+        	
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();
         	e.printStackTrace(new PrintWriter(stack));

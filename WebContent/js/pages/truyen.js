@@ -37,14 +37,20 @@ var vueItem = new Vue({
     				this.totalPages = storyItems.totalPages;
     				this.dataCount = Number(storyItems.dataCnt);
     				
-    				$('#pagination').twbsPagination({
-    		            totalPages: this_.totalPages,
-    		            visiblePages: 3,
-    		            startPage : 1,
-    		            onPageClick: function (event, page) {
-    		            	this_.getPagingList(page - 1)
-    		            }
-    				});
+    				$('#pagination').twbsPagination('destroy');
+    				if ( this.totalPages == 1) {
+    					this.getPagingList(0);
+    				} else{
+    					$('#pagination').twbsPagination({
+        		            totalPages: this_.totalPages,
+        		            visiblePages: 3,
+        		            startPage : 1,
+        		            onPageClick: function (event, page) {
+        		            	this_.getPagingList(page - 1)
+        		            }
+        				});
+    				}
+    				
     				
     			} else {
     				$('#pagination').twbsPagination('destroy');

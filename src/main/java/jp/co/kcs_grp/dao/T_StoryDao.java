@@ -440,6 +440,10 @@ public class T_StoryDao{
 	 
 	 
 	 public long getTotalStory() throws Exception {
+		 return getTotalStory(null);
+	 }
+	 
+	 public long getTotalStory(String categoryId) throws Exception {
 			DBAccess db = null;
 			ResultSet rs = null;
 			StringBuilder sbSql = null;
@@ -461,8 +465,17 @@ public class T_StoryDao{
 				sbSql.append(" DELETE_FLG IS NULL ");
 				sbSql.append(" AND PUBLIC_FLG = '1' ");
 				sbSql.append(" AND PUBLIC_DATETIME <= NOW() ");
+				
+				if ( StringUtils.isNotEmpty(categoryId) ) {
+					sbSql.append(" AND CATEGORY_ID = ? ");
+				}
 
 				KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
+
+				if ( StringUtils.isNotEmpty(categoryId) ) {
+					kps.setString(1, categoryId);
+				}
+				
 				rs = kps.executeQuery();
 	            if(rs != null && (rs.next()) ) {
 	            	totalStory = rs.getLong("STORY_CNT");

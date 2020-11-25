@@ -34,14 +34,21 @@ var vueItem = new Vue({
     				}
     				
     				$('#pagination').twbsPagination('destroy');
-    				$('#pagination').twbsPagination({
-    		            totalPages: this_.totalPages,
-    		            visiblePages: 3,
-    		            startPage : 1,
-    		            onPageClick: function (event, page) {
-    		            	this_.getPagingList(page - 1)
-    		            }
-    				 });
+    				
+    				if ( this.totalPages == 1) {
+    					this.getPagingList(0);
+    				} else{
+    					$('#pagination').twbsPagination({
+        		            totalPages: this_.totalPages,
+        		            visiblePages: 3,
+        		            startPage : 1,
+        		            onPageClick: function (event, page) {
+        		            	this_.getPagingList(page - 1)
+        		            }
+        				 });
+        				
+    				}
+    				
     				
     				
     			} else {
