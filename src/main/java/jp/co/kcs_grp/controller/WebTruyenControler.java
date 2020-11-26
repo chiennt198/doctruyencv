@@ -13,7 +13,6 @@ import jp.co.kcs_grp.base.json.ObjectResponse;
 import jp.co.kcs_grp.common.Constants;
 import jp.co.kcs_grp.dao.M_AdminDao;
 import jp.co.kcs_grp.dao.M_CategoryDao;
-import jp.co.kcs_grp.dao.M_CategoryDaoImpl;
 import jp.co.kcs_grp.dao.M_WideDao;
 import jp.co.kcs_grp.dao.T_ChaptersDao;
 import jp.co.kcs_grp.dao.T_StoryDao;
@@ -23,7 +22,7 @@ public class WebTruyenControler {
 	
 	private final Logger logger = Logger.getLogger(WebTruyenControler.class);
 	
-	private M_CategoryDao categoryDao = new M_CategoryDaoImpl();
+	private M_CategoryDao categoryDao = new M_CategoryDao();
 	private T_StoryDao storyDao = new T_StoryDao();
 	M_WideDao wideDao = new M_WideDao();
 	private T_ChaptersDao chapterDao = new T_ChaptersDao();

@@ -120,6 +120,7 @@ public class WebTruyenPage {
         return new Route() {
             @Override
             public Object handle(Request request, Response response) throws Exception {
+            	request.headers("AUTH-DATA");
                 return webTruyenControler.getStoryItems(BeanUtils.mapBeanData(request.queryMap().toMap()));
             }
         };

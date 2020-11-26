@@ -14,6 +14,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 
 import jp.co.kcs_grp.base.json.JsonTransformer;
+import jp.co.kcs_grp.common.AuthenApp;
 import jp.co.kcs_grp.common.FreeMarkerTemplateEngine;
 import jp.co.kcs_grp.utils.AppParams;
 import spark.Spark;
@@ -55,11 +56,15 @@ public class ApplicationPage implements SparkApplication {
 				response.redirect(request.raw().getContextPath() + "/");
 			}
 			
+			AuthenApp authenApp = new AuthenApp();
+			authenApp.authenData(request, response);
+			
 		});
 
 		webRoute();
 		adminRoute();
 		htmlRoute();
+		
 		Spark.get("/js/min/environ.js", (req, res) -> {
 			StringBuffer cont = new StringBuffer();
 			cont.append("var API_HTTP_COMMON = \"" + AppParams.getValue("parameterpath", "API_HTTP_COMMON") + "\";");

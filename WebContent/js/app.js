@@ -14,7 +14,7 @@ function logout() {
 function post(context, url, data, successfunc) {
 	showLoading();
 	var submitData = {
-		userId: sessionStorage.getItem("KAIIN_ID")
+		userId: sessionStorage.getItem("KAIIN_ID"),
 	}
 	$.extend(submitData, data);
 
@@ -23,6 +23,7 @@ function post(context, url, data, successfunc) {
 			url : url,
 			type : 'post',
 			async: false,
+			headers: {'AUTH-DATA' : AUTH-DATA},
 			data : submitData,
 			cache: false,
 			success : function (data, status, request) {
@@ -59,6 +60,7 @@ function get(context, url, data, successfunc) {
 			url : url,
 			type : 'get',
 			async: false,
+			headers: {'AUTH-DATA' : AUTH-DATA},
 			data : submitData,
 			cache: false,
 			success : function (data, status, request) {
