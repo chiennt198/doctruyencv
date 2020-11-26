@@ -60,16 +60,15 @@ public class ApplicationPage implements SparkApplication {
 		webRoute();
 		adminRoute();
 		htmlRoute();
-		Spark.get("/environ.js", (req, res) -> {
+		Spark.get("/js/min/environ.js", (req, res) -> {
 			StringBuffer cont = new StringBuffer();
-			cont.append("var API_HTTP_COMMON = \"" + AppParams.getValue("parameterpath", "API_HTTP_COMMON") + "\";\n");
-			cont.append("var ITEMS_PER_PAGE = \"" + AppParams.getValue("parameterpath", "ITEMS_PER_PAGE") + "\";\n");
-			cont.append("var contextPath = \"" + AppParams.getValue("parameterpath", "contextPath") + "\";\n");
-			cont.append("var STATUS_NORMAL = \"" + AppParams.getValue("parameterpath", "STATUS_NORMAL") + "\";\n");
-			cont.append("var STATUS_NO_DATA = \"" + AppParams.getValue("parameterpath", "STATUS_NO_DATA") + "\";\n");
-			cont.append("var STATUS_INPUT_URI_ERROR = \"" + AppParams.getValue("parameterpath", "STATUS_INPUT_URI_ERROR") + "\";\n");
-			cont.append("var STATUS_DB_ERROR = \"" + AppParams.getValue("parameterpath", "STATUS_DB_ERROR") + "\";\n");
-			cont.append("\n");
+			cont.append("var API_HTTP_COMMON = \"" + AppParams.getValue("parameterpath", "API_HTTP_COMMON") + "\";");
+			cont.append("var ITEMS_PER_PAGE = \"" + AppParams.getValue("parameterpath", "ITEMS_PER_PAGE") + "\";");
+			cont.append("var contextPath = \"" + AppParams.getValue("parameterpath", "contextPath") + "\";");
+			cont.append("var STATUS_NORMAL = \"" + AppParams.getValue("parameterpath", "STATUS_NORMAL") + "\";");
+			cont.append("var STATUS_NO_DATA = \"" + AppParams.getValue("parameterpath", "STATUS_NO_DATA") + "\";");
+			cont.append("var STATUS_INPUT_URI_ERROR = \"" + AppParams.getValue("parameterpath", "STATUS_INPUT_URI_ERROR") + "\";");
+			cont.append("var STATUS_DB_ERROR = \"" + AppParams.getValue("parameterpath", "STATUS_DB_ERROR") + "\";");
 			return cont.toString();
 		});
 		logger.info("end");
