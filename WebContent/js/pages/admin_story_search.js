@@ -28,10 +28,10 @@ var movieList = new Vue({
     },
     methods: {
     	storyDetails: function(id){
+    		debugger;
     		sessionStorage.setItem("PARAM_STORY_ID",id);
     		window.location.href= contextPath + "/admin_story_detail.html";
     	},
-    	
     	search: function(type){
     		var this_ = this;
     		this.error_message = '';
