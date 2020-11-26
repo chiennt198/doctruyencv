@@ -516,4 +516,45 @@ public class T_StoryDao{
 			kps.execute();
 			log.info("end");
 		}
+	 
+	 public void  updateWatchCountStories(String keySearch) throws Exception {
+		 log.info("start");
+		 StringBuilder sql = null;
+		 DBAccess db = null;
+		 try {
+			 
+			//データベース接続
+            db = new DBAccess();
+            if (!db.dbConnection()) {
+                db.DBClose();
+                throw new Exception("データベース接続が失敗です。");
+            }
+		
+			// 請求TBL取得の処理
+			sql = new StringBuilder();
+			sql.append("UPDATE T_STORIES AS ts1, T_STORIES as ts2 SET ");
+			sql.append("  ts1.WATCH_COUNT = CONVERT(IFNULL(ts2.WATCH_COUNT,0), UNSIGNED ) + 1 ");
+			sql.append(" ,ts1.UPDATE_DATETIME = NOW() ");	
+			sql.append(" WHERE ");
+			sql.append("     ts1.ID = ts2.ID ");
+			sql.append(" AND ts1.KEY_SEARCH = ts2.KEY_SEARCH ");
+			sql.append(" AND ts1.KEY_SEARCH = ? ");
+		
+			KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
+			kps.setString(1,keySearch);
+			kps.execute();
+			log.info("end");
+		} catch(Exception e) {
+			StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+        	log.error(stack.toString());
+            throw e;
+		} finally {
+			//データベース切断
+			db.DBClose();
+			//終了ログ出力
+			log.warn("end");
+		}
+	}
+	 
 }

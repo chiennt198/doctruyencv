@@ -25,8 +25,16 @@ var vueItem = new Vue({
     	this.fbCommentsUrl = API_HTTP_COMMON + 'html/doc_truyen.html?storyKey=' + this.storyKey + '&amp;chapterKey=' + this.chapterKey;
     	getContentMenu();
     	this.getChapter();
+    	this.watchCount();
     },
     methods: {
+    	watchCount: function(){
+    		post(this, contextPath + "/api/update-watch-count-stories/" + this.storyKey, {}, function(data) {
+    			if (data.status == STATUS_NORMAL) {
+    			
+    			}
+    		});
+    	},
     	getChapter: function(){
     		this.error_message = '';
     		this.chapterInfo = {};

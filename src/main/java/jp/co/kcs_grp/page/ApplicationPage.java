@@ -94,8 +94,7 @@ public class ApplicationPage implements SparkApplication {
 		Spark.get("/api/get-chapter-list/:storyId", webPage.getChapterList(), new JsonTransformer());
 		Spark.get("/api/get-chapter-details/:storyKey/:chapterKey", webPage.getChapterInfo(), new JsonTransformer());
 		Spark.get("/api/get-story-list", webPage.getStoryList(), new JsonTransformer());
-		
-
+		Spark.post("/api/update-watch-count-stories/:storyKey", webPage.updateWatchCountStories(), new JsonTransformer());
 	}
 
 	private void htmlRoute() {

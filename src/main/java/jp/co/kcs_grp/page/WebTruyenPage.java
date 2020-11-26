@@ -171,7 +171,14 @@ public class WebTruyenPage {
         };
     }
     
-    
+    public Route updateWatchCountStories() {
+        return new Route() {
+            @Override
+            public Object handle(Request request, Response response) throws Exception {
+                return webTruyenControler.updateWatchCountStories(request.params("storyKey"));
+            }
+        };
+    }
    
     
 }

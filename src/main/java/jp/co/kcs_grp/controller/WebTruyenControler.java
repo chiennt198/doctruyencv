@@ -418,4 +418,26 @@ public class WebTruyenControler {
         logger.info("end");
         return objectResponse;
     }
+	
+	public ObjectResponse updateWatchCountStories(String storyKey) {
+		logger.info("start");
+		ObjectResponse objectResponse = new ObjectResponse();
+        try {
+        	
+        	if ( StringUtils.isEmpty(storyKey)) {
+        		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
+        		return objectResponse;
+        	}
+        	storyDao.updateWatchCountStories(storyKey);
+        	objectResponse.setDataInfo(Constants.RESPONSE_STATUS_NORMAL);
+        	
+        } catch (Exception e) {
+        	StringWriter stack = new StringWriter();
+        	e.printStackTrace(new PrintWriter(stack));
+            logger.error(stack.toString());
+            objectResponse.setStatus(Constants.RESPONSE_STATUS_DB_ERROR);
+        }
+        logger.info("end");
+        return objectResponse;
+    }
 }
