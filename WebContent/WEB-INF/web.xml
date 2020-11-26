@@ -24,6 +24,6 @@
 	</welcome-file-list>
 	<error-page>
     	<error-code>404</error-code>
-    	<location>/SystemError.html</location> <!-- this is your route-->
+    	<location>/index.html</location> <!-- this is your route-->
 	</error-page>
 </web-app>
