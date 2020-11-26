@@ -25,7 +25,9 @@ var vueItem = new Vue({
     	
     	this.categoryItem = JSON.parse(sessionStorage.getItem("PARAM_CATEGORY_ITEM"));
     	this.loadDefault();
-    	this.getStoryList(this.orderKey);
+    	
+    	this.currentPage = 0;
+    	this.getStoryList();
     	
     },
     methods: {
@@ -45,17 +47,13 @@ var vueItem = new Vue({
     			}
     		});
     	},
-    	getStoryList: function(orderKey){
+    	getStoryList: function(){
     		this.error_message = '';
     		this.storyList = [];
     		this.dataCount = 0;
     		var this_ = this;
 
     		this.condInfo.categoryId = this.categoryItem.categoryId;
-    		this.condInfo.orderKey = orderKey;
-    		this.condInfo.currentPage = this.currentPage;
-    		this.condInfo.itemsPerPage = this.itemsPerPage;
-    		this.orderKey = orderKey;
     		get(this, contextPath + "/api/get-story-list", this.condInfo, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				var storyItems = data.dataInfo;
@@ -65,14 +63,15 @@ var vueItem = new Vue({
     				$('#pagination').twbsPagination('destroy');
     				
     				if ( this.totalPages == 1 ) {
-    					this_.getPagingList(0);
+    					this_.getPagingList();
     				} else {
     					$('#pagination').twbsPagination({
         		            totalPages: this_.totalPages,
         		            visiblePages: 3,
         		            startPage : 1,
         		            onPageClick: function (event, page) {
-        		            	this_.getPagingList(page - 1)
+        		            	this_.currentPage = page - 1;
+        		            	this_.getPagingList()
         		            }
         				});
     				}
@@ -82,13 +81,12 @@ var vueItem = new Vue({
     			}
     		});
     	},
-    	getPagingList: function(page){
+    	getPagingList: function(){
     		this.error_message = '';
     		this.storyList = [];
     		this.condInfo.orderKey = this.orderKey;
-    		this.condInfo.currentPage = page;
+    		this.condInfo.currentPage = this.currentPage;
     		this.condInfo.pagingFlg = '1';
-    		this.currentPage = page;
 
     		get(this, contextPath + "/api/get-story-list", this.condInfo, function(data) {
     			if (data.status == STATUS_NORMAL) {
@@ -97,6 +95,10 @@ var vueItem = new Vue({
     				this.error_message = data.errorMessage;
     			}
     		});
+    	},
+    	sortBy: function(orderKey) {
+    		this.orderKey = orderKey;
+    		this.getPagingList(this.currentPage);
     	},
     	getStory: function(keySearch){
     		window.location.href = contextPath + "/truyen.html?storyKey=" + keySearch;

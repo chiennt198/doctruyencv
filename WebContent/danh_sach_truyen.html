@@ -62,34 +62,25 @@
 					    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sắp xếp
 					    <span class="caret"></span></button>
 					    <ul class="dropdown-menu">
-					      	<li><a href="javascript:void(0)" v-on:click="getStoryList(1)">Mới đăng</a></li>
-					      	<li><a href="javascript:void(0)" v-on:click="getStoryList(2)">Mới cập nhật</a></li>
-					    	<li><a href="javascript:void(0)" v-on:click="getStoryList(3)">Số chương</a></li>
-				      		<li><a href="javascript:void(0)" v-on:click="getStoryList(4)">Lượt đọc</a></li>
+					      	<li><a href="javascript:void(0)" v-on:click="sortBy(1)">Mới đăng</a></li>
+					      	<li><a href="javascript:void(0)" v-on:click="sortBy(2)">Mới cập nhật</a></li>
+					    	<li><a href="javascript:void(0)" v-on:click="sortBy(3)">Số chương</a></li>
+				      		<li><a href="javascript:void(0)" v-on:click="sortBy(4)">Lượt đọc</a></li>
 					    </ul>
 				 	</div>
 				
 					<h3>Hiện có {{ dataCount }} truyện</h3>
 					
-					
-					<div v-if="dataCount > 0" class="list-adv-listpage list-danh-sach" style="float: left;">
-
-						<template v-for="(item,index) in storyList">
-							<div class="list_truyen" >
-								<a href="javascript:void(0)" v-on:click="getStory(item.keySearch)">
-									<img src="./img_truyen/vo_thuong_sat_than.jpg" onerror="this.src='./img/no_thumbnail.gif'">
-								</a>
-								<b>
-									{{ item.storyName }}<br>
-									Số chương: {{ item.chapterCount }}<br>
-									Tình trạng: {{ item.statusName }}
-								</b>
-							</div>
-						</template>
-						
-						<div v-show="totalPages > 1" id="pagination"></div>
-						
+					<div v-show="dataCount > 0" class="list_truyen">
+						<a class="col-xs-12" href="javascript:void(0)" v-for="(story,index) in storyList" v-on:click="getStory(story.keySearch)">
+							<div class="col-xs-4">{{ story.storyName }}</div>
+							<span class="col-xs-6">{{ story.chapterName }}</span>
+							<span class="col-xs-2">{{ story.updateChapterTime }}</span>
+						</a>
 					</div>
+					
+					<div v-show="totalPages > 1" id="pagination"></div>
+					
 					
 				</div>
 				
