@@ -14,7 +14,7 @@ var vueItem = new Vue({
 		statusList : []
     },
     created : function() {
-    	get(this, contextPath + "/get-category-list" , {}, function(data) {
+    	get(this, contextPath + "/api/get-category-list" , {}, function(data) {
 			if (data.status == STATUS_NORMAL) {
 				this.categoryList = data.dataInfo;
 			}
