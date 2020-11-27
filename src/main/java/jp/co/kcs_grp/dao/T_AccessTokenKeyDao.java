@@ -101,8 +101,7 @@ public class T_AccessTokenKeyDao {
 			//SQL作成
 			sbSql = new StringBuilder();
 			sbSql.append("INSERT INTO T_ACCESS_TOKEN_KEY (KEY_GENERATE, INSERT_DATETIME) ");
-			sbSql.append(" FROM T_ACCESS_TOKEN_KEY ");		
-			sbSql.append(" VALUES (PASSWORD(?), ?);  ");
+			sbSql.append(" VALUES (?, ?);  ");
 			
 			//SQL実行
             KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
@@ -114,7 +113,7 @@ public class T_AccessTokenKeyDao {
 			sbSql = new StringBuilder();
 			sbSql.append("SELECT KEY_GENERATE ");
 			sbSql.append(" FROM T_ACCESS_TOKEN_KEY ");		
-			sbSql.append(" WHERE KEY_GENERATE = PASSWORD(?) ");
+			sbSql.append(" WHERE KEY_GENERATE = ? ");
 			sbSql.append(" AND INSERT_DATETIME > DATE_SUB(CURDATE(), INTERVAL 1 DAY) ");
 			kps = db.getPreparedStatement(sbSql.toString());
             kps.setString(1, key);
@@ -139,4 +138,49 @@ public class T_AccessTokenKeyDao {
 		
 		return keyGenerate;
 	}
+	 
+	 public String getAuthenticationKey() throws Exception {
+			DBAccess db = null;
+			ResultSet rs = null;
+			StringBuilder sbSql = null;
+			//開始ログ出力
+			String keyGenerate = "";
+			log.warn("start");
+			try {
+				//データベース接続
+	            db = new DBAccess();
+	            if (!db.dbConnection()) {
+	                db.DBClose();
+	                throw new Exception("データベース接続が失敗です。");
+	            }
+	            
+				//SQL作成
+				sbSql = new StringBuilder();
+				sbSql.append("SELECT KEY_GENERATE ");
+				sbSql.append(" FROM T_ACCESS_TOKEN_KEY ");		
+				sbSql.append(" WHERE INSERT_DATETIME > DATE_SUB(CURDATE(), INTERVAL 1 HOUR) ");
+				
+				//SQL実行
+	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
+	            rs = kps.executeQuery();
+	            if(rs != null && rs.next()) {
+	            	keyGenerate = rs.getString("KEY_GENERATE");
+	            	//ResultSetのクローズ
+					rs.close();
+	            }
+				
+			} catch(Exception e) {
+				StringWriter stack = new StringWriter();
+	        	e.printStackTrace(new PrintWriter(stack));
+	        	log.error(stack.toString());
+	            throw e;
+			} finally {
+				//データベース切断
+				db.DBClose();
+				//終了ログ出力
+				log.warn("end");
+			}
+
+			return keyGenerate;
+		}
 }

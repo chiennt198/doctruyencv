@@ -18,12 +18,16 @@ function post(context, url, data, successfunc) {
 	}
 	$.extend(submitData, data);
 
+	if ( AUTH_DATA == undefined ) {
+		var AUTH_DATA = "";
+	}
+	
 	setTimeout(function() {
 		$.ajax({
 			url : url,
 			type : 'post',
 			async: false,
-			headers: {'AUTH-DATA' : AUTH-DATA},
+			headers: {'AUTH_DATA' : AUTH_DATA},
 			data : submitData,
 			cache: false,
 			success : function (data, status, request) {
@@ -54,13 +58,18 @@ function get(context, url, data, successfunc) {
 	var submitData = {
 			userId: sessionStorage.getItem("KAIIN_ID")
 	}
+	
+	if ( AUTH_DATA == undefined ) {
+		var AUTH_DATA = "";
+	}
+	
 	$.extend(submitData, data);
 	setTimeout(function() {
 		$.ajax({
 			url : url,
 			type : 'get',
 			async: false,
-			headers: {'AUTH-DATA' : AUTH-DATA},
+			headers: {'AUTH_DATA' : AUTH_DATA},
 			data : submitData,
 			cache: false,
 			success : function (data, status, request) {

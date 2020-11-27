@@ -281,7 +281,7 @@ public class WebTruyenControler {
 		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
-        	
+
         	if ( StringUtils.isEmpty(storyKey) ) {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
         		return objectResponse;

@@ -9,8 +9,11 @@
 
 package jp.co.kcs_grp.page;
 
+import static spark.Spark.halt;
+
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import jp.co.kcs_grp.base.json.JsonTransformer;
@@ -18,6 +21,7 @@ import jp.co.kcs_grp.common.AuthenApp;
 import jp.co.kcs_grp.common.FreeMarkerTemplateEngine;
 import jp.co.kcs_grp.utils.AppParams;
 import spark.Spark;
+import spark.http.matching.Halt;
 import spark.servlet.SparkApplication;
 
 public class ApplicationPage implements SparkApplication {
@@ -59,8 +63,11 @@ public class ApplicationPage implements SparkApplication {
 			AuthenApp authenApp = new AuthenApp();
 			authenApp.authenData(request, response);
 			
+			if (url.indexOf("/api/") > -1 && StringUtils.isEmpty(request.headers("AUTH_DATA"))) {
+				halt(401);
+			}
 		});
-
+		
 		webRoute();
 		adminRoute();
 		htmlRoute();
