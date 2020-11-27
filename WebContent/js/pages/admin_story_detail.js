@@ -30,12 +30,12 @@ var vueItem = new Vue({
     		sessionStorage.removeItem("PARAM_NEWEST_CHAPTER_NAME");
     		sessionStorage.removeItem("PARAM_CHAPTER_INFO");
     		var id = sessionStorage.getItem("PARAM_STORY_ID");
-    		get(this, contextPath + "/admin-get-story-detail/" + id , {}, function(data) {
+    		get(this, contextPath + "/api/admin-get-story-detail/" + id , {}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.storyData = data.dataInfo;
     			}
     		});
-    		get(this, contextPath + "/get-m-wide-list/1" , {}, function(data) {
+    		get(this, contextPath + "/api/get-m-wide-list/1" , {}, function(data) {
     			
     			if (data.status == STATUS_NORMAL) {
     				this.statusList = data.dataInfo;
@@ -67,7 +67,7 @@ var vueItem = new Vue({
     			return;
     		}
     		this.storyData.registType = '1';
-    		post(this, contextPath + "/admin-regist-story" , {json:JSON.stringify(this.storyData)}, function(data) {
+    		post(this, contextPath + "/api/admin-regist-story" , {json:JSON.stringify(this.storyData)}, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				alert("Đã tạo truyện mới thành công");
     			} else {
@@ -91,7 +91,7 @@ var vueItem = new Vue({
     		this.error_message = '';
     		this_.chaptersList = [];
     		this_.filteredList = [];
-    		post(this_, contextPath + "/admin-get-list-chapters" , {json: JSON.stringify({storyId:sessionStorage.getItem("PARAM_STORY_ID")})}, function(data) {
+    		post(this_, contextPath + "/api/admin-get-list-chapters" , {json: JSON.stringify({storyId:sessionStorage.getItem("PARAM_STORY_ID")})}, function(data) {
     			
     			if (data.status == STATUS_NORMAL) {
     	    		var offset = $('#topScroll').offset();
