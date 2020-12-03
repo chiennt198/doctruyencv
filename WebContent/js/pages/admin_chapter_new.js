@@ -21,7 +21,7 @@ var vueItem = new Vue({
     	} else {
     		this.chapterData.storyId =  sessionStorage.getItem("PARAM_STORY_ID");
         	if(sessionStorage.getItem("PARAM_CHAPTER_ID")) {
-        		post(this, contextPath + "/api/get-chapter-detail" , {storyId :this.chapterData.storyId, chapterId :  sessionStorage.getItem("PARAM_CHAPTER_ID")}, function(data) {
+        		post(this, contextPath +  "/api/get-chapter-detail" , {storyId :this.chapterData.storyId, chapterId :  sessionStorage.getItem("PARAM_CHAPTER_ID")}, function(data) {
         			if (data.status == STATUS_NORMAL) {
         				this.chapterData = data.dataInfo;
         			} else {

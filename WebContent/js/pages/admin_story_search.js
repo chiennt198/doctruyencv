@@ -5,7 +5,7 @@ var movieList = new Vue({
     	storyList : [],
     	dataCount : 0,
     	currentPage: 0,
-		itemsPerPage: ITEMS_PER_PAGE,
+		itemsPerPage: 1,
 		filteredList:[],
 		displayResultText : '',
 		searchCond : {},

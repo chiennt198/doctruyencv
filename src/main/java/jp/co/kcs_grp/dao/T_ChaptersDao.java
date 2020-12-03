@@ -183,7 +183,7 @@ public class T_ChaptersDao {
 					sbSql.append(" ORDER BY st.ID DESC ");
 				}
 
-				if ( !StringUtils.equals("-1", cond.get("currentPage")) ) {
+				if ( !StringUtils.equals("-1", cond.get("currentPage"))  && StringUtils.isNotBlank(cond.get("currentPage")) ) {
 					if ( StringUtils.isNotEmpty(cond.get("currentPage")) ) {
 						sbSql.append(" LIMIT ?, ? ");
 					} else {
@@ -205,7 +205,7 @@ public class T_ChaptersDao {
 					kps.setString(idx++, cond.get("status"));
 				}
 				
-				if ( !StringUtils.equals("-1", cond.get("currentPage")) ) {
+				if ( !StringUtils.equals("-1", cond.get("currentPage"))  && StringUtils.isNotBlank(cond.get("currentPage"))) {
 					if ( StringUtils.isNotEmpty(cond.get("currentPage")) ) {
 						kps.setInt(idx++, Integer.valueOf(cond.get("currentPage")));
 					} 
