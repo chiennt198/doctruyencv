@@ -146,7 +146,7 @@ public class WebTruyenControler {
 		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
-        	objectResponse.setDataInfo(storyDao.getByKey(id));
+        	objectResponse.setDataInfo(storyDao.getByKey(null,id));
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();
         	e.printStackTrace(new PrintWriter(stack));
@@ -176,7 +176,7 @@ public class WebTruyenControler {
 		logger.info("start");
 		ObjectResponse objectResponse = new ObjectResponse();
         try {
-        	objectResponse.setDataInfo(chapterDao.getByKey(storyId, chapterId));
+        	objectResponse.setDataInfo(chapterDao.getByKey(null, null, storyId, chapterId));
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();
         	e.printStackTrace(new PrintWriter(stack));
@@ -287,7 +287,7 @@ public class WebTruyenControler {
         		return objectResponse;
         	}
         	
-        	Map<String,String> storyInfo = storyDao.getByKey(storyKey);
+        	Map<String,String> storyInfo = storyDao.getByKey(storyKey,null);
         	
         	if (storyInfo == null || ( storyInfo != null && storyInfo.isEmpty()) ) {
         		objectResponse.setStatus(Constants.RESPONSE_STATUS_URI_PARAMS_ERROR);
@@ -345,7 +345,7 @@ public class WebTruyenControler {
         		return objectResponse;
         	}
         	
-        	objectResponse.setDataInfo(chapterDao.getByKey(storyKey, chapterKey));
+        	objectResponse.setDataInfo(chapterDao.getByKey(storyKey, chapterKey, null, null));
         	
         } catch (Exception e) {
         	StringWriter stack = new StringWriter();
