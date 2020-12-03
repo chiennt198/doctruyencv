@@ -30,12 +30,14 @@ public class T_ChaptersDao {
 		sql.append(" ID ");
 		sql.append(" ,NAME ");
 		sql.append(" ,STORY_ID ");
+		sql.append(" ,KEY_SEARCH ");
 		sql.append(" ,CONTENT ");	
 		sql.append(" ,SORT_KEY ");
 		sql.append(" ,INSERT_DATETIME ");	
 		sql.append(" ,UPDATE_DATETIME ");
 		sql.append(" ) VALUES ( ");
 		sql.append(" ? ");
+		sql.append(" ,? ");
 		sql.append(" ,? ");
 		sql.append(" ,? ");
 		sql.append(" ,? ");
@@ -47,8 +49,9 @@ public class T_ChaptersDao {
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
 		int index = 1;
 		kps.setString(index++,param.get("id"));
-		kps.setString(index++,param.get("name"));
+		kps.setStringNoneSqlLiteral(index++,param.get("name"));
 		kps.setString(index++,param.get("storyId"));
+		kps.setString(index++,param.get("keySearch"));
 		kps.setStringNoneSqlLiteral(index++,param.get("content"));
 		kps.setString(index++,param.get("sortKey"));
 		kps.execute();
@@ -62,6 +65,7 @@ public class T_ChaptersDao {
 		sql = new StringBuilder();
 		sql.append(" UPDATE  T_CHAPTERS SET ");
 		sql.append(" NAME = ? ");
+		sql.append(" ,KEY_SEARCH = ? ");
 		sql.append(" ,CONTENT = ? ");	
 		sql.append(" ,SORT_KEY = ? ");
 		sql.append(" ,UPDATE_DATETIME = NOW() ");
@@ -69,7 +73,8 @@ public class T_ChaptersDao {
 		sql.append(" AND STORY_ID =  ? ");
 		KcsPreparedStatement kps = db.getPreparedStatement(sql.toString());
 		int index = 1;
-		kps.setString(index++,param.get("name"));
+		kps.setStringNoneSqlLiteral(index++,param.get("name"));
+		kps.setString(index++,param.get("keySearch"));
 		kps.setStringNoneSqlLiteral(index++,param.get("content"));
 		kps.setString(index++,param.get("sortKey"));
 		kps.setString(index++,param.get("id"));
@@ -257,6 +262,7 @@ public class T_ChaptersDao {
 				sbSql = new StringBuilder();
 				sbSql.append("SELECT ");
 				sbSql.append(" IFNULL(tc.ID,'') AS ID ");
+				sbSql.append(" ,IFNULL(tc.KEY_SEARCH,'') AS KEY_SEARCH ");
 				sbSql.append(" ,IFNULL(ts.NAME,'') AS STORY_NAME ");
 				sbSql.append(" ,IFNULL(tc.STORY_ID,'') AS STORY_ID ");
 				sbSql.append(" ,IFNULL(tc.NAME,'') AS NAME ");
@@ -280,21 +286,22 @@ public class T_ChaptersDao {
 				
 				sbSql.append(" WHERE tc.DELETE_FLG IS NULL ");
 				if(StringUtils.isNotBlank(storyId)) {
-					sbSql.append(" AND ts.KEY_SEARCH = ? ");
-					sbSql.append(" AND tc.KEY_SEARCH = ? ");
-	            } else {
-	            	sbSql.append(" AND ts.ID = ? ");
+					sbSql.append(" AND ts.ID = ? ");
 					sbSql.append(" AND tc.ID = ? ");
+	            } else {
+	            	sbSql.append(" AND ts.KEY_SEARCH = ? ");
+					sbSql.append(" AND tc.KEY_SEARCH = ? ");
 	            }
 				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
 	            if(StringUtils.isNotBlank(storyId)) {
-	            	kps.setString(1, storyKey);
-		            kps.setString(2, chapterKey);
-	            } else {
 	            	kps.setString(1, storyId);
 		            kps.setString(2, chapterId);
+	            } else {
+	            	kps.setString(1, storyKey);
+		            kps.setString(2, chapterKey);
+	            	
 	            }
 	            
 	            rs = kps.executeQuery();
@@ -302,6 +309,7 @@ public class T_ChaptersDao {
             		map =  new HashMap<>();
             		map.put("id",rs.getString("ID"));
             		map.put("storyId",rs.getString("STORY_ID"));
+            		map.put("keySearch",rs.getString("KEY_SEARCH"));
             		map.put("storyName",rs.getString("STORY_NAME"));
             		map.put("name",rs.getString("NAME"));
             		map.put("content",rs.getString("CONTENT"));

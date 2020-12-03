@@ -12,15 +12,16 @@ var vueItem = new Vue({
     		window.location.href= contextPath + "/admin_story_search.html";
     		return;
     	}
-    	
+    	if(sessionStorage.getItem("PARAM_CHAPTER_ID")) {
+    		this.registType = '1';
+    	}
+    	this.newestChapterName = sessionStorage.getItem("PARAM_NEWEST_CHAPTER_NAME");
     	if(sessionStorage.getItem("PARAM_CHAPTER_INFO")) {
     		this.chapterData = JSON.parse(sessionStorage.getItem("PARAM_CHAPTER_INFO"));
     	} else {
     		this.chapterData.storyId =  sessionStorage.getItem("PARAM_STORY_ID");
-    		this.newestChapterName = sessionStorage.getItem("PARAM_NEWEST_CHAPTER_NAME");
         	if(sessionStorage.getItem("PARAM_CHAPTER_ID")) {
-        		this.registType = '1';
-        		post(this, contextPath + "/get-chapter-detail" , {storyId :this.chapterData.storyId, chapterId :  sessionStorage.getItem("PARAM_CHAPTER_ID")}, function(data) {
+        		post(this, contextPath + "/api/get-chapter-detail" , {storyId :this.chapterData.storyId, chapterId :  sessionStorage.getItem("PARAM_CHAPTER_ID")}, function(data) {
         			if (data.status == STATUS_NORMAL) {
         				this.chapterData = data.dataInfo;
         			} else {
