@@ -238,7 +238,7 @@ public class T_ChaptersDao {
 			return list;
 		}
 	 
-	 	public Map<String,String> getByKey(String storyKey, String chapterKey) throws Exception {
+	 	public Map<String,String> getByKey(String storyKey, String chapterKey,String storyId, String chapterId) throws Exception {
 			DBAccess db = null;
 			ResultSet rs = null;
 			StringBuilder sbSql = null;
@@ -279,12 +279,24 @@ public class T_ChaptersDao {
 				sbSql.append(" AND tcn.DELETE_FLG IS NULL ");
 				
 				sbSql.append(" WHERE tc.DELETE_FLG IS NULL ");
-				sbSql.append(" AND ts.KEY_SEARCH = ? ");
-				sbSql.append(" AND tc.KEY_SEARCH = ? ");
+				if(StringUtils.isNotBlank(storyId)) {
+					sbSql.append(" AND ts.KEY_SEARCH = ? ");
+					sbSql.append(" AND tc.KEY_SEARCH = ? ");
+	            } else {
+	            	sbSql.append(" AND ts.ID = ? ");
+					sbSql.append(" AND tc.ID = ? ");
+	            }
+				
 				//SQL実行
 	            KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-	            kps.setString(1, storyKey);
-	            kps.setString(2, chapterKey);
+	            if(StringUtils.isNotBlank(storyId)) {
+	            	kps.setString(1, storyKey);
+		            kps.setString(2, chapterKey);
+	            } else {
+	            	kps.setString(1, storyId);
+		            kps.setString(2, chapterId);
+	            }
+	            
 	            rs = kps.executeQuery();
 	            if(rs != null && rs.next()) {
             		map =  new HashMap<>();
