@@ -1,0 +1,26 @@
+<div id="search-tr-lst">
+	<input type="text" v-model="keySearch" v-on:keyup="loginEnter($event)">
+	<label><a href="javascript:void(0)" v-on:click="search"><i class="fa fa-search" aria-hidden="true"></i></a></label>
+</div>
+
+<script>
+new Vue({
+	el : '#search-tr-lst',
+	data:{
+		keySearch:'',
+	},
+    created : function() {
+
+    },
+	methods: {
+		search: function() {
+
+		},
+		loginEnter:function(event) {
+			if(event.keyCode == 13){
+    			this.search();
+    		};
+        },
+	},
+});
+</script>

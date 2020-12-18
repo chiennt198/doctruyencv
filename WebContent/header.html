@@ -16,12 +16,15 @@
 	</header>
 </div>
 
+
+
 <script>
 
 var headerSet = new Vue({
 	el : '#headerSet',
 	data:{
 		name:'',
+		keySearch:'',
 	},
     created : function() {
 
@@ -33,6 +36,14 @@ var headerSet = new Vue({
 		toLogin: function(){
 			location.href=contextPath + "/html/login.html";
 		},
+		search: function() {
+
+		},
+		loginEnter:function(event) {
+			if(event.keyCode == 13){
+    			this.search();
+    		};
+        },
 	},
 });
 

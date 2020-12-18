@@ -9,7 +9,7 @@ header .inner {
 header #logo {
 	align-items: center;
 	margin: 0;
-	width: calc(100% - 340px);
+	width: calc(100% - 440px);
 }
 header #logo span.logomark{
 	display: block;
@@ -28,7 +28,7 @@ header #logo span.titlename {
 }
 header #logout{
 	position: relative;
-	width: 330px;
+	width: 430px;
 }
 header #logout span:first-child{
 	display: block;
