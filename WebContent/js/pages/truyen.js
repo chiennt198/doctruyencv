@@ -83,6 +83,16 @@ var vueItem = new Vue({
     		this.orderBy = order;
     		this.getPagingList(this.currentPage);
     	},
+    	getCategoyTruyenList: function(){
+    		var param = {
+				categoryId: this.storyInfo.categoryId,
+				categoryName: this.storyInfo.categoryName
+			}
+    		
+			sessionStorage.setItem("PARAM_CATEGORY_ITEM", JSON.stringify(param));
+    		
+    		window.location.href=contextPath + "/danh_sach_truyen.html";
+    	},
     },
 });
 

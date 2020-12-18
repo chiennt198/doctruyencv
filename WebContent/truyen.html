@@ -59,7 +59,7 @@
 								<p>
 									<span v-if="storyInfo.authorName" class="btn btn-xs btn-decision">Tác giả: {{ storyInfo.authorName }}</span>
 									
-									<span v-if="storyInfo.categoryName" class="btn btn-xs btn-decision">Thể loại: {{ storyInfo.categoryName }}</span>
+									<span v-if="storyInfo.categoryName" class="btn btn-xs btn-decision" v-on:click="getCategoyTruyenList">Thể loại: {{ storyInfo.categoryName }}</span>
 									
 									<span v-if="storyInfo.statusName" class="btn btn-xs btn-decision">Tình trạng: {{ storyInfo.statusName }}</span>
 								</p>
@@ -142,5 +142,6 @@
 <script type="text/javascript" src="./js/min/dropmenu_min.js"></script>
 <script type="text/javascript" src="./js/min/basic.min.js" ></script>
 <script type="text/javascript" src="./js/min/jquery.twbsPagination.min.js"></script>
-<script src="./js/min/truyen.min.js" type="text/javascript"></script>
+<!-- <script src="./js/min/truyen.min.js" type="text/javascript"></script> -->
+<script src="./js/pages/truyen.js" type="text/javascript"></script>
 </body>
