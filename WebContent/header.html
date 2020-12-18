@@ -5,12 +5,21 @@
 				<span class="titlename"><a href="./trang_chu.html">Đọc Truyện Cv</a></span> 
 			</h1>
 			
-			<div id="logout" v-if="name">
-				{{ name }}　<span v-show="keisyo">先生</span> <a class="btn btn-sm btn-danger" v-on:click="logout">LOG OUT</a>
-			</div>
-			<div id="logout" v-else>
-				<a class="btn btn-sm btn-primary btn-enq" v-on:click="logout">Đăng Nhập</a>
-				<a class="btn btn-sm btn-primary btn-enq" v-on:click="logout">Đăng Ký</a>
+<!-- 			<div id="logout" v-if="name"> -->
+<!-- 				{{ name }}　<span v-show="keisyo">先生</span> <a class="btn btn-sm btn-danger" v-on:click="logout">LOG OUT</a> -->
+<!-- 			</div> -->
+<!-- 			<div id="logout" v-else> -->
+<!-- 				<a class="btn btn-sm btn-primary btn-enq" v-on:click="logout">Đăng Nhập</a> -->
+<!-- 				<a class="btn btn-sm btn-primary btn-enq" v-on:click="logout">Đăng Ký</a> -->
+<!-- 			</div> -->
+			
+			<div id="search">
+				<div  class="input-group input-group-custom">
+				  <input type="text" v-model="keySearch" class="form-control" placeholder="Tìm kiếm" v-on:keyup="loginEnter">
+				  <div class="input-group-btn">
+				    <button class="btn btn-default" type="button" v-on:click="search"><i class="glyphicon glyphicon-search"></i></button>
+				  </div>
+				</div>
 			</div>
 		</div>
 	</header>
@@ -30,14 +39,19 @@ var headerSet = new Vue({
 
     },
 	methods: {
-		logout: function(){
+// 		logout: function(){
 
-		},
-		toLogin: function(){
-			location.href=contextPath + "/html/login.html";
-		},
+// 		},
+// 		toLogin: function(){
+// 			window.location.href=contextPath + "/html/login.html";
+// 		},
 		search: function() {
-
+			var param = {
+				'key': this.keySearch ? this.keySearch : '',
+				'searchType':'1'
+			}
+			sessionStorage.setItem("PARAM_CATEGORY_ITEM", JSON.stringify(param));
+			window.location.href=contextPath + "/danh_sach_truyen.html";
 		},
 		loginEnter:function(event) {
 			if(event.keyCode == 13){

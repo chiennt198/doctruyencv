@@ -17,9 +17,8 @@ var vueItem = new Vue({
     created : function() {
     	
     	getContentMenu();
-    	
     	if (!sessionStorage.getItem("PARAM_CATEGORY_ITEM")) {
-    		window.location.href= contextPath + "/Home.html";
+    		window.location.href= contextPath + "/trang_chu.html";
     		return;
     	}
     	
@@ -54,6 +53,7 @@ var vueItem = new Vue({
     		var this_ = this;
 
     		this.condInfo.categoryId = this.categoryItem.categoryId;
+    		this.condInfo.key = this.categoryItem.key;
     		get(this, contextPath + "/api/get-story-list", this.condInfo, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				var storyItems = data.dataInfo;
@@ -87,7 +87,7 @@ var vueItem = new Vue({
     		this.condInfo.orderKey = this.orderKey;
     		this.condInfo.currentPage = this.currentPage;
     		this.condInfo.pagingFlg = '1';
-
+    		this.condInfo.key = this.categoryItem.key;
     		get(this, contextPath + "/api/get-story-list", this.condInfo, function(data) {
     			if (data.status == STATUS_NORMAL) {
     				this.storyList = data.dataInfo;

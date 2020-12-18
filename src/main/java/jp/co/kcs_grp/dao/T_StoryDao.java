@@ -368,6 +368,14 @@ public class T_StoryDao{
 					sbSql.append(" AND st.NAME like ? ");		
 				}
 				
+				if ( StringUtils.isNotEmpty(cond.get("key")) ) {
+					sbSql.append(" AND ( ");
+					sbSql.append(" st.NAME like ? ");
+					sbSql.append(" OR st.KEY_SEARCH like ? ");
+					sbSql.append(" OR st.AUTHOR_NAME like ? ");
+					sbSql.append(" ) ");
+				}
+				
 				if ( StringUtils.equals("1", cond.get("randomType")) ) {
 					sbSql.append(" ORDER BY RAND() LIMIT 4 ");
 				} else {
@@ -406,6 +414,14 @@ public class T_StoryDao{
 				
 				if ( StringUtils.isNotEmpty(cond.get("name")) ) {
 					kps.setString(index++, "%" + cond.get("name") + "%");
+				}
+				
+				if ( StringUtils.isNotEmpty(cond.get("key")) ) {
+					sbSql.append(" AND ( ");
+					kps.setString(index++, "%" + cond.get("key") + "%");
+					kps.setString(index++, "%" + cond.get("key") + "%");
+					kps.setString(index++, "%" + cond.get("key") + "%");
+					sbSql.append(" ) ");
 				}
 				
 				if ( StringUtils.isNotEmpty(cond.get("currentPage")) ) {
@@ -450,10 +466,10 @@ public class T_StoryDao{
 	 
 	 
 	 public long getTotalStory() throws Exception {
-		 return getTotalStory(null);
+		 return getTotalStory(null, null);
 	 }
 	 
-	 public long getTotalStory(String categoryId) throws Exception {
+	 public long getTotalStory(String categoryId, String key) throws Exception {
 			DBAccess db = null;
 			ResultSet rs = null;
 			StringBuilder sbSql = null;
@@ -479,11 +495,27 @@ public class T_StoryDao{
 				if ( StringUtils.isNotEmpty(categoryId) ) {
 					sbSql.append(" AND CATEGORY_ID = ? ");
 				}
+				
+				if ( StringUtils.isNotEmpty(key) ) {
+					sbSql.append(" AND ( ");
+					sbSql.append(" NAME like ? ");
+					sbSql.append(" OR KEY_SEARCH like ? ");
+					sbSql.append(" OR AUTHOR_NAME like ? ");
+					sbSql.append(" ) ");
+				}
 
 				KcsPreparedStatement kps = db.getPreparedStatement(sbSql.toString());
-
+				int index = 1;
 				if ( StringUtils.isNotEmpty(categoryId) ) {
-					kps.setString(1, categoryId);
+					kps.setString(index++, categoryId);
+				}
+				
+				if ( StringUtils.isNotEmpty(key) ) {
+					sbSql.append(" AND ( ");
+					kps.setString(index++, "%" + key + "%");
+					kps.setString(index++, "%" + key + "%");
+					kps.setString(index++, "%" + key + "%");
+					sbSql.append(" ) ");
 				}
 				
 				rs = kps.executeQuery();

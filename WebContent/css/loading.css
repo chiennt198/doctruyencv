@@ -452,3 +452,12 @@ fieldset[disabled] .btn-primary-finish.focus {
     background-color: #fff;
     border: 1px solid #ededed;
 }
+
+/* Search Heard */
+.input-group-custom {
+	width: 250px;
+}
+
+.input-group-custom button{
+	margin-top: 0px;
+}

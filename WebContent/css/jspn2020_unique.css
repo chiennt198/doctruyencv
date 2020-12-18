@@ -9,7 +9,7 @@ header .inner {
 header #logo {
 	align-items: center;
 	margin: 0;
-	width: calc(100% - 440px);
+	width: calc(100% - 740px);
 }
 header #logo span.logomark{
 	display: block;
@@ -21,15 +21,25 @@ header #logo span.logomark a img{
 	display: block;
 	padding: 10px;
 }
+
 /*大会名*/
 header #logo span.titlename {
 	padding-top: 4px;
 	font-family: "Hiragino Mincho ProN W6", "Hiragino Mincho Pro W6", YuMincho, "Yu Mincho", "serif";
 }
+
+header #search {
+    position: relative;
+	width: 250px;
+	float: right;
+	margin: 40px 0px 10px 10px;
+}
+
 header #logout{
 	position: relative;
-	width: 430px;
+	width: 280px;
 }
+
 header #logout span:first-child{
 	display: block;
 }

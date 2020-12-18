@@ -367,7 +367,7 @@ public class WebTruyenControler {
     			return objectResponse;
     		} 
         	
-        	long totalStory = storyDao.getTotalStory(mapCond.get("categoryId"));
+        	long totalStory = storyDao.getTotalStory(mapCond.get("categoryId"), mapCond.get("key"));
         	
         	if (totalStory > 0 ) {
         		

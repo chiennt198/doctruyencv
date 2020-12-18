@@ -46,20 +46,28 @@
 				</div>
 				
 				<div class="main-contents">
-					<h2>Danh Sách Truyện {{ categoryItem.categoryName }}</h2>
 					
-					<div class="dropdown">
-					    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sắp xếp
-					    <span class="caret"></span></button>
-					    <ul class="dropdown-menu">
-					      	<li><a href="javascript:void(0)" v-on:click="sortBy(1)">Mới đăng</a></li>
-					      	<li><a href="javascript:void(0)" v-on:click="sortBy(2)">Mới cập nhật</a></li>
-					    	<li><a href="javascript:void(0)" v-on:click="sortBy(3)">Số chương</a></li>
-				      		<li><a href="javascript:void(0)" v-on:click="sortBy(4)">Lượt đọc</a></li>
-					    </ul>
-				 	</div>
-				
-					<h3>Hiện có {{ dataCount }} truyện</h3>
+					<template v-if="categoryItem.searchType == '1'">
+						<h3>Có {{ dataCount }} kết quả cho: {{ categoryItem.key }}</h3>
+					</template>
+					
+					<template v-else>
+						<h2>Danh Sách Truyện {{ categoryItem.categoryName }}</h2>
+					
+						<div class="dropdown">
+						    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Sắp xếp
+						    <span class="caret"></span></button>
+						    <ul class="dropdown-menu">
+						      	<li><a href="javascript:void(0)" v-on:click="sortBy(1)">Mới đăng</a></li>
+						      	<li><a href="javascript:void(0)" v-on:click="sortBy(2)">Mới cập nhật</a></li>
+						    	<li><a href="javascript:void(0)" v-on:click="sortBy(3)">Số chương</a></li>
+					      		<li><a href="javascript:void(0)" v-on:click="sortBy(4)">Lượt đọc</a></li>
+						    </ul>
+					 	</div>
+					
+						<h3>Hiện có {{ dataCount }} truyện</h3>
+					</template>
+					
 					
 					<div v-show="dataCount > 0" class="list_truyen">
 						<a class="col-xs-12" href="javascript:void(0)" v-for="(story,index) in storyList" v-on:click="getStory(story.keySearch)">

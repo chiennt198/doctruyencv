@@ -161,7 +161,4 @@ function hideLoading(hideId) {
 $(function () {
 	$('#header').load("header.html");
 	$('#footer').load("footer.html");
-	if ($("#search-tr-lst").length > 0) {
-		$('#footer').load("search.html");
-	}
 });
